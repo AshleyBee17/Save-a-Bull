@@ -43,10 +43,20 @@ public class WelcomeScreen extends AppCompatActivity {
 
     }
 
-    private void loginClicked() {
-    }
+    private void loginClicked() { }
 
     private void signUpClicked() {
+
+        Button signUpBtn = this.findViewById(R.id.signup_btn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(WelcomeScreen.this, SignUpScreen.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void loginWithFacebookClicked() {
@@ -95,20 +105,6 @@ public class WelcomeScreen extends AppCompatActivity {
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
         });
-    }
-
-    private void goHome(JSONObject jObj){
-        //TextView textView = findViewById(R.id.textView);
-        //textView.setText(jObj.toString());
-
-        Intent intent = new Intent(this, HomeScreen.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("EXTRA_MESSAGE", jObj.toString());
-
-        intent.putExtras(bundle);
-        startActivity(intent);
-
     }
 
     @Override
