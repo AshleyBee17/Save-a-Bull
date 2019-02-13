@@ -5,6 +5,7 @@
     <string name="login">login</string>
     <string name="facebook_app_id">2368651673362978</string>
     <string name="fb_login_protocol_scheme">fb2368651673362978</string>
+    <string name="title_activity_sign_up_screen">SignUpScreen</string>
 
 
 </resources>

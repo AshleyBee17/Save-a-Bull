@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -14,8 +15,10 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -25,7 +28,6 @@ import java.util.Arrays;
 
 public class WelcomeScreen extends AppCompatActivity {
 
-    private LoginButton facebookBtn;
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
 
@@ -33,11 +35,11 @@ public class WelcomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        callbackManager = CallbackManager.Factory.create();
 
         loginClicked();
         signUpClicked();
         loginWithFacebookClicked();
-
 
     }
 
@@ -49,8 +51,8 @@ public class WelcomeScreen extends AppCompatActivity {
 
     private void loginWithFacebookClicked() {
 
-        callbackManager = CallbackManager.Factory.create();
-        facebookBtn = findViewById(R.id.facebook_login_button);
+        //callbackManager = CallbackManager.Factory.create();
+        LoginButton facebookBtn = findViewById(R.id.facebook_login_button);
 
         // Accessing the email of the user and placing it in an ArrayList
         facebookBtn.setReadPermissions(Arrays.asList(EMAIL));
@@ -61,20 +63,25 @@ public class WelcomeScreen extends AppCompatActivity {
             // for the home page
             @Override
             public void onSuccess(LoginResult loginResult) {
-                AccessToken accessToken = loginResult.getAccessToken(); // unique token that gives access to user's data
-                GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                final AccessToken accessToken = loginResult.getAccessToken(); // unique token that gives access to user's data
+                GraphRequestAsyncTask graphRequest = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+
                     @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        goHome(object);
+                    public void onCompleted(JSONObject user, GraphResponse response) {
+                        LoginManager.getInstance().logOut();
+                        String usersName = user.optString("name");
                     }
-                });
-                Bundle bundle = new Bundle();
+                }).executeAsync();
+
+                Toast.makeText(getApplicationContext(), "You are now logged in with Facebook", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(WelcomeScreen.this, HomeScreen.class));
+                /*Bundle bundle = new Bundle();
                 bundle.putString("fields", "name, email, id");
                 graphRequest.setParameters(bundle);
-                graphRequest.executeAsync();
+                graphRequest.executeAsync();*/
             }
 
-            // When they log out,
+            // When they log out
             @Override
             public void onCancel() {
                 // App code
@@ -84,16 +91,21 @@ public class WelcomeScreen extends AppCompatActivity {
             public void onError(FacebookException exception) {
                 // App code
             }
+
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
         });
     }
 
     private void goHome(JSONObject jObj){
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(jObj.toString());
+        //TextView textView = findViewById(R.id.textView);
+        //textView.setText(jObj.toString());
 
         Intent intent = new Intent(this, HomeScreen.class);
 
         Bundle bundle = new Bundle();
+        bundle.putString("EXTRA_MESSAGE", jObj.toString());
+
         intent.putExtras(bundle);
         startActivity(intent);
 
@@ -104,4 +116,5 @@ public class WelcomeScreen extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }
