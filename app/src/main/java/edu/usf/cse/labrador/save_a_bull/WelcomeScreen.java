@@ -99,7 +99,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                Toast.makeText(getApplicationContext(), "Error logging in", Toast.LENGTH_SHORT).show();
             }
 
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
