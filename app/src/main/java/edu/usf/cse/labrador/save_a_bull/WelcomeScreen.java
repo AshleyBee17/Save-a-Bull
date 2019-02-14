@@ -19,7 +19,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
-
 import java.util.Arrays;
 
 public class WelcomeScreen extends AppCompatActivity {
