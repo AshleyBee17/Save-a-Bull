@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.HomeFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +41,7 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
                 break;
 
             case R.id.nav_favorites:
-                //fragment = new FavoritesFragment();
+                fragment = new FavoritesFragment();
                 break;
 
             case R.id.nav_camera:
@@ -46,11 +49,11 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
                 break;
 
             case R.id.nav_gallery:
-                //fragment = new GalleryFragment();
+                fragment = new GalleryFragment();
                 break;
 
             case R.id.nav_maps:
-                //fragment = new MapsFragment();
+                fragment = new MapsFragment();
                 break;
         }
 
