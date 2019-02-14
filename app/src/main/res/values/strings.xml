@@ -8,5 +8,10 @@
     <string name="title_activity_sign_up_screen">SignUpScreen</string>
     <string name="create_account">Create Account</string>
 
+    <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_maps">Maps</string>
 
 </resources>

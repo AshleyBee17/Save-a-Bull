@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_yellow"
+        android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/nav_favorites"
+        android:icon="@drawable/favorites_green"
+        android:title="@string/title_favorites"/>
+
+    <item
+        android:id="@+id/nav_camera"
+        android:icon="@drawable/camera_yellow"
+        android:title="@string/title_camera"/>
+
+    <item
+        android:id="@+id/nav_gallery"
+        android:icon="@drawable/gallery_green"
+        android:title="@string/title_gallery"/>
+
+    <item
+        android:id="@+id/nav_maps"
+        android:icon="@drawable/map_yellow"
+        android:title="@string/title_maps"/>
+
+</menu>

@@ -5,19 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestAsyncTask;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -79,12 +75,12 @@ public class WelcomeScreen extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject user, GraphResponse response) {
                         LoginManager.getInstance().logOut();
-                        String usersName = user.optString("name");
+                        String firstName = user.optString("first_name");
                     }
                 }).executeAsync();
 
                 Toast.makeText(getApplicationContext(), "You are now logged in with Facebook", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(WelcomeScreen.this, HomeScreen.class));
+                startActivity(new Intent(WelcomeScreen.this, MainScreen.class));
                 /*Bundle bundle = new Bundle();
                 bundle.putString("fields", "name, email, id");
                 graphRequest.setParameters(bundle);
