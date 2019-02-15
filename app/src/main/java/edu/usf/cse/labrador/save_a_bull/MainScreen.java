@@ -22,7 +22,7 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        //loading the default fragment
+        //loading the default home fragment
         loadFragment(new HomeFragment());
 
         //getting bottom navigation view and attaching the listener
@@ -31,6 +31,7 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
     }
 
 
+    // Switch between fragment displays depending on the nav item selected
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;

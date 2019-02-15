@@ -38,7 +38,17 @@ public class WelcomeScreen extends AppCompatActivity {
 
     }
 
-    private void loginClicked() { }
+    private void loginClicked() {
+        Button signUpBtn = this.findViewById(R.id.login_btn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(WelcomeScreen.this, LoginScreen.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void signUpClicked() {
 
@@ -51,7 +61,6 @@ public class WelcomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void loginWithFacebookClicked() {
