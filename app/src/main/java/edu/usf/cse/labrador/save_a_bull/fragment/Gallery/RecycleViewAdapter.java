@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,12 +41,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
         myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
         myViewHolder.img_coupon.setImageResource(mData.get(i).getImg());
-        myViewHolder.img_coupon.setOnClickListener(new View.OnClickListener() {
+
+        final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myViewHolder.img_fav.setColorFilter(12345);
+                v.setActivated(!v.isActivated());
+
             }
         });
+
         myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +70,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         private TextView tv_companyName;
         private TextView tv_couponDesc;
         private ImageView img_coupon;
-        private ImageView img_fav;
+        private ImageButton img_fav;
         CardView cardView;
 
         public myViewHolder(View v){
@@ -75,6 +80,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             tv_couponDesc = itemView.findViewById(R.id.coupon_desc);
             img_coupon =  itemView.findViewById(R.id.coupon_img);
             cardView = itemView.findViewById(R.id.gallery_cardview);
+            img_fav = itemView.findViewById(R.id.coupon_favorite);
 
         }
     }

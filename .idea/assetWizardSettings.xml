@@ -16,13 +16,27 @@
                             <entry key="actionbar">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_favorite_black_24dp.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/USF/Senior/Spring/Mobile Devices/Save a Bull/Icons/PNG/Map_Green.png" />
-                                      <entry key="outputName" value="map_yellow" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/USF/Senior/Spring/Mobile Devices/Save a Bull/Icons/unfavorited.png" />
+                                      <entry key="outputName" value="favorited" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="f4db89" />
+                                      <entry key="themeColor" value="860200" />
                                     </map>
                                   </option>
                                 </PersistentState>
