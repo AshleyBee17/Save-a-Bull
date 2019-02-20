@@ -1,6 +1,7 @@
 package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,7 +23,7 @@ public class GalleryFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Creating a view of the fragment_gallery .xml layout.
         // Generates the icons and information taken from the coupon list and displays each item
@@ -43,9 +44,9 @@ public class GalleryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /**
-         * When the database is completed, make iterate through each "coupon" table to add it to
-         * the coupon list to be shown in the recyclerView
+        /*
+          When the database is completed, make iterate through each "coupon" table to add it to
+          the coupon list to be shown in the recyclerView
          */
         couponList = new ArrayList<>();
         couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));

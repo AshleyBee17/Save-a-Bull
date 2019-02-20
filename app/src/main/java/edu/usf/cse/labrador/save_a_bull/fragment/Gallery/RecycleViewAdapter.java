@@ -19,10 +19,10 @@ import edu.usf.cse.labrador.save_a_bull.R;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
-    Context mContext;
-    List<Coupon> mData;
+    private Context mContext;
+    private List<Coupon> mData;
 
-    public RecycleViewAdapter(Context mContext, List<Coupon> mData) {
+    RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -51,11 +51,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 if(v.isActivated()){
                     //v.setActivated(!v.isActivated());
                     Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
-                    /** Then remove the item from the user's favorites **/
+                    /*
+                     * Then remove the item from the user's favorites
+                     *
+                     */
                 } else if(!v.isActivated()){
                     //v.setActivated(v.isActivated());
                     Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
-                    /** Add the item to the user's favorites**/
+
+                    /*
+                     * Add the item to the user's favorites*
+                     *
+                     */
                 }
                 v.setActivated(!v.isActivated());
             }
@@ -75,7 +82,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return mData.size();
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder{
+    static class myViewHolder extends RecyclerView.ViewHolder{
 
         // Gets the id names of all components to the cardView items
 
@@ -85,7 +92,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         private ImageButton img_fav;
         CardView cardView;
 
-        public myViewHolder(View v){
+        myViewHolder(View v){
             super(v);
 
             tv_companyName = itemView.findViewById(R.id.company_name);
