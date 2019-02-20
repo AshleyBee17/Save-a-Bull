@@ -27,6 +27,7 @@ public class CameraFragment extends Fragment {
 
     private void startCamera(){
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        Intent i = new Intent("android.media.action.");
         startActivityForResult(intent,cameraRequest);
     }
 

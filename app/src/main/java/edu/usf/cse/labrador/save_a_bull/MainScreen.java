@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.GalleryFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.HomeFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
