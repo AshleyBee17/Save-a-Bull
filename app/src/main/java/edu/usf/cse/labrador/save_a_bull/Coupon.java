@@ -16,6 +16,12 @@ public class Coupon {
         Img = img;
     }
 
+    public Coupon(String companyName, String description, String category) {
+        CompanyName = companyName;
+        Description = description;
+        Category = category;
+    }
+
 
     public String getCompanyName() {
         return CompanyName;
