@@ -22,7 +22,6 @@ public class Coupon {
         Category = category;
     }
 
-
     public String getCompanyName() {
         return CompanyName;
     }
