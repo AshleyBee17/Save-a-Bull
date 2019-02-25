@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +35,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     private Context mContext;
     private List<Coupon> mData;
-    Dialog couponDialog;
+    private Dialog couponDialog;
 
     RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
@@ -44,8 +48,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         // Takes the cards from the cardview.xml
         View v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
         final myViewHolder viewHolder = new myViewHolder(v);
-
-
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +84,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 });
             }
         });
-
         return viewHolder; //new myViewHolder(v);
     }
 
@@ -125,6 +126,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return mData.size();
     }
 
+
     static class myViewHolder extends RecyclerView.ViewHolder{
 
         // Gets the id names of all components to the cardView items
@@ -152,6 +154,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", fakephone,null));
         mContext.startActivity(intent);
     }
+
     private void openMaps(final String addy){
         final double latitude = 28.055774;
         final double longitude = -82.426970;
@@ -163,4 +166,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         mContext.startActivity(intent);
 
     }
+
+    // Updates the search when a user enters text
+    void updateList(List<Coupon> searchList){
+        mData = new ArrayList<>();
+        mData.addAll(searchList);
+        notifyDataSetChanged();
+    }
+
 }

@@ -23,7 +23,7 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         setContentView(R.layout.activity_main_screen);
 
         //loading the default home fragment
-        loadFragment(new HomeFragment());
+        loadFragment(new GalleryFragment());
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
