@@ -20,7 +20,7 @@
             android:id="@+id/company_name_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Company Name"
+            android:text="@string/company_name"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:scrollbarSize="24sp"
@@ -31,7 +31,7 @@
             android:id="@+id/coupon_desc_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Coupon Description"
+            android:text="@string/coupon_description"
             android:textSize="18sp"
             android:textColor="@color/colorWhite"
             android:layout_marginTop="5dp"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FF7B7B7B"
-            android:text="Mobile call"
+            android:text="@string/mobile_call"
             android:textColor="@color/colorWhite"/>
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FF7B7B7B"
-            android:text="View Location"
+            android:text="@string/view_location"
             android:textColor="@color/colorWhite"/>
 
     </LinearLayout>

@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/home_yellow"
-        android:title="@string/title_home"/>
+        android:id="@+id/nav_gallery"
+        android:icon="@drawable/gallery_green"
+        android:title="@string/title_gallery"/>
 
     <item
         android:id="@+id/nav_favorites"
@@ -17,13 +17,13 @@
         android:title="@string/title_camera"/>
 
     <item
-        android:id="@+id/nav_gallery"
-        android:icon="@drawable/gallery_green"
-        android:title="@string/title_gallery"/>
-
-    <item
         android:id="@+id/nav_maps"
         android:icon="@drawable/map_yellow"
         android:title="@string/title_maps"/>
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_yellow"
+        android:title="@string/title_home"/>
 
 </menu>

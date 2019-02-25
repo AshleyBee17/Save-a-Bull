@@ -32,5 +32,10 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="about">About</string>
+    <string name="company_name">Company Name</string>
+    <string name="coupon_description">Coupon Description</string>
+    <string name="mobile_call">Mobile Call</string>
+    <string name="view_location">View Location</string>
+    <string name="coupon_desc">Coupon Desc</string>
 
 </resources>

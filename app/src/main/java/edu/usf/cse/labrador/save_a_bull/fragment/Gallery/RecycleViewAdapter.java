@@ -2,12 +2,15 @@ package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Locale;
 
 import edu.usf.cse.labrador.save_a_bull.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
@@ -57,6 +61,24 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 dialogImage.setImageResource(mData.get(viewHolder.getAdapterPosition()).getImg());
                 couponDialog.show();
                 //Toast.makeText(mContext, "Test" + String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_LONG).show();
+
+                Button callButton = couponDialog.findViewById(R.id.call_dialog_btn);
+                callButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mContext, "Make a call", Toast.LENGTH_LONG).show();
+                        openCall(mData.get(viewHolder.getAdapterPosition()).getPhone());
+                    }
+                });
+
+                Button locationButton = couponDialog.findViewById(R.id.location_dialog_btn);
+                locationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mContext, "Open map and redirect to this location", Toast.LENGTH_LONG).show();
+                        openMaps(mData.get(viewHolder.getAdapterPosition()).getAddress());
+                    }
+                });
             }
         });
 
@@ -95,15 +117,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 v.setActivated(!v.isActivated());
             }
         });
-
-        // Click to view more information
-//        myViewHolder.item_coupon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, "Test" + String.valueOf(myViewHolder.getAdapterPosition()), Toast.LENGTH_LONG);
-//                // Open window to show coupon desc.
-//            }
-//        });
     }
 
     @Override
@@ -131,5 +144,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             cardView = itemView.findViewById(R.id.cardview_item_coupon_id);
 
         }
+    }
+
+    private void openCall(final String phone){
+        String fakephone = "123456789";
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", fakephone,null));
+        mContext.startActivity(intent);
+    }
+    private void openMaps(final String addy){
+        final double latitude = 28.055774;
+        final double longitude = -82.426970;
+
+        // Should open to MapsFragment and NOT the maps app
+
+        String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        mContext.startActivity(intent);
+
     }
 }

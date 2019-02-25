@@ -6,6 +6,9 @@ public class Coupon {
     private String Description;
     private String Category;
     private int Img;
+    private String Phone;
+    private String Latitude;
+    private String Longitude;
 
     public Coupon(){};
 
@@ -20,6 +23,14 @@ public class Coupon {
         CompanyName = companyName;
         Description = description;
         Category = category;
+    }
+
+    public String getAddress() {
+        return Latitude +","+ Longitude;
+    }
+
+    public String getPhone() {
+        return Phone;
     }
 
     public String getCompanyName() {
@@ -53,4 +64,9 @@ public class Coupon {
     public void setImg(int img) {
         Img = img;
     }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
 }
