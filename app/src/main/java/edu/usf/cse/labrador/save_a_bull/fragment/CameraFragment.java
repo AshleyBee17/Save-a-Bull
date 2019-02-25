@@ -30,9 +30,8 @@ import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
 
 public class CameraFragment extends Fragment {
 
-    private static final int cameraRequest = 2019;
 
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
+    private static final int CAMERA_REQUEST_CODE = 2019;
     Button takePhotoBtn;
     Button uploadBtn;
     ImageView imageView;
@@ -56,7 +55,7 @@ public class CameraFragment extends Fragment {
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,
-                        CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                        CAMERA_REQUEST_CODE);
 
             }
         });
@@ -73,7 +72,7 @@ public class CameraFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
 
                 Bitmap bmp = (Bitmap) data.getExtras().get("data");
@@ -105,6 +104,7 @@ public class CameraFragment extends Fragment {
         c.setCompanyName(cName);
         c.setDescription(cDesc);
         //c.setImg(couponImage);
+        // ADD TO DATABASE
         GalleryFragment.addCoupon(c);
     }
 }

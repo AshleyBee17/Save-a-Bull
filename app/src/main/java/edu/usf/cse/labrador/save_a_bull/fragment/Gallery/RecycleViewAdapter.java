@@ -1,3 +1,4 @@
+// Displays each coupon on a card from the information found in each coupon in the list of coupons
 package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
 
 import android.app.Dialog;
