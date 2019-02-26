@@ -5,14 +5,14 @@
     android:layout_width="300dp"
     android:layout_height="300dp"
     android:layout_gravity="center"
-    android:background="#000000">
+    android:background="@color/colorBlack">
 
 
     <LinearLayout
         android:id="@+id/ll_dialog_gallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2e2e2e"
+        android:background="@color/darkMode"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginTop="50dp">
@@ -47,7 +47,7 @@
             android:layout_gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF7B7B7B"
+            android:background="@color/medGray"
             android:text="@string/mobile_call"
             android:textColor="@color/colorWhite"/>
 
@@ -60,7 +60,7 @@
             android:layout_gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF7B7B7B"
+            android:background="@color/medGray"
             android:text="@string/view_location"
             android:textColor="@color/colorWhite"/>
 

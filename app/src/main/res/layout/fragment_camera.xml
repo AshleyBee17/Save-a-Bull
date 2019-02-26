@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal|center_vertical"
+    android:background="@color/darkMode"
     android:orientation="vertical">
 
 
@@ -17,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColorHint="#bfbfbf"
         android:hint="Company Name"
         android:inputType="textPersonName" />
 
@@ -25,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColorHint="@color/grayText"
         android:hint="Description"
         android:inputType="textPersonName" />
 
@@ -32,12 +35,20 @@
         android:id="@+id/takePhoto_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Take Photo" />
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:text="Take Photo"
+        android:layout_margin="10dp"/>
 
     <Button
         android:id="@+id/upload_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload to the gallery" />
+        android:text="Upload to the gallery"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

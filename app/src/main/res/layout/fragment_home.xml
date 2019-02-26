@@ -3,27 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.HomeFragment"
+    android:background="@drawable/background_test" >
 
 
-    <!--<TextView-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="#787878"-->
-        <!--android:text="@string/about_saveabull"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textColor="@color/colorWhite" />-->
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="110dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/about_shape"
+        android:padding="10dp"
+        android:text="@string/about_saveabull"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite" />
 
     <Button
+        android:layout_gravity="center_horizontal"
         android:id="@+id/home_settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit account"/>
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:padding="10dp"
+        android:text="Edit account" />
 
 </LinearLayout>

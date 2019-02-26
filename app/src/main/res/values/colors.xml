@@ -8,6 +8,9 @@
     <color name="colorGold">#f4db89</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="darkMode">#464646</color>
+    <color name="medGray">#FF7B7B7B</color>
+    <color name="grayText">#bfbfbf</color>
 
 
 </resources>
