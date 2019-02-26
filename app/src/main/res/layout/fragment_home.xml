@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
-    <TextView
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="#787878"-->
+        <!--android:text="@string/about_saveabull"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/colorWhite" />-->
+
+    <Button
+        android:id="@+id/home_settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/title_home"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:text="Edit account"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

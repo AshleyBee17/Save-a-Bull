@@ -35,19 +35,19 @@ public class CameraFragment extends Fragment {
     Button takePhotoBtn;
     Button uploadBtn;
     ImageView imageView;
-    View rootView;
+    View v;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_camera,
+        v = inflater.inflate(R.layout.fragment_camera,
                 container, false);
 
-        takePhotoBtn = rootView.findViewById(R.id.takePhoto_btn);
-        uploadBtn = rootView.findViewById(R.id.upload_btn);
-        imageView = rootView.findViewById(R.id.coupon_img);
+        takePhotoBtn = v.findViewById(R.id.takePhoto_btn);
+        uploadBtn = v.findViewById(R.id.upload_btn);
+        imageView = v.findViewById(R.id.coupon_img);
 
         takePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class CameraFragment extends Fragment {
             }
         });
 
-        return rootView;//inflater.inflate(R.layout.fragment_camera, null);
+        return v;//inflater.inflate(R.layout.fragment_camera, null);
     }
 
     @Override
@@ -93,11 +93,11 @@ public class CameraFragment extends Fragment {
     }
 
     private void uploadToGallery(){
-        TextView companyName = rootView.findViewById(R.id.companyName_txt);//.getText().toString();
+        TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         String cName = companyName.getText().toString();
-        TextView couponDescription = rootView.findViewById(R.id.couponDesc_txt);//.toString();
+        TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
         String cDesc = companyName.getText().toString();
-        ImageView couponImage = rootView.findViewById(R.id.coupon_img); // save as an image??
+        ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
         //int img = couponImage.get
 
         Coupon c = new Coupon();

@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/home_yellow"
-        android:title="@string/title_home"/>
+        android:icon="@drawable/usf_bulls_logo"
+        android:title="@string/about"/>
 
 </menu>

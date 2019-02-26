@@ -1,7 +1,6 @@
 // Retrieves coupons from database to be displayed in the recyclerview
 package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +23,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     View v;
     private static List<Coupon> couponList = new ArrayList<>();
-    private Context mContext;
     RecycleViewAdapter recycleViewAdapter;
 
     @Nullable
@@ -58,6 +56,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
           the coupon list to be shown in the recyclerView
          */
 
+        couponList.add(new Coupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp, 28.048409, -82.394247, "8138999700" ));
         couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
         couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
         couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
@@ -72,6 +71,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
     }
 
+    // Setting up the search optio
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         menuInflater.inflate(R.menu.menu, menu);
@@ -90,6 +90,8 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         return false;
     }
 
+    // Reads the text the user enters in the search field and updates it based on
+    // the category
     @Override
     public boolean onQueryTextChange(String s) {
         String input = s.toLowerCase();

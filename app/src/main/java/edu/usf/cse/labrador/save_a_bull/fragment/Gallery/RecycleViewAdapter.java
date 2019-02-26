@@ -63,14 +63,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
                 dialogImage.setImageResource(mData.get(viewHolder.getAdapterPosition()).getImg());
                 couponDialog.show();
-                //Toast.makeText(mContext, "Test" + String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_LONG).show();
+                //Toast.makeText(mContext, "Test" + String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
 
                 Button callButton = couponDialog.findViewById(R.id.call_dialog_btn);
                 callButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext, "Make a call", Toast.LENGTH_LONG).show();
-                        openCall(mData.get(viewHolder.getAdapterPosition()).getPhone());
+                        String phone = mData.get(viewHolder.getAdapterPosition()).getPhone();
+
+                        if(phone == null){
+                            Toast.makeText(mContext, "Phone number not available", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, "Make a call", Toast.LENGTH_SHORT).show();
+                            openCall(phone);
+                        }
                     }
                 });
 
@@ -78,13 +84,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 locationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext, "Open map and redirect to this location", Toast.LENGTH_LONG).show();
-                        openMaps(mData.get(viewHolder.getAdapterPosition()).getAddress());
+
+                        if(mData.get(viewHolder.getAdapterPosition()).getLongitude() == null ||
+                                mData.get(viewHolder.getAdapterPosition()).getLatitude() == null){
+                            Toast.makeText(mContext, "Location not available", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Double latitude = mData.get(viewHolder.getAdapterPosition()).getLatitude();
+                            Double longitude = mData.get(viewHolder.getAdapterPosition()).getLongitude();
+
+                            Toast.makeText(mContext, "Open map and redirect to this location", Toast.LENGTH_SHORT).show();
+                            openMaps(longitude, latitude);
+                        }
                     }
                 });
             }
         });
-        return viewHolder; //new myViewHolder(v);
+        return viewHolder;
     }
 
     @Override
@@ -126,7 +141,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return mData.size();
     }
 
-
     static class myViewHolder extends RecyclerView.ViewHolder{
 
         // Gets the id names of all components to the cardView items
@@ -150,21 +164,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     private void openCall(final String phone){
-        String fakephone = "123456789";
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", fakephone,null));
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
         mContext.startActivity(intent);
     }
 
-    private void openMaps(final String addy){
-        final double latitude = 28.055774;
+    private void openMaps(final Double lon, final Double lat){
         final double longitude = -82.426970;
+        final double latitude = 28.055774;
 
         // Should open to MapsFragment and NOT the maps app
 
-        String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        mContext.startActivity(intent);
-
+        Uri gmmIntentUri = Uri.parse("geo:"+lon+","+lat);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        mContext.startActivity(mapIntent);
     }
 
     // Updates the search when a user enters text

@@ -16,7 +16,6 @@ import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +28,6 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
-
 
     // Switch between fragment displays depending on the nav item selected
     @Override

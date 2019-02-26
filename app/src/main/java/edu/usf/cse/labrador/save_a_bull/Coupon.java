@@ -7,8 +7,8 @@ public class Coupon {
     private String Category;
     private int Img;
     private String Phone;
-    private String Latitude;
-    private String Longitude;
+    private Double Longitude;
+    private Double Latitude;
 
     public Coupon(){};
 
@@ -23,6 +23,16 @@ public class Coupon {
         CompanyName = companyName;
         Description = description;
         Category = category;
+    }
+
+    public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
+        CompanyName = companyName;
+        Description = description;
+        Category = category;
+        Latitude = lat;
+        Longitude = lon;
+        Img = img;
+        Phone = phone;
     }
 
     public String getAddress() {
@@ -49,6 +59,14 @@ public class Coupon {
         return Img;
     }
 
+    public Double getLatitude() {
+        return Latitude;
+    }
+
+    public Double getLongitude() {
+        return Longitude;
+    }
+
     public void setCompanyName(String companyName) {
         CompanyName = companyName;
     }
@@ -69,4 +87,11 @@ public class Coupon {
         Phone = phone;
     }
 
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
+    }
 }
