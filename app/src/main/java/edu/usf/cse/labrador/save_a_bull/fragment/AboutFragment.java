@@ -2,31 +2,29 @@ package edu.usf.cse.labrador.save_a_bull.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 
-public class HomeFragment extends Fragment {
+public class AboutFragment extends Fragment {
 
     private Dialog settingsDialog;
     private Context mContext;
-    private View view;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
         mContext = view.getContext();
 
         Button editAccountButton = view.findViewById(R.id.home_settings_btn);
@@ -38,23 +36,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        Button saveChangeBtn = view.findViewById(R.id.save_acct_changes_btn);
-//        saveChangeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                saveChangesClicked();
-//            }
-//        });
-//
-//        final Button deleteAcctBtn = view.findViewById(R.id.delete_acct_btn);
-//        deleteAcctBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                deleteAccountClicked();
-//            }
-//        });
-
-        return view;//inflater.inflate(R.layout.fragment_home, null);
+        return view;
     }
 
     private void displaySettingsDialog(){

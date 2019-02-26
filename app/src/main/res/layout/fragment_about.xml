@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".fragment.HomeFragment"
-    android:background="@drawable/background_test" >
+    tools:context=".fragment.AboutFragment"
+    android:background="@drawable/msc_background" >
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="231dp"
+        android:background="@drawable/main_hab_logo"
+        android:layout_gravity="center"
+        />
 
     <TextView
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/textView"
         android:layout_width="300dp"
         android:layout_height="110dp"

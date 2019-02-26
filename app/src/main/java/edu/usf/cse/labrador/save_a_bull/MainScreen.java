@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.HomeFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 
@@ -35,8 +35,8 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         Fragment fragment = null;
 
         switch (item.getItemId()) {
-            case R.id.nav_home:
-                fragment = new HomeFragment();
+            case R.id.nav_about:
+                fragment = new AboutFragment();
                 break;
 
             case R.id.nav_favorites:
