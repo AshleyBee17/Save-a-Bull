@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
-import edu.usf.cse.labrador.save_a_bull.Coupon;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 
 public class GalleryFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -24,6 +25,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     View v;
     private static List<Coupon> couponList = new ArrayList<>();
     RecycleViewAdapter recycleViewAdapter;
+    public static float screen_width;
 
     @Nullable
     @Override
@@ -43,6 +45,10 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         myRecyclerView.setAdapter(recycleViewAdapter);
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
         myRecyclerView.setLayoutManager(mLayoutManager);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        //v.getDisplay().getMetrics(metrics);
+        screen_width = metrics.widthPixels;
 
         return v;
     }

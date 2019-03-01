@@ -6,29 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import edu.usf.cse.labrador.save_a_bull.Coupon;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
@@ -36,6 +28,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private Context mContext;
     private List<Coupon> mData;
     private Dialog couponDialog;
+    private boolean imgFitToScreen;
 
     RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
@@ -55,9 +48,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 //Initialize the dialog
                 couponDialog = new Dialog(mContext);
                 couponDialog.setContentView(R.layout.dialog_coupon);
-                TextView dialogCompanyName = couponDialog.findViewById(R.id.company_name_dialog);
+                final TextView dialogCompanyName = couponDialog.findViewById(R.id.company_name_dialog);
                 TextView dialogCouponDesc = couponDialog.findViewById(R.id.coupon_desc_dialog);
-                ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
+                final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
@@ -95,6 +88,26 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             Toast.makeText(mContext, "Open map and redirect to this location", Toast.LENGTH_SHORT).show();
                             openMaps(longitude, latitude);
                         }
+                    }
+                });
+
+                //ImageView couponImg = couponDialog.findViewById(R.id.img_dialog);
+                dialogImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        GalleryFragment gf = new GalleryFragment();
+
+                        float scale =  gf.screen_width / dialogImage.getWidth();
+                        if(dialogImage.getScaleX() == 1) {
+                            dialogImage.setScaleY(5);
+                            dialogImage.setScaleX(5);
+                        }else{
+                            dialogImage.setScaleY(1);
+                            dialogImage.setScaleX(1);
+                        }
+
+
                     }
                 });
             }

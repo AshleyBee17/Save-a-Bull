@@ -1,7 +1,7 @@
-package edu.usf.cse.labrador.save_a_bull;
+package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
 public class Coupon {
-
+    
     private String CompanyName;
     private String Description;
     private String Category;
