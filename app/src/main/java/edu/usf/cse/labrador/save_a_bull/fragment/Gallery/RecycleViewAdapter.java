@@ -33,7 +33,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Coupon> mData;
     private Dialog couponDialog;
     private Dialog fullImageDialog;
-    private boolean imgFitToScreen;
 
     RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
@@ -43,9 +42,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        // Takes the cards from the cardview.xml
-        View v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
-        final myViewHolder viewHolder = new myViewHolder(v);
+
+       View v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
+       final myViewHolder viewHolder = new myViewHolder(v);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +59,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
+                //dialogImage.setImageBitmap(mData.get(viewHolder.getAdapterPosition()).getImg());
 
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
                 dialogImage.setImageBitmap(bitmap);
 
-                //dialogImage.setImageBitmap(mData.get(viewHolder.getAdapterPosition()).getImg());
                 couponDialog.show();
-                //Toast.makeText(mContext, "Test" + String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
 
                 Button callButton = couponDialog.findViewById(R.id.call_dialog_btn);
                 callButton.setOnClickListener(new View.OnClickListener() {
@@ -106,17 +104,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     @Override
                     public void onClick(View v) {
 
-//                        GalleryFragment gf = new GalleryFragment();
-//
-//                        float scale =  gf.screen_width / dialogImage.getWidth();
-//                        if(dialogImage.getScaleX() == 1) {
-//                            dialogImage.setScaleY(5);
-//                            dialogImage.setScaleX(5);
-//                        }else{
-//                            dialogImage.setScaleY(1);
-//                            dialogImage.setScaleX(1);
-//                        }
-
                         fullImageDialog = new Dialog(mContext);
                         fullImageDialog.setContentView(R.layout.dialog_full_image);
 
@@ -124,26 +111,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         large_img.setImageBitmap(bitmap);
 
                         fullImageDialog.show();
-
-
                     }
                 });
             }
-        });
-        return viewHolder;
+       });
+       return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder myViewHolder, int i) {
+
         // Displays the text and images accordingly for each item in the coupon list
         myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
         myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
         myViewHolder.img_coupon.setImageBitmap(bitmap);
-
-        //myViewHolder.img_coupon.setImageBitmap(mData.get(i).getImg());
-
 
         // Manipulating the favorites
         final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
@@ -173,7 +156,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public int getItemCount() {
-        return mData.size();
+       return mData.size();
     }
 
     static class myViewHolder extends RecyclerView.ViewHolder{

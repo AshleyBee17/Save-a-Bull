@@ -14,6 +14,8 @@ import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon.TABLE_NAME;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
@@ -33,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop the table if it already exists and create them again
-        db.execSQL("DROP TABLE IF EXISTS " + Coupon.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
@@ -52,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Coupon.COLUMN_LONGITUDE, coupLong);
         values.put(Coupon.COLUMN_LATITUDE, coupLat);
 
-        long id = db.insert(Coupon.TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, null, values);
         db.close();
 
         return id;
@@ -70,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Coupon.COLUMN_IMAGE, coupImg);
         values.put(Coupon.COLUMN_CATEGORY, coupCat);
 
-        long id = db.insert(Coupon.TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, null, values);
         db.close();
 
 
@@ -82,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.query(Coupon.TABLE_NAME,
+        Cursor c = db.query(TABLE_NAME,
                 new String[]{Coupon.COLUMN_ID, Coupon.COLUMN_COMPANY_NAME, Coupon.COLUMN_DESCRIPTION,
                 Coupon.COLUMN_CATEGORY, Coupon.COLUMN_IMAGE, Coupon.COLUMN_PHONE, Coupon.COLUMN_LONGITUDE,
                 Coupon.COLUMN_LATITUDE}, Coupon.COLUMN_ID + "=?",
@@ -118,7 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Coupon> coupons = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + Coupon.TABLE_NAME + " ORDER BY " +
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " +
                 Coupon.COLUMN_COMPANY_NAME + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -143,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int getCouponCount() {
-        String countQuery = "SELECT  * FROM " + Coupon.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(countQuery, null);
@@ -152,6 +154,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return count;
+    }
+
+    public void deleteAllCoupons(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_NAME);
+        db.close();
     }
 
     // Possible additions to delete or update a coupon??

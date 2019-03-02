@@ -105,8 +105,6 @@ public class CameraFragment extends Fragment {
         }
     }
 
-
-
     private void uploadToGallery(){
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
@@ -117,6 +115,7 @@ public class CameraFragment extends Fragment {
         String cName = companyName.getText().toString();
         String cDesc = couponDescription.getText().toString();
         String cCat = categoryType.toString();
+
         //Bitmap cImg = ;
         //int img = couponImage.getBaseline();
 
@@ -126,6 +125,9 @@ public class CameraFragment extends Fragment {
 //        //c.setImg(couponImage);
 //        // ADD TO DATABASE
 //        GalleryFragment.addCoupon(c);
+
+        // CHECK IF ANY OF THE FIELDS ARE EMPTY, IF THEY ARE SHOW A WARNING THAT THEY NEED TO BE
+        // FILLED, IF THEY ARE ALL FILLED, CONTINUE WITH THE CODE BELOW
 
         long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
         Coupon c = db.getCoupon(id);
