@@ -81,19 +81,19 @@
         android:layout_alignParentTop="true"
         />
 
-    <ImageView
-        android:id="@+id/expanded_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:contentDescription="Zoom touch to close" />
+    <!--<ImageView-->
+        <!--android:id="@+id/expanded_image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="invisible"-->
+        <!--android:contentDescription="Zoom touch to close" />-->
 
-    <ImageView
-        android:id="@+id/enlarged_coupon_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorGold"
-        android:visibility="invisible"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/enlarged_coupon_img"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorGold"-->
+        <!--android:visibility="invisible"/>-->
 
 
 </RelativeLayout>

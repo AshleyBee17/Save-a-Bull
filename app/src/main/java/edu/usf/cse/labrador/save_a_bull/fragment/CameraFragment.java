@@ -127,7 +127,7 @@ public class CameraFragment extends Fragment {
 //        // ADD TO DATABASE
 //        GalleryFragment.addCoupon(c);
 
-        long id = db.insertMinCoupon(cName, cDesc, imgStream);
+        long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
         Coupon c = db.getCoupon(id);
 
         if (c != null){

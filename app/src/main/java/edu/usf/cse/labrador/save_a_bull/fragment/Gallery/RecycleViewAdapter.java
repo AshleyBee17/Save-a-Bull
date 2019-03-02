@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private Context mContext;
     private List<Coupon> mData;
     private Dialog couponDialog;
+    private Dialog fullImageDialog;
     private boolean imgFitToScreen;
 
     RecycleViewAdapter(Context mContext, List<Coupon> mData) {
@@ -59,7 +61,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
 
-                Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
+                final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
                 dialogImage.setImageBitmap(bitmap);
 
                 //dialogImage.setImageBitmap(mData.get(viewHolder.getAdapterPosition()).getImg());
@@ -104,16 +106,24 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     @Override
                     public void onClick(View v) {
 
-                        GalleryFragment gf = new GalleryFragment();
+//                        GalleryFragment gf = new GalleryFragment();
+//
+//                        float scale =  gf.screen_width / dialogImage.getWidth();
+//                        if(dialogImage.getScaleX() == 1) {
+//                            dialogImage.setScaleY(5);
+//                            dialogImage.setScaleX(5);
+//                        }else{
+//                            dialogImage.setScaleY(1);
+//                            dialogImage.setScaleX(1);
+//                        }
 
-                        float scale =  gf.screen_width / dialogImage.getWidth();
-                        if(dialogImage.getScaleX() == 1) {
-                            dialogImage.setScaleY(5);
-                            dialogImage.setScaleX(5);
-                        }else{
-                            dialogImage.setScaleY(1);
-                            dialogImage.setScaleX(1);
-                        }
+                        fullImageDialog = new Dialog(mContext);
+                        fullImageDialog.setContentView(R.layout.dialog_full_image);
+
+                        ImageView large_img = fullImageDialog.findViewById(R.id.enlarged_coupon_img);
+                        large_img.setImageBitmap(bitmap);
+
+                        fullImageDialog.show();
 
 
                     }

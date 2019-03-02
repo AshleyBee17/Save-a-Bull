@@ -58,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg){
+    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg, String coupCat){
 
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -68,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Coupon.COLUMN_COMPANY_NAME, coupName);
         values.put(Coupon.COLUMN_DESCRIPTION, coupDesc);
         values.put(Coupon.COLUMN_IMAGE, coupImg);
+        values.put(Coupon.COLUMN_CATEGORY, coupCat);
 
         long id = db.insert(Coupon.TABLE_NAME, null, values);
         db.close();
