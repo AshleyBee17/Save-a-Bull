@@ -4,6 +4,8 @@ package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 
@@ -52,9 +55,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 TextView dialogCouponDesc = couponDialog.findViewById(R.id.coupon_desc_dialog);
                 final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
+
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-                dialogImage.setImageResource(mData.get(viewHolder.getAdapterPosition()).getImg());
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
+                dialogImage.setImageBitmap(bitmap);
+
+                //dialogImage.setImageBitmap(mData.get(viewHolder.getAdapterPosition()).getImg());
                 couponDialog.show();
                 //Toast.makeText(mContext, "Test" + String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
 
@@ -120,7 +128,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         // Displays the text and images accordingly for each item in the coupon list
         myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
         myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
-        myViewHolder.img_coupon.setImageResource(mData.get(i).getImg());
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
+        myViewHolder.img_coupon.setImageBitmap(bitmap);
+
+        //myViewHolder.img_coupon.setImageBitmap(mData.get(i).getImg());
 
 
         // Manipulating the favorites

@@ -17,9 +17,12 @@ import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
+
+import static java.sql.Types.NULL;
 
 
 public class CameraFragment extends Fragment {
@@ -28,9 +31,11 @@ public class CameraFragment extends Fragment {
     private static final int CAMERA_REQUEST_CODE = 2019;
     Button takePhotoBtn;
     Button uploadBtn;
+    static byte[] imgStream;
     ImageView imageView;
     View v;
 
+    DatabaseHelper db;
 
     @Nullable
     @Override
@@ -61,6 +66,8 @@ public class CameraFragment extends Fragment {
             }
         });
 
+        db = new DatabaseHelper(getContext());
+
         return v;//inflater.inflate(R.layout.fragment_camera, null);
     }
 
@@ -75,10 +82,13 @@ public class CameraFragment extends Fragment {
                 assert bmp != null;
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
+                imgStream = stream.toByteArray();
 
                 // convert byte array to Bitmap
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                         byteArray.length);
+
+
 
                 imageView.setImageBitmap(bitmap);
 
@@ -86,19 +96,32 @@ public class CameraFragment extends Fragment {
         }
     }
 
+
+
     private void uploadToGallery(){
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
-        String cName = companyName.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
-        String cDesc = companyName.getText().toString();
         ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
-        //int img = couponImage.get
 
-        Coupon c = new Coupon();
-        c.setCompanyName(cName);
-        c.setDescription(cDesc);
-        //c.setImg(couponImage);
-        // ADD TO DATABASE
-        GalleryFragment.addCoupon(c);
+
+        String cName = companyName.getText().toString();
+        String cDesc = couponDescription.getText().toString();
+        //Bitmap cImg = ;
+        //int img = couponImage.getBaseline();
+
+//        Coupon c = new Coupon();
+//        c.setCompanyName(cName);
+//        c.setDescription(cDesc);
+//        //c.setImg(couponImage);
+//        // ADD TO DATABASE
+//        GalleryFragment.addCoupon(c);
+
+        long id = db.insertMinCoupon(cName, cDesc, imgStream);
+        Coupon c = db.getCoupon(id);
+
+        if (c != null){
+            GalleryFragment.addCoupon(c);
+        }
+
     }
 }

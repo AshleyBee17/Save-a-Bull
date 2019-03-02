@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 
@@ -24,8 +26,10 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     View v;
     private static List<Coupon> couponList = new ArrayList<>();
-    RecycleViewAdapter recycleViewAdapter;
+    static RecycleViewAdapter recycleViewAdapter;
     public static float screen_width;
+
+    private DatabaseHelper db;
 
     @Nullable
     @Override
@@ -50,6 +54,8 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         //v.getDisplay().getMetrics(metrics);
         screen_width = metrics.widthPixels;
 
+
+
         return v;
     }
 
@@ -57,11 +63,10 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
-          When the database is completed, make iterate through each "coupon" table to add it to
-          the coupon list to be shown in the recyclerView
-         */
+        db = new DatabaseHelper(getContext());
+        couponList.addAll(db.getAllCoupons());
 
+        /*
         couponList.add(new Coupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp, 28.048409, -82.394247, "8138999700" ));
         couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
         couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
@@ -75,6 +80,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
         couponList.add(new Coupon("Blank", "Free large drink w/ hot dog purchase","Entertainment", R.drawable.welcome_background));
         couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
+        */
     }
 
     // Setting up the search optio
@@ -88,7 +94,9 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public static void addCoupon(Coupon newCoupon){
-        couponList.add(newCoupon);
+        couponList.add(0,newCoupon);
+        recycleViewAdapter.notifyDataSetChanged();
+        //couponList.add(newCoupon);
     }
 
     @Override
