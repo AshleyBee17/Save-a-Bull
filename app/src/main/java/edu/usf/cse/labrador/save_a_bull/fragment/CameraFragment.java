@@ -11,11 +11,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Objects;
 
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
@@ -44,6 +47,14 @@ public class CameraFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_camera,
                 container, false);
 
+        // Setting up dropdown to allow a user to select a category for a coupon
+        Spinner spinner = v.findViewById(R.id.categorySpinner);
+        ArrayAdapter<String> categoriesArray = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.category_types));
+        categoriesArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(categoriesArray);
+
+        // Setting up buttons and views
         takePhotoBtn = v.findViewById(R.id.takePhoto_btn);
         uploadBtn = v.findViewById(R.id.upload_btn);
         imageView = v.findViewById(R.id.coupon_img);
@@ -88,8 +99,6 @@ public class CameraFragment extends Fragment {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                         byteArray.length);
 
-
-
                 imageView.setImageBitmap(bitmap);
 
             }
@@ -102,10 +111,12 @@ public class CameraFragment extends Fragment {
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
         ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
+        Spinner categoryType = v.findViewById(R.id.categorySpinner);
 
 
         String cName = companyName.getText().toString();
         String cDesc = couponDescription.getText().toString();
+        String cCat = categoryType.toString();
         //Bitmap cImg = ;
         //int img = couponImage.getBaseline();
 

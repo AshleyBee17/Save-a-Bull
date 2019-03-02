@@ -40,4 +40,12 @@
     <string name="about_saveabull">Save-a-Bull is an application that gives users that attend the University of South Florida the opportunity to access coupons and discounts from their pockets at anytime and anywhere.</string>
     <string name="logo">logo</string>
 
+    <string-array name="category_types">
+        <item>Food</item>
+        <item>Entertainment</item>
+        <item>Clothing</item>
+        <item>Automotive</item>
+        <item>Grocery</item>
+    </string-array>
+
 </resources>
