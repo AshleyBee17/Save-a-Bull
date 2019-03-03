@@ -46,6 +46,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             setHasOptionsMenu(true);
 
             db = new DatabaseHelper(getContext());
+            //db.deleteAllCoupons();
             couponList.addAll(db.getAllCoupons());
 
             RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);

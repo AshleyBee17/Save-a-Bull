@@ -117,7 +117,7 @@ public class CameraFragment extends Fragment {
 
         String cName = companyName.getText().toString();
         String cDesc = couponDescription.getText().toString();
-        String cCat = categoryType.toString();
+        String cCat = categoryType.getSelectedItem().toString();
 
         if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null){
             Log.d("CAM_FRAG", "Not all fields are filled out");

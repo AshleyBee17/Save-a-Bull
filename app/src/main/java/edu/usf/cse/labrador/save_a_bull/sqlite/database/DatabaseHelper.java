@@ -66,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
 
-        // Inserting tuple values
         values.put(Coupon.COLUMN_COMPANY_NAME, coupName);
         values.put(Coupon.COLUMN_DESCRIPTION, coupDesc);
         values.put(Coupon.COLUMN_IMAGE, coupImg);
@@ -74,8 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long id = db.insert(TABLE_NAME, null, values);
         db.close();
-
-
 
         return id;
     }
