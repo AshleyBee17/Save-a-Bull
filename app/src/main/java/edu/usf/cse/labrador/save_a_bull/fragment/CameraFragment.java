@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
@@ -106,35 +108,27 @@ public class CameraFragment extends Fragment {
     }
 
     private void uploadToGallery(){
+
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
-        ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
+        //ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
         Spinner categoryType = v.findViewById(R.id.categorySpinner);
-
 
         String cName = companyName.getText().toString();
         String cDesc = couponDescription.getText().toString();
         String cCat = categoryType.toString();
 
-        //Bitmap cImg = ;
-        //int img = couponImage.getBaseline();
+        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null){
+            Log.d("CAM_FRAG", "Not all fields are filled out");
+            Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
+        } else {
 
-//        Coupon c = new Coupon();
-//        c.setCompanyName(cName);
-//        c.setDescription(cDesc);
-//        //c.setImg(couponImage);
-//        // ADD TO DATABASE
-//        GalleryFragment.addCoupon(c);
+            long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
+            Coupon c = db.getCoupon(id);
 
-        // CHECK IF ANY OF THE FIELDS ARE EMPTY, IF THEY ARE SHOW A WARNING THAT THEY NEED TO BE
-        // FILLED, IF THEY ARE ALL FILLED, CONTINUE WITH THE CODE BELOW
-
-        long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
-        Coupon c = db.getCoupon(id);
-
-        if (c != null){
-            GalleryFragment.addCoupon(c);
+            if (c != null) {
+                GalleryFragment.addCoupon(c);
+            }
         }
-
     }
 }

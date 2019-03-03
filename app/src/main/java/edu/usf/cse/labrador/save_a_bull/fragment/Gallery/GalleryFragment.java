@@ -26,6 +26,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     private static List<Coupon> couponList = new ArrayList<>();
     private static RecycleViewAdapter recycleViewAdapter;
+    private DatabaseHelper db;
     View v;
 
     @Nullable
@@ -33,25 +34,44 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                               Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+        //super.onCreate(savedInstanceState);
 
-        DatabaseHelper db = new DatabaseHelper(getContext());
-        //db.deleteAllCoupons();
-        couponList.addAll(db.getAllCoupons());
+//        db = new DatabaseHelper(getContext());
+//        //db.deleteAllCoupons();
+//        //couponList.addAll(db.getAllCoupons());
+//
+//        if (db.getAllCoupons() != null) {
+//            for (Coupon c : db.getAllCoupons()) {
+//                Coupon coup = new Coupon();
+//                coup = c;
+//                couponList.add(coup);
+//            }
+//        }
 
-        setHasOptionsMenu(true);
+       // setHasOptionsMenu(true);
         //db = new DatabaseHelper(getContext());
         // Creating a view of the fragment_gallery .xml layout.
         // Generates the icons and information taken from the coupon list and displays each item
         // in 2 columns and then returns the view
 
-        v = inflater.inflate(R.layout.fragment_gallery, container, false);
+        couponList.clear();
 
-        RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
-        recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
-        myRecyclerView.setAdapter(recycleViewAdapter);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
-        myRecyclerView.setLayoutManager(mLayoutManager);
+        if(v == null) {
+            v = inflater.inflate(R.layout.fragment_gallery, container, false);
+
+            setHasOptionsMenu(true);
+
+            db = new DatabaseHelper(getContext());
+            couponList.addAll(db.getAllCoupons());
+
+            RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
+            recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
+            myRecyclerView.setAdapter(recycleViewAdapter);
+            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+            myRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        }
 
         return v;
     }
@@ -80,8 +100,14 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 //        couponList.add(new Coupon("Blank", "Free large drink w/ hot dog purchase","Entertainment", R.drawable.welcome_background));
 //        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
 //        */
+//
+//        super.onCreate(savedInstanceState);
+//        if (db.getAllCoupons() != null) {
+//            for (Coupon c : db.getAllCoupons()) {
+//                couponList.add(c);
+//            }
+//        }
 //    }
-
 
 
     // Setting up the search optio
@@ -92,11 +118,13 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Try 'Food' or 'Entertainment'...");
+        //recycleViewAdapter.notifyDataSetChanged();
     }
 
     public static void addCoupon(Coupon newCoupon){
-        couponList.add(0,newCoupon);
+        couponList.add(0, newCoupon);
         recycleViewAdapter.notifyDataSetChanged();
+        //recycleViewAdapter.notifyAll();
         //couponList.add(newCoupon);
     }
 
