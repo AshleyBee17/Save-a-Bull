@@ -53,14 +53,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 //Initialize the dialog
                 couponDialog = new Dialog(mContext);
                 couponDialog.setContentView(R.layout.dialog_coupon);
+
                 final TextView dialogCompanyName = couponDialog.findViewById(R.id.company_name_dialog);
-                TextView dialogCouponDesc = couponDialog.findViewById(R.id.coupon_desc_dialog);
+                final TextView dialogCouponDesc = couponDialog.findViewById(R.id.coupon_desc_dialog);
                 final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
 
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-                //dialogImage.setImageBitmap(mData.get(viewHolder.getAdapterPosition()).getImg());
 
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
                 dialogImage.setImageBitmap(bitmap);
@@ -100,7 +100,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     }
                 });
 
-                //ImageView couponImg = couponDialog.findViewById(R.id.img_dialog);
                 dialogImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

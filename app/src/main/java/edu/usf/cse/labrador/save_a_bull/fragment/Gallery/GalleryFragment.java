@@ -34,22 +34,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                               Bundle savedInstanceState) {
 
-        //super.onCreate(savedInstanceState);
-
-//        db = new DatabaseHelper(getContext());
-//        //db.deleteAllCoupons();
-//        //couponList.addAll(db.getAllCoupons());
-//
-//        if (db.getAllCoupons() != null) {
-//            for (Coupon c : db.getAllCoupons()) {
-//                Coupon coup = new Coupon();
-//                coup = c;
-//                couponList.add(coup);
-//            }
-//        }
-
-       // setHasOptionsMenu(true);
-        //db = new DatabaseHelper(getContext());
         // Creating a view of the fragment_gallery .xml layout.
         // Generates the icons and information taken from the coupon list and displays each item
         // in 2 columns and then returns the view
@@ -69,62 +53,24 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             myRecyclerView.setAdapter(recycleViewAdapter);
             GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
             myRecyclerView.setLayoutManager(mLayoutManager);
-
-
         }
-
         return v;
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        db = new DatabaseHelper(getContext());
-//        couponList.addAll(db.getAllCoupons());
-//        //couponList.contains(db.getAllCoupons());
-//        //couponList.retainAll(db.getAllCoupons());
-//
-//        /*
-//        couponList.add(new Coupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp, 28.048409, -82.394247, "8138999700" ));
-//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
-//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
-//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
-//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
-//        couponList.add(new Coupon("Blank", "Free popcorn!","Entertainment", R.drawable.welcome_background));
-//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
-//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
-//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
-//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
-//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
-//        couponList.add(new Coupon("Blank", "Free large drink w/ hot dog purchase","Entertainment", R.drawable.welcome_background));
-//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
-//        */
-//
-//        super.onCreate(savedInstanceState);
-//        if (db.getAllCoupons() != null) {
-//            for (Coupon c : db.getAllCoupons()) {
-//                couponList.add(c);
-//            }
-//        }
-//    }
-
-
-    // Setting up the search optio
+    // Setting up search options
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+
         menuInflater.inflate(R.menu.menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search_gallery);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Try 'Food' or 'Entertainment'...");
-        //recycleViewAdapter.notifyDataSetChanged();
     }
 
     public static void addCoupon(Coupon newCoupon){
         couponList.add(0, newCoupon);
         recycleViewAdapter.notifyDataSetChanged();
-
     }
 
     @Override
