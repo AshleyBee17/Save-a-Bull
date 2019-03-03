@@ -124,8 +124,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public static void addCoupon(Coupon newCoupon){
         couponList.add(0, newCoupon);
         recycleViewAdapter.notifyDataSetChanged();
-        //recycleViewAdapter.notifyAll();
-        //couponList.add(newCoupon);
+
     }
 
     @Override

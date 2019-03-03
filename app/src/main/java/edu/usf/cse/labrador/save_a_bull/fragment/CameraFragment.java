@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -128,6 +129,7 @@ public class CameraFragment extends Fragment {
 
             if (c != null) {
                 GalleryFragment.addCoupon(c);
+                Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
             }
         }
     }
