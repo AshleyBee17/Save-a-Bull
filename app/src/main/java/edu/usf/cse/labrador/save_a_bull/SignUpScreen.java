@@ -47,22 +47,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 
-//import cse.usf.edu.android.db.UsersDBManager;
-//import cse.usf.edu.android.db.UsersDataB;
-//import cse.usf.edu.android.entities.User;
 
 public class SignUpScreen extends AppCompatActivity {
 
-    // UsersDBManager UsersDB = new UsersDBManager(this);
     private UsersDBManager myUsersDataB;
-    //private User newUser;
-    //private String fileName = "users.txt";
     long current_user_id;
 
     @Override
@@ -264,52 +256,4 @@ public class SignUpScreen extends AppCompatActivity {
                     hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
-
-/*
-    private void setListEvent() {
-
-        List<User> theUserList = new LinkedList<User>();
-        Cursor cur = myUsersDataB.getAllUsers();
-
-        if (cur.getCount() != 0) {
-            while (cur.moveToNext()) {
-                long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                String firstName = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
-                String lastName = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
-                String usrName = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
-                String pass = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_PASSWORD));
-                User theNewUser = new User(id, firstName, lastName, usrName, pass);
-                theUserList.add(theNewUser);
-            }
-        }
-    }
-
-    private void saveToInternalFile(String fileName) {
-
-        Cursor curs = myUsersDataB.getAllUsers();
-        if (curs.getCount() != 0) {
-            try {
-                FileOutputStream fos = openFileOutput(fileName, Context.MODE_APPEND);
-                String theWriteString = "ID   FirstName   Last Name   Username  Password";
-                fos.write(theWriteString.getBytes());
-
-                while (curs.moveToNext()) {
-                    long id = curs.getLong(curs.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                    String firstName = curs.getString(curs.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
-                    String lastName = curs.getString(curs.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
-                    String usrName = curs.getString(curs.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
-                    String pass = curs.getString(curs.getColumnIndex(UsersDBManager.USER_KEY_PASSWORD));
-
-                    theWriteString = "" + id + "." + firstName + "." + lastName + "." + usrName + "." + pass + "\n";
-                    fos.write(theWriteString.getBytes());
-                }
-                fos.close();
-            } catch (FileNotFoundException ex) {
-            } catch (IOException ex) {
-            }
-        }
-    }
-*/
-
 }

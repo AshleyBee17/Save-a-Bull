@@ -1,7 +1,5 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
-import android.graphics.Bitmap;
-
 public class Coupon {
 
     public static final String TABLE_NAME = "Coupon";

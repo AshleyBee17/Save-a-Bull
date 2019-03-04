@@ -34,10 +34,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                               Bundle savedInstanceState) {
 
-        // Creating a view of the fragment_gallery .xml layout.
-        // Generates the icons and information taken from the coupon list and displays each item
-        // in 2 columns and then returns the view
-
         couponList.clear();
 
         if(v == null) {
@@ -46,9 +42,11 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             setHasOptionsMenu(true);
 
             db = new DatabaseHelper(getContext());
-            //db.deleteAllCoupons();
             couponList.addAll(db.getAllCoupons());
 
+            // Creating a view of the fragment_gallery .xml layout.
+            // Generates the icons and information taken from the coupon list and displays each item
+            // in 2 columns and then returns the view
             RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
             recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
             myRecyclerView.setAdapter(recycleViewAdapter);
