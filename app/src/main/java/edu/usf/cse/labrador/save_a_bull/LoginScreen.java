@@ -49,7 +49,6 @@ import android.widget.Button;
 import java.util.LinkedList;
 import java.util.List;
 
-//import cse.usf.edu.android.db.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 
 public class LoginScreen extends AppCompatActivity {
@@ -123,8 +122,7 @@ public class LoginScreen extends AppCompatActivity {
                 String usrName = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
                 usernames.add(usrName);
             }
-            if (usernames.contains(username)) return true;
-            else return false;
+            return usernames.contains(username);
         }
         return false;
     }
@@ -139,8 +137,7 @@ public class LoginScreen extends AppCompatActivity {
                 String passwordNext = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_PASSWORD));
                 passwordList.add(passwordNext);
             }
-            if (passwordList.contains(password)) return true;
-            else return false;
+            return passwordList.contains(password);
         }
         return false;
 

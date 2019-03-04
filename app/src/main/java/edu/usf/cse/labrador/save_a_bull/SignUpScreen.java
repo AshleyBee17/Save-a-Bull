@@ -41,27 +41,21 @@ package edu.usf.cse.labrador.save_a_bull;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.icu.util.Calendar;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 
 //import cse.usf.edu.android.db.UsersDBManager;
 //import cse.usf.edu.android.db.UsersDataB;
 //import cse.usf.edu.android.entities.User;
-import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 
 public class SignUpScreen extends AppCompatActivity {
 
