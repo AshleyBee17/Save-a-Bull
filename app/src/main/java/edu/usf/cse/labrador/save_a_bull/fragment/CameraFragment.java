@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
@@ -31,8 +32,10 @@ public class CameraFragment extends Fragment {
 
 
     private static final int CAMERA_REQUEST_CODE = 2019;
+    private static final int GALLERY_REQUEST_CODE = 1917;
     Button takePhotoBtn;
     Button uploadBtn;
+    Button findPhotoBtn;
     static byte[] imgStream;
     ImageView imageView;
     View v;
@@ -55,6 +58,7 @@ public class CameraFragment extends Fragment {
 
         // Setting up buttons and views
         takePhotoBtn = v.findViewById(R.id.takePhoto_btn);
+        findPhotoBtn = v.findViewById(R.id.findPhoto_btn);
         uploadBtn = v.findViewById(R.id.upload_btn);
         imageView = v.findViewById(R.id.coupon_img);
 
@@ -73,6 +77,16 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 uploadToGallery();
+            }
+        });
+
+        findPhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
             }
         });
 
@@ -100,6 +114,34 @@ public class CameraFragment extends Fragment {
 
                 imageView.setImageBitmap(bitmap);
 
+            }
+        }
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    Bitmap bmp = null;
+                    try {
+                        bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //imageView.setImageBitmap(bitmap);
+                    //Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                    assert bmp != null;
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    imgStream = stream.toByteArray();
+
+                    // convert byte array to Bitmap
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                            byteArray.length);
+
+                    imageView.setImageBitmap(bitmap);
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED)  {
+                Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
             }
         }
     }
