@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,11 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             //db.deleteAllCoupons();
             couponList.addAll(db.getAllCoupons());
 
+
+            if(couponList.size() == 0){
+                Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
+            }
+
             // Creating a view of the fragment_gallery .xml layout.
             // Generates the icons and information taken from the coupon list and displays each item
             // in 2 columns and then returns the view
@@ -56,27 +62,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         }
         return v;
     }
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        db.insertCoupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp,"8138999700", "28.048409", "-82.394247" );
-//
-//        couponList.add(new Coupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp, 28.048409, -82.394247, "8138999700" ));
-//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
-//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
-//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
-//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
-//        couponList.add(new Coupon("Blank", "Free popcorn!","Entertainment", R.drawable.welcome_background));
-//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
-//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
-//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
-//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
-//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
-//        couponList.add(new Coupon("Blank", "Free large drink w/ hot dog purchase","Entertainment", R.drawable.welcome_background));
-//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
-//    }
 
     // Setting up search options
     @Override
