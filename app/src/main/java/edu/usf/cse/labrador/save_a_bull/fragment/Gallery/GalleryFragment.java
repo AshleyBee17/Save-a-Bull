@@ -8,19 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
-import edu.usf.cse.labrador.save_a_bull.R;
 
 public class GalleryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -42,6 +42,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             setHasOptionsMenu(true);
 
             db = new DatabaseHelper(getContext());
+            //db.deleteAllCoupons();
             couponList.addAll(db.getAllCoupons());
 
             // Creating a view of the fragment_gallery .xml layout.
@@ -55,6 +56,27 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         }
         return v;
     }
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        db.insertCoupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp,"8138999700", "28.048409", "-82.394247" );
+//
+//        couponList.add(new Coupon("Five Star Pizza", "25% off with USFID", "Food", R.drawable.fsp, 28.048409, -82.394247, "8138999700" ));
+//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
+//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
+//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
+//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
+//        couponList.add(new Coupon("Blank", "Free popcorn!","Entertainment", R.drawable.welcome_background));
+//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
+//        couponList.add(new Coupon("Moe's Southwest Grill", "10% off with USFID","Food", R.drawable.moes));
+//        couponList.add(new Coupon("Chicken Salad Chick", "15% off with USFID","Food", R.drawable.csc));
+//        couponList.add(new Coupon("Panera Bread", "Student Fridays - Free Drink","Food", R.drawable.panera));
+//        couponList.add(new Coupon("Book Holders", "Free Koozie with rental","Books", R.drawable.bh));
+//        couponList.add(new Coupon("Blank", "Free large drink w/ hot dog purchase","Entertainment", R.drawable.welcome_background));
+//        couponList.add(new Coupon("Yellow Place", "Free bananas","Food"));
+//    }
 
     // Setting up search options
     @Override
@@ -96,3 +118,4 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         return true;
     }
 }
+

@@ -17,18 +17,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Objects;
 
-import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
-import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
-
-import static java.sql.Types.NULL;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 
 
 public class CameraFragment extends Fragment {
@@ -82,7 +78,7 @@ public class CameraFragment extends Fragment {
 
         db = new DatabaseHelper(getContext());
 
-        return v;//inflater.inflate(R.layout.fragment_camera, null);
+        return v;
     }
 
     @Override
@@ -112,7 +108,6 @@ public class CameraFragment extends Fragment {
 
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
-        //ImageView couponImage = v.findViewById(R.id.coupon_img); // save as an image??
         Spinner categoryType = v.findViewById(R.id.categorySpinner);
 
         String cName = companyName.getText().toString();

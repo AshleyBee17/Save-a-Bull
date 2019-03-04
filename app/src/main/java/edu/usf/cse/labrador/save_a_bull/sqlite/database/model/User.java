@@ -1,5 +1,7 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
+import java.util.List;
+
 public class User {
 
     private long userID;
@@ -7,6 +9,7 @@ public class User {
     private String lName;
     private String username;
     private String password;
+    public List<Coupon> Faves;
 
     public User(long usrID, String name, String lastName, String userName, String pass) {
         this.userID = usrID;
@@ -14,6 +17,7 @@ public class User {
         this.lName = lastName;
         this.username = userName;
         this.password = pass;
+        Faves = null;
     }
 
     public long getUserID(){
@@ -28,6 +32,10 @@ public class User {
         return lName;
     }
 
+    public List<Coupon> getFaves() {
+        return Faves;
+    }
+
     public String getUsername(){
         return username;
     }
@@ -36,8 +44,13 @@ public class User {
         return password;
     }
 
+    public void setFaves(List<Coupon> faves) {
+        Faves = faves;
+    }
+
     public String toString(){
         return "" + fName + " " + lName + "";
     }
+
 }
 

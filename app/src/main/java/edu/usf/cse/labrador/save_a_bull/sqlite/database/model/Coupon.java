@@ -75,6 +75,17 @@ public class Coupon {
 
     }
 
+    public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
+        CompanyName = companyName;
+        Description = description;
+        Category = category;
+        //Img = img;
+        Latitude = lat;
+        Longitude = lon;
+        Phone = phone;
+
+    }
+
     public int getId() {
         return Id;
     }

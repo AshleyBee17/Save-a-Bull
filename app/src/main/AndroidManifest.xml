@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-feature android:glEsVersion="0x0020000" android:required="true"/>
+
 
     <application
         android:allowBackup="true"
@@ -35,12 +42,9 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBDhACdNKYvgwiIMNLDH3ekAAjUj20NC8w"
+            android:value="AIzaSyAue9wrMzdifd_FlZOHz9afKXZ2eKPL6aU"
             />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="12211000" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

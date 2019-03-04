@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public long insertCoupon(String coupName, String coupDesc, String coupCategory, int coupImg,
-                            String coupPhone, String coupLong, String coupLat ){
+                             String coupPhone, String coupLong, String coupLat) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg, String coupCat){
+    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg, String coupCat) {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -74,28 +74,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Coupon getCoupon(long id){
+    public Coupon getCoupon(long id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.query(TABLE_NAME,
                 new String[]{Coupon.COLUMN_ID, Coupon.COLUMN_COMPANY_NAME, Coupon.COLUMN_DESCRIPTION,
-                Coupon.COLUMN_CATEGORY, Coupon.COLUMN_IMAGE, Coupon.COLUMN_PHONE, Coupon.COLUMN_LONGITUDE,
-                Coupon.COLUMN_LATITUDE}, Coupon.COLUMN_ID + "=?",
-                new String[] {String.valueOf(id)}, null, null, null, null);
+                        Coupon.COLUMN_CATEGORY, Coupon.COLUMN_IMAGE, Coupon.COLUMN_PHONE, Coupon.COLUMN_LONGITUDE,
+                        Coupon.COLUMN_LATITUDE}, Coupon.COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if(c != null) c.moveToFirst();
-
-//        Coupon coupon = new Coupon(
-//                c.getInt(c.getColumnIndex(Coupon.COLUMN_ID)),
-//                c.getString(c.getColumnIndex(Coupon.COLUMN_COMPANY_NAME)),
-//                c.getString(c.getColumnIndex(Coupon.COLUMN_DESCRIPTION)),
-//                c.getString(c.getColumnIndex(Coupon.COLUMN_CATEGORY),
-//                c.getInt(c.getColumnIndex(Coupon.COLUMN_IMAGE)),
-//                c.getString(c.getColumnIndex(Coupon.COLUMN_PHONE)),
-//                c.getDouble(c.getColumnIndex(Coupon.COLUMN_LONGITUDE)),
-//                c.getDouble(c.getColumnIndex(Coupon.COLUMN_LATITUDE))
-//        );
+        if (c != null) c.moveToFirst();
 
         assert c != null;
         Coupon coupon = new Coupon(
@@ -110,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return coupon;
     }
 
-    public List<Coupon> getAllCoupons(){
+    public List<Coupon> getAllCoupons() {
 
         List<Coupon> coupons = new ArrayList<>();
 
@@ -120,14 +109,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Coupon coup = new Coupon();
                 coup.setCompanyName(c.getString(c.getColumnIndex(Coupon.COLUMN_COMPANY_NAME)));
                 coup.setDescription(c.getString(c.getColumnIndex(Coupon.COLUMN_DESCRIPTION)));
                 coup.setCategory(c.getString(c.getColumnIndex(Coupon.COLUMN_CATEGORY)));
-                //coup.setImg(c.getInt(c.getColumnIndex(Coupon.COLUMN_IMAGE)));
-                //coup.setImg(c.getBlob(c.getColumnIndex(Coupon.COLUMN_IMAGE)));
                 byte[] imgByte = c.getBlob(c.getColumnIndex(Coupon.COLUMN_IMAGE));
                 coup.setImg(imgByte);
                 coupons.add(coup);
@@ -150,10 +137,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public void deleteAllCoupons(){
+    public void deleteAllCoupons() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ TABLE_NAME);
+        db.execSQL("delete from " + TABLE_NAME);
         db.close();
     }
-
 }

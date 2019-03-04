@@ -14,18 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
-import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.R;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
@@ -33,9 +30,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Coupon> mData;
     private Dialog couponDialog;
     private Dialog fullImageDialog;
+    private User user;
     View v;
 
-    RecycleViewAdapter(Context mContext, List<Coupon> mData) {
+    public RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -201,10 +199,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     // Updates the search when a user enters text
-    void updateList(List<Coupon> searchList){
+    public void updateList(List<Coupon> searchList){
         mData = new ArrayList<>();
         mData.addAll(searchList);
         notifyDataSetChanged();
     }
-
 }
+
