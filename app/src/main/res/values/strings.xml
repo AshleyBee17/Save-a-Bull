@@ -48,4 +48,18 @@
         <item>Grocery</item>
     </string-array>
 
+<string name="title_activity_maps">Map</string>
+<string name="invalid_first_name">Invalid Entry</string>
+<string name="invalid_last_name">Invalid Entry</string>
+<string name="invalid_username">Invalid Entry</string>
+<string name="invalid_password">Invalid Entry</string>
+
+    //Strings related to Users Database
+
+<string name="available_users">Available Users</string>
+<string name="users_filename">Create Files From Saved Users</string>
+<string name="create_file_prev">Name of the File</string>
+<string name="act_label">Create File from Saved Users</string>
+<string name="filename_label">Filename</string>
+
 </resources>
