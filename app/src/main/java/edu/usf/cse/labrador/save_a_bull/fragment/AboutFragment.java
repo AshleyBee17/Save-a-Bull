@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -65,14 +66,22 @@ public class AboutFragment extends Fragment {
 
     private void sendFeedback() {
         EditText feedbackText = view.findViewById(R.id.user_feedback);
-        String x = feedbackText.toString();
+        String message = feedbackText.getText().toString();
+
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int month = 1 + Calendar.getInstance().get(Calendar.MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        String feedbackDate = day + "/" + month + "/" + year;
 
         Intent Email = new Intent(Intent.ACTION_SEND);
         Email.setType("text/email");
-        Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "ashleylikespie@hotmail.com" });
-        Email.putExtra(Intent.EXTRA_SUBJECT, "User Feedback");
-        Email.putExtra(Intent.EXTRA_TEXT, x);
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "saveabull_contact@gmail.com" });
+        Email.putExtra(Intent.EXTRA_SUBJECT, "User Feedback - " + feedbackDate);
+        Email.putExtra(Intent.EXTRA_TEXT, message);
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
+
+
     }
 
     private void displaySettingsDialog(){
