@@ -24,7 +24,7 @@
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
-        android:text="Log out" />
+        android:text="LOG OUT" />
 
     <TextView
         android:layout_gravity="center_horizontal"
