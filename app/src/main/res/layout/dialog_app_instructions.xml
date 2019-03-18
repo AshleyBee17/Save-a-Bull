@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Display that appears when a user clicks on the account settings button-->
+<RelativeLayout
+    android:id="@+id/dialog_app_instr_id"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="405dp"
+    android:layout_gravity="center"
+    android:background="@color/colorBlack">
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/darkMode"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="vertical"
+            android:id="@+id/ScrollView"
+           >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@color/darkMode">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:layout_marginTop="250dp"
+                    android:text="How to use Save-a-Bull"
+                    android:layout_alignTop="@id/img_dialog"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:text="Gallery: Scroll through the view until you find a coupon you like. Tap on the heart to add it to your favorites. Tap on the coupon to view more information about the coupon. If you'd like to enlarge the coupon, tap on the image. "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:text="Favorites: Scroll through to view all of your favorited coupons. If you'd like to unfavorite the coupon, tap the heart on the coupon." />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:text="Camera: Add the name of the company who owns the coupon and the description of the coupon. Then take an image of the coupon to be displayed on the application. Not required: Expiry, location, and phone number for the business' coupon. When complete, tap UPLOAD TO GALLERY to upload it to the gallery. "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:text="Maps: Description to be added soon "/>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_dialog"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/usf_bulls_logo"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        />
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon.COLUMN_EXPIRY;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon.TABLE_NAME;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -26,18 +27,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Creating the tables
-        db.execSQL(Coupon.CREATE_TABLE);
+        //db.execSQL(Coupon.CREATE_TABLE);
+        db.execSQL("DROP TABLE " + TABLE_NAME);
     }
+
+    private static final String DATABASE_ALTER_COUPON_1 = "ALTER TABLE "
+            + TABLE_NAME + " ADD COLUMN " + COLUMN_EXPIRY + " TEXT;";
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop the table if it already exists and create them again
+        if (oldVersion < newVersion) {
+            db.execSQL(DATABASE_ALTER_COUPON_1);
+        }
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
     public long insertCoupon(String coupName, String coupDesc, String coupCategory, int coupImg,
-                             String coupPhone, String coupLong, String coupLat) {
+                             String coupPhone, String coupLong, String coupLat, String coupExpiry) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -50,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Coupon.COLUMN_PHONE, coupPhone);
         values.put(Coupon.COLUMN_LONGITUDE, coupLong);
         values.put(Coupon.COLUMN_LATITUDE, coupLat);
+        values.put(Coupon.COLUMN_EXPIRY, coupExpiry);
 
         long id = db.insert(TABLE_NAME, null, values);
         db.close();
@@ -57,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg, String coupCat) {
+    public long insertMinCoupon(String coupName, String coupDesc, byte[] coupImg, String coupCat, String coupExpiry) {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -67,12 +76,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Coupon.COLUMN_DESCRIPTION, coupDesc);
         values.put(Coupon.COLUMN_IMAGE, coupImg);
         values.put(Coupon.COLUMN_CATEGORY, coupCat);
+        values.put(Coupon.COLUMN_EXPIRY, coupExpiry);
 
         long id = db.insert(TABLE_NAME, null, values);
         db.close();
 
         return id;
     }
+
 
     public Coupon getCoupon(long id) {
 
@@ -81,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.query(TABLE_NAME,
                 new String[]{Coupon.COLUMN_ID, Coupon.COLUMN_COMPANY_NAME, Coupon.COLUMN_DESCRIPTION,
                         Coupon.COLUMN_CATEGORY, Coupon.COLUMN_IMAGE, Coupon.COLUMN_PHONE, Coupon.COLUMN_LONGITUDE,
-                        Coupon.COLUMN_LATITUDE}, Coupon.COLUMN_ID + "=?",
+                        Coupon.COLUMN_LATITUDE /*,Coupon.COLUMN_EXPIRY*/}, Coupon.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (c != null) c.moveToFirst();
@@ -91,7 +102,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.getString(c.getColumnIndex(Coupon.COLUMN_COMPANY_NAME)),
                 c.getString(c.getColumnIndex(Coupon.COLUMN_DESCRIPTION)),
                 c.getString(c.getColumnIndex(Coupon.COLUMN_CATEGORY)),
-                c.getType(c.getColumnIndex(Coupon.COLUMN_IMAGE))
+                c.getType(c.getColumnIndex(Coupon.COLUMN_IMAGE)),
+                c.getString(c.getColumnIndex(Coupon.COLUMN_EXPIRY))
         );
 
         c.close();
@@ -115,6 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 coup.setCompanyName(c.getString(c.getColumnIndex(Coupon.COLUMN_COMPANY_NAME)));
                 coup.setDescription(c.getString(c.getColumnIndex(Coupon.COLUMN_DESCRIPTION)));
                 coup.setCategory(c.getString(c.getColumnIndex(Coupon.COLUMN_CATEGORY)));
+                //coup.setExpiry(c.getString(c.getColumnIndex(Coupon.COLUMN_EXPIRY)));
                 byte[] imgByte = c.getBlob(c.getColumnIndex(Coupon.COLUMN_IMAGE));
                 coup.setImg(imgByte);
                 coupons.add(coup);
@@ -140,6 +153,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteAllCoupons() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME);
+        db.close();
+    }
+
+    public void deleteExpiredCoupon(Coupon expiredCoupon){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Coupon.TABLE_NAME, Coupon.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(expiredCoupon.getId())});
         db.close();
     }
 }

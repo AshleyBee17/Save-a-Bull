@@ -1,6 +1,7 @@
 package edu.usf.cse.labrador.save_a_bull.fragment;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,13 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
@@ -36,10 +41,16 @@ public class CameraFragment extends Fragment {
     Button takePhotoBtn;
     Button uploadBtn;
     Button findPhotoBtn;
+    Button selectExpiryBtn;
+    String selectedDate;
+
     static byte[] imgStream;
     ImageView imageView;
+    TextView couponExpiry;
     View v;
 
+    Calendar c;
+    DatePickerDialog datePickerDialog;
     DatabaseHelper db;
 
     @Nullable
@@ -61,6 +72,8 @@ public class CameraFragment extends Fragment {
         findPhotoBtn = v.findViewById(R.id.findPhoto_btn);
         uploadBtn = v.findViewById(R.id.upload_btn);
         imageView = v.findViewById(R.id.coupon_img);
+        selectExpiryBtn = v.findViewById(R.id.select_expiry_btn);
+        couponExpiry = v.findViewById(R.id.expiry_date);
 
         takePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +100,25 @@ public class CameraFragment extends Fragment {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
+            }
+        });
+
+        selectExpiryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                int month = Calendar.getInstance().get(Calendar.MONTH);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+
+                datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int dpYear, int dpMonth, int dpDay) {
+                        selectedDate = dpDay + "/" + dpMonth + 1 + "/" + dpYear;
+                        couponExpiry.setText(selectedDate);
+                        Log.d("CAM_FRAG", " "+ selectedDate);
+                    }
+                }, day, month, year);
+                datePickerDialog.show();
             }
         });
 
@@ -150,18 +182,24 @@ public class CameraFragment extends Fragment {
 
         TextView companyName = v.findViewById(R.id.companyName_txt);//.getText().toString();
         TextView couponDescription = v.findViewById(R.id.couponDesc_txt);//.toString();
+        //TextView couponExpiry = v.findViewById(R.id.expiry_date);
         Spinner categoryType = v.findViewById(R.id.categorySpinner);
+
+        //couponExpiry.setText(selectedDate);
 
         String cName = companyName.getText().toString();
         String cDesc = couponDescription.getText().toString();
         String cCat = categoryType.getSelectedItem().toString();
+        String cExp = couponExpiry.getText().toString();
 
-        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null){
+        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null || cExp.trim().length() == 0){
             Log.d("CAM_FRAG", "Not all fields are filled out");
             Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
         } else {
 
-            long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
+            //long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat,exp);
+            //Coupon c = db.getCoupon(id);
+            long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat, cExp);
             Coupon c = db.getCoupon(id);
 
             if (c != null) {

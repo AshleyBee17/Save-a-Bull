@@ -53,11 +53,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.addMarker(new MarkerOptions().position(USF).title("USF").snippet("Happy couponing!"));
+        //googleMap.addMarker(new MarkerOptions().position(USF).title("USF").snippet("Happy couponing!"));
 
-        CameraPosition cameraPosition = CameraPosition.builder().target(USF).zoom(15).build();
+        //CameraPosition cameraPosition = CameraPosition.builder().target(USF).zoom(15).build();
 
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        //googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
 }

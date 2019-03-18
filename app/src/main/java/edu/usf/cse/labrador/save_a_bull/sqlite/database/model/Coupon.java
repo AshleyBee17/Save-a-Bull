@@ -1,5 +1,7 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
+import java.util.Date;
+
 public class Coupon {
 
     public static final String TABLE_NAME = "Coupon";
@@ -12,6 +14,7 @@ public class Coupon {
     public static final String COLUMN_PHONE = "Phone";
     public static final String COLUMN_LONGITUDE = "Longitude";
     public static final String COLUMN_LATITUDE = "Latitude";
+    public static final String COLUMN_EXPIRY = "Expiry";
 
     private int Id;
     private String CompanyName;
@@ -21,6 +24,7 @@ public class Coupon {
     private String Phone;
     private Double Longitude;
     private Double Latitude;
+    private String Expiry;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
@@ -31,7 +35,8 @@ public class Coupon {
                     + COLUMN_IMAGE + " BLOB,"
                     + COLUMN_PHONE + " TEXT,"
                     + COLUMN_LONGITUDE + " TEXT,"
-                    + COLUMN_LATITUDE + " TEXT"
+                    + COLUMN_LATITUDE + " TEXT,"
+                    + COLUMN_EXPIRY + "TEXT"
                     + ")";
 
 
@@ -71,9 +76,7 @@ public class Coupon {
         Phone = phone;
     }
 
-    public Coupon() {
-
-    }
+    public Coupon() { }
 
     public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
         CompanyName = companyName;
@@ -84,6 +87,14 @@ public class Coupon {
         Longitude = lon;
         Phone = phone;
 
+    }
+
+    public Coupon(String companyName, String description, String category, int image, String expiry) {
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//        Img = image;
+//        Expiry = expiry;
     }
 
     public int getId() {
@@ -122,6 +133,10 @@ public class Coupon {
         return Longitude;
     }
 
+    public String getExpiry() {
+        return Expiry;
+    }
+
     public void setId(int id) {
         Id = id;
     }
@@ -152,5 +167,9 @@ public class Coupon {
 
     public void setLongitude(double longitude) {
         Longitude = longitude;
+    }
+
+    public void setExpiry(String expiry) {
+        Expiry = expiry;
     }
 }

@@ -3,6 +3,7 @@ package edu.usf.cse.labrador.save_a_bull;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 public class WelcomeScreen extends AppCompatActivity {
 
@@ -104,6 +107,9 @@ public class WelcomeScreen extends AppCompatActivity {
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
         });
+
+
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.R;
@@ -35,6 +36,12 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                               Bundle savedInstanceState) {
 
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        String expiryDate = currentDay + "/" + currentMonth + "/" + currentYear;
+
         couponList.clear();
 
         if(v == null) {
@@ -44,6 +51,16 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
             db = new DatabaseHelper(getContext());
             //db.deleteAllCoupons();
+
+            for(Coupon c : db.getAllCoupons()){
+                if(c.getExpiry() != null){
+                    String exp = c.getExpiry();
+                    if(exp.equals(expiryDate)){
+                        db.deleteExpiredCoupon(c);
+                    }
+                }
+            }
+
             couponList.addAll(db.getAllCoupons());
 
 

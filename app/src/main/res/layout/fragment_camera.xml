@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/coupon_img"
-        android:layout_width="251dp"
-        android:layout_height="220dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/usf_bulls_logo" />
 
     <EditText
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textColorHint="#bfbfbf"
+        android:textColorHint="@color/grayText"
         android:hint="Company Name"
         android:inputType="textPersonName" />
 
@@ -36,6 +36,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+    <TextView
+        android:id="@+id/expiry_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grayText"
+        />
+
+    <Button
+        android:id="@+id/select_expiry_btn"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:text="Select expiry date"
+        android:layout_margin="10dp"/>
 
     <Button
         android:id="@+id/takePhoto_btn"
