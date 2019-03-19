@@ -65,7 +65,6 @@ public class WelcomeScreen extends AppCompatActivity {
 
     private void loginWithFacebookClicked() {
 
-        //callbackManager = CallbackManager.Factory.create();
         LoginButton facebookBtn = findViewById(R.id.facebook_login_button);
 
         // Accessing the email of the user and placing it in an ArrayList
@@ -89,10 +88,6 @@ public class WelcomeScreen extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "You are now logged in with Facebook", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(WelcomeScreen.this, MainScreen.class));
-                /*Bundle bundle = new Bundle();
-                bundle.putString("fields", "name, email, id");
-                graphRequest.setParameters(bundle);
-                graphRequest.executeAsync();*/
             }
 
             // When they log out

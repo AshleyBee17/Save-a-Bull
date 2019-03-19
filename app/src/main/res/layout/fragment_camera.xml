@@ -1,16 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:background="@color/darkMode"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <ImageView
+        android:id="@+id/coupon_img"
+        android:layout_width="251dp"
+        android:layout_height="220dp"
+        android:src="@drawable/usf_bulls_logo" />
+
+    <EditText
+        android:id="@+id/companyName_txt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/title_camera"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:ems="10"
+        android:textColorHint="#bfbfbf"
+        android:hint="Company Name"
+        android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/couponDesc_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/grayText"
+        android:hint="Description"
+        android:inputType="textPersonName" />
 
-</RelativeLayout>
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/takePhoto_btn"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:text="Take Photo"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/findPhoto_btn"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:text="Get Photo from Your Gallery"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/upload_btn"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Upload to the gallery"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>

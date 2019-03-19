@@ -9,13 +9,12 @@ import android.view.MenuItem;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.GalleryFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.HomeFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +22,12 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         setContentView(R.layout.activity_main_screen);
 
         //loading the default home fragment
-        loadFragment(new HomeFragment());
+        loadFragment(new GalleryFragment());
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
-
 
     // Switch between fragment displays depending on the nav item selected
     @Override
@@ -37,8 +35,8 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         Fragment fragment = null;
 
         switch (item.getItemId()) {
-            case R.id.nav_home:
-                fragment = new HomeFragment();
+            case R.id.nav_about:
+                fragment = new AboutFragment();
                 break;
 
             case R.id.nav_favorites:
