@@ -11,6 +11,14 @@ public class User {
     private String password;
     public List<Coupon> Faves;
 
+    public User(String fn, String ln, String un, String pwd)
+    {
+        this.fName = fn;
+        this.lName = ln;
+        this.username = un;
+        this.password = pwd;
+        this.Faves = null;
+    }
     public User(long usrID, String name, String lastName, String userName, String pass) {
         this.userID = usrID;
         this.fName = name;
