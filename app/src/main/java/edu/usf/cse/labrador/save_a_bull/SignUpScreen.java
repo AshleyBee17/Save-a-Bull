@@ -4,20 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.LinkedList;
 import java.util.List;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 
 public class SignUpScreen extends AppCompatActivity {
 
-    private UsersDBManager myUsersDataB;
+    //private UsersDBManager myUsersDataB;
     long current_user_id;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +39,11 @@ public class SignUpScreen extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_screen);
 
         //Creates and Open Database
-        myUsersDataB = new UsersDBManager(this);
-        myUsersDataB.open();
+        //myUsersDataB = new UsersDBManager(this);
+        //myUsersDataB.open();
+
+        mAuth = FirebaseAuth.getInstance();
+        mDB = FirebaseDatabase.getInstance().getReference();
 
         Button signUpBtn = this.findViewById(R.id.createAcctBtn);
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +58,7 @@ public class SignUpScreen extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        myUsersDataB.close();
+        //myUsersDataB.close();
     }
     // Checks if all user entries are valid and if so, the user is saved to the DB and redirected to the Welcome screen
     private void checkEntries() {
@@ -80,8 +97,23 @@ public class SignUpScreen extends AppCompatActivity {
             usernameMessage.setError(null);
             passwordMessage.setError(null);
 
+            mAuth.createUserWithEmailAndPassword(username, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            }
+                            else
+                            {
+                                Toast.makeText(SignUpScreen.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
             //Saving user to Database
-            current_user_id = myUsersDataB.createUser(fName, lName, username, password);
+            //current_user_id = myUsersDataB.createUser(fName, lName, username, password);
 
             //Taking the user back to Welcome screen.
             Intent intent = new Intent(SignUpScreen.this, WelcomeScreen.class);
@@ -112,6 +144,13 @@ public class SignUpScreen extends AppCompatActivity {
 
         }
     }
+    private void writeNewUser(String uid, String fn, String ln, String un, String pwd)
+    {
+        User user = new User(fn, ln, un, pwd);
+
+        mDB.child("users").child(uid).setValue(user);
+    }
+
     // User Input validation functions
     private boolean validateFirstName(String fName) {
         char c;
@@ -169,7 +208,7 @@ public class SignUpScreen extends AppCompatActivity {
     }
 
     // Checks if username has already been taken and returns true otherwise
-    private boolean checkUsernameDB(String usernameDB) {
+    /*private boolean checkUsernameDB(String usernameDB) {
         List<String> usernames = new LinkedList<String>();
         Cursor cur = myUsersDataB.getAllUsers();
 
@@ -182,7 +221,7 @@ public class SignUpScreen extends AppCompatActivity {
             else return true;
         }
         else return true;
-    }
+    }*/
 
     private boolean validatePassword(String password) {
 
