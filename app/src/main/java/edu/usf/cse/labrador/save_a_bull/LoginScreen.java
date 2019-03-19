@@ -2,11 +2,21 @@ package edu.usf.cse.labrador.save_a_bull;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,15 +26,20 @@ import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 public class LoginScreen extends AppCompatActivity {
 
     private UsersDBManager myUsersData;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        //Creates and Open Database
+        /*Creates and Open Database
         myUsersData = new UsersDBManager(this);
-        myUsersData.open();
+        myUsersData.open();*/
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
         Button signUpBtn = this.findViewById(R.id.checkEntriesLoginBtn);
@@ -34,6 +49,15 @@ public class LoginScreen extends AppCompatActivity {
                 checkEntries();
             }
         });
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
     }
 
     private void checkEntries(){
@@ -51,7 +75,23 @@ public class LoginScreen extends AppCompatActivity {
         usernameMessage.setHint("Username");
         passwordMessage.setHint("Password");
 
-        if (!validateUsername(username)) {
+        mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        }
+                        else{
+                            Toast.makeText(LoginScreen.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+        /*if (!validateUsername(username)) {
             usernameMessage.setError("Invalid Username");
         }
         else usernameMessage.setError(null);
@@ -68,9 +108,8 @@ public class LoginScreen extends AppCompatActivity {
             usernameMessage.setError(null);
             passwordMessage.setError(null);
 
-            Intent intent = new Intent(LoginScreen.this, MainScreen.class);
-            startActivity(intent);
-        }
+
+        }*/
 
     }
 
@@ -104,5 +143,17 @@ public class LoginScreen extends AppCompatActivity {
         return false;
 
     }
+    private void updateUI(FirebaseUser user)
+    {
+        if(user != null)
+        {
+            Intent intent = new Intent(LoginScreen.this, MainScreen.class);
+            startActivity(intent);
+        }
 
+        else{
+
+
+        }
+    }
 }
