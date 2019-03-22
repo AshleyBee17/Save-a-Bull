@@ -11,7 +11,7 @@ import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
+//import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -52,7 +52,7 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
                 break;
 
             case R.id.nav_maps:
-                fragment = new MapsFragment();
+                //fragment = new MapsFragment();
                 break;
         }
 

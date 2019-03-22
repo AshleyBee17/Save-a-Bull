@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -97,24 +98,10 @@ public class SignUpScreen extends AppCompatActivity {
             usernameMessage.setError(null);
             passwordMessage.setError(null);
 
-            mAuth.createUserWithEmailAndPassword(username, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                            }
-                            else
-                            {
-                                Toast.makeText(SignUpScreen.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+
             //Saving user to Database
             //current_user_id = myUsersDataB.createUser(fName, lName, username, password);
-
+            writeNewUser(fName, lName, username, password);
             //Taking the user back to Welcome screen.
             Intent intent = new Intent(SignUpScreen.this, WelcomeScreen.class);
             startActivity(intent);
@@ -144,11 +131,28 @@ public class SignUpScreen extends AppCompatActivity {
 
         }
     }
-    private void writeNewUser(String uid, String fn, String ln, String un, String pwd)
+    private void writeNewUser(final String fn, final String ln, final String un, final String pwd)
     {
-        User user = new User(fn, ln, un, pwd);
 
-        mDB.child("users").child(uid).setValue(user);
+        mAuth.createUserWithEmailAndPassword(un, pwd)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            User u = new User(user.getUid(), fn, ln, un, pwd);
+                        }
+                        else
+                        {
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException)
+                            {
+                                Toast.makeText(SignUpScreen.this, "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+        //mDB.child("users").child(uid).setValue(user);
     }
 
     // User Input validation functions
@@ -201,14 +205,20 @@ public class SignUpScreen extends AppCompatActivity {
                     y++;
                 } else;
             }
-            if(y==length && checkUsernameDB(username) == true) return true;
-            else return false;
+            if(y==length )
+                return true;
+            else
+                return false;
         }
-        else return false;
+        else
+            return false;
     }
 
     // Checks if username has already been taken and returns true otherwise
     /*private boolean checkUsernameDB(String usernameDB) {
+
+
+
         List<String> usernames = new LinkedList<String>();
         Cursor cur = myUsersDataB.getAllUsers();
 
@@ -217,6 +227,7 @@ public class SignUpScreen extends AppCompatActivity {
                 String usrName = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
                 usernames.add(usrName);
             }
+
             if (usernames.contains(usernameDB)) return false;
             else return true;
         }
