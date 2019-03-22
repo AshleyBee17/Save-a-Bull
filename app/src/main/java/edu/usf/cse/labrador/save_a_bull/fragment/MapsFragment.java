@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback {
+/*public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     View v;
     GoogleMap mGoogleMap;
@@ -27,7 +27,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     static final LatLng USF = new LatLng(28.061816, -82.411282);
 
-    @Override
+   /* @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_maps, container, false);
         return v;
@@ -60,5 +60,5 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
-}
+}*/
 

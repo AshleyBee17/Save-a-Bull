@@ -90,7 +90,7 @@ public class CameraFragment extends Fragment {
             }
         });
 
-        db = new DatabaseHelper(getContext());
+        //db = new DatabaseHelper(getContext());
 
         return v;
     }
@@ -161,13 +161,13 @@ public class CameraFragment extends Fragment {
             Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
         } else {
 
-            long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
-            Coupon c = db.getCoupon(id);
+            //long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat);
+            //Coupon c = db.getCoupon(id);
 
-            if (c != null) {
+            /*if (c != null) {
                 GalleryFragment.addCoupon(c);
                 Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
     }
 }
