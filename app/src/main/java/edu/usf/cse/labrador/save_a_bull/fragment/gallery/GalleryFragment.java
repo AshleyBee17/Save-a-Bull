@@ -1,6 +1,7 @@
 // Retrieves coupons from database to be displayed in the recyclerview
-package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
+package edu.usf.cse.labrador.save_a_bull.fragment.gallery;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,10 +27,14 @@ import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 
 public class GalleryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
+
+    @SuppressLint("StaticFieldLeak")
     private static List<Coupon> couponList = new ArrayList<>();
     private static RecycleViewAdapter recycleViewAdapter;
     private DatabaseHelper db;
     View v;
+
+    public GalleryFragment(){ }
 
     @Nullable
     @Override

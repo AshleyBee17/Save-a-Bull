@@ -18,20 +18,19 @@
 
         <EditText
             android:id="@+id/usernamename_dialog_txt"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="3dp"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:textColorHint="@color/colorWhite"
             android:textColor="@color/colorGreen"
             android:scrollbarSize="24sp"
-
-            android:inputType="text" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password_dialog_text"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
@@ -39,21 +38,8 @@
             android:textSize="18sp"
             android:textColorHint="@color/colorWhite"
             android:textColor="@color/colorGreen"
-
             android:inputType="textPassword"/>
 
-        <EditText
-            android:id="@+id/email_dialog_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/prompt_email"
-            android:textSize="18sp"
-            android:textColorHint="@color/colorWhite"
-            android:textColor="@color/colorGreen"
-            android:inputType="text"
-            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/save_acct_changes_btn"

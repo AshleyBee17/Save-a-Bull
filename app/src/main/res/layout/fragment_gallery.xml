@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkMode"
-    tools:context="edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment"
+    tools:context="edu.usf.cse.labrador.save_a_bull.fragment.gallery.GalleryFragment"
     android:padding="8dp">
 
     <android.support.v7.widget.RecyclerView

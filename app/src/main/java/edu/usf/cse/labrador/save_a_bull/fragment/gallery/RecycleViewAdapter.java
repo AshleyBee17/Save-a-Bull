@@ -1,5 +1,5 @@
 // Displays each coupon on a card from the information found in each coupon in the list of coupons
-package edu.usf.cse.labrador.save_a_bull.fragment.Gallery;
+package edu.usf.cse.labrador.save_a_bull.fragment.gallery;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,18 +21,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.usf.cse.labrador.save_a_bull.LoginScreen;
 import edu.usf.cse.labrador.save_a_bull.R;
+import edu.usf.cse.labrador.save_a_bull.WelcomeScreen;
+import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
-    private Context mContext;
+    // View & Context
+    private View v;
+    private  Context mContext;
+
+    // Data
     private List<Coupon> mData;
+    private User user;
+
+    // Dialogs
     private Dialog couponDialog;
     private Dialog fullImageDialog;
-    private User user;
-    View v;
+
+
+    public RecycleViewAdapter() { }
 
     public RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
@@ -54,11 +67,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
                 final TextView dialogCompanyName = couponDialog.findViewById(R.id.company_name_dialog);
                 final TextView dialogCouponDesc = couponDialog.findViewById(R.id.coupon_desc_dialog);
+                final TextView dialogCouponExp = couponDialog.findViewById(R.id.coupon_exp_dialog);
                 final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
 
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
+                //dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpiry());
 
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
                 dialogImage.setImageBitmap(bitmap);
@@ -123,6 +138,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             // Displays the text and images accordingly for each item in the coupon list
             myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
             myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
+            //myViewHolder.tv_couponExp.setText(mData.get(i).getExpiry());
 
             Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
             myViewHolder.img_coupon.setImageBitmap(bitmap);
@@ -181,21 +197,24 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    private void openCall(final String phone){
+    private  void openCall(final String phone){
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
         mContext.startActivity(intent);
     }
 
-    private void openMaps(final Double lon, final Double lat){
+    private  void openMaps(final Double lon, final Double lat){
         final double longitude = -82.426970;
         final double latitude = 28.055774;
 
         // Should open to MapsFragment and NOT the maps app
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        MapsFragment myFragment = new MapsFragment();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
 
-        Uri gmmIntentUri = Uri.parse("geo:"+lon+","+lat);
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        mContext.startActivity(mapIntent);
+//        Uri gmmIntentUri = Uri.parse("geo:"+lon+","+lat);
+//        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//        mapIntent.setPackage("com.google.android.apps.maps");
+//        mContext.startActivity(mapIntent);
     }
 
     // Updates the search when a user enters text

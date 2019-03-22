@@ -19,8 +19,27 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColorHint="@color/grayText"
-        android:hint="Company Name"
+        android:hint="Company's Name"
         android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/companyAddr_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/grayText"
+        android:hint="Company's Address ex: 123 Bull Ln, Tampa, FL"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/companyPhone_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/grayText"
+        android:hint="Company's Phone ex: 8131234567"
+        android:maxLength="10"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/couponDesc_txt"
@@ -48,41 +67,41 @@
     <Button
         android:id="@+id/select_expiry_btn"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
         android:text="Select expiry date"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/takePhoto_btn"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
         android:text="Take Photo"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/findPhoto_btn"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
         android:text="Get Photo from Your Gallery"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/upload_btn"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:text="Upload to the gallery"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

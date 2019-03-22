@@ -35,28 +35,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mMapView = v.findViewById(R.id.google_map_id);
-
-        if(mMapView != null){
-            mMapView.onCreate(null);
-            mMapView.onResume();
-            mMapView.getMapAsync(this);
-        }
+//        super.onViewCreated(view, savedInstanceState);
+//        mMapView = v.findViewById(R.id.google_map_id);
+//        if(mMapView != null){
+//            mMapView.onCreate(null);
+//            mMapView.onResume();
+//            mMapView.getMapAsync(this);
+//        }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        MapsInitializer.initialize(getContext());
-        mGoogleMap = googleMap;
+//        MapsInitializer.initialize(getContext());
+//        mGoogleMap = googleMap;
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //googleMap.addMarker(new MarkerOptions().position(USF).title("USF").snippet("Happy couponing!"));
-
         //CameraPosition cameraPosition = CameraPosition.builder().target(USF).zoom(15).build();
-
         //googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }

@@ -1,7 +1,6 @@
 package edu.usf.cse.labrador.save_a_bull;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

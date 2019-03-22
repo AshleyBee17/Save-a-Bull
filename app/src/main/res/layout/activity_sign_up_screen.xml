@@ -66,17 +66,17 @@
         tools:context=".SignUpScreen">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/validateUsername"
+            android:id="@+id/validateEmail"
             android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             >
             <EditText
-                android:id="@+id/usernameEntry"
+                android:id="@+id/emailEntry"
                 android:layout_width="165dp"
                 android:layout_height="50dp"
                 android:ems="10"
-                android:hint="@string/username"
+                android:hint="@string/email"
                 android:inputType="textPersonName"
                 />
         </android.support.design.widget.TextInputLayout>

@@ -13,8 +13,7 @@ public class UsersDataB extends SQLiteOpenHelper {
             "_id integer primary key autoincrement, " +
             "fName text not null, " +
             "lName text not null, " +
-            "username text not null, " +
-            "password text not null)";
+            "username text not null)";
 
     public UsersDataB(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -31,4 +30,3 @@ public class UsersDataB extends SQLiteOpenHelper {
         onCreate(database);
     }
 }
-

@@ -18,13 +18,14 @@
 
     <Button
         android:layout_gravity="center_horizontal"
-        android:id="@+id/log_out_btn"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
+        android:id="@+id/home_settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
-        android:text="LOG OUT" />
+        android:padding="10dp"
+        android:text="Edit account" />
 
     <TextView
         android:layout_gravity="center_horizontal"

@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "717247105598",
+    "firebase_url": "https://save-a-bull-ashley.firebaseio.com",
+    "project_id": "save-a-bull-ashley",
+    "storage_bucket": "save-a-bull-ashley.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717247105598:android:46f946033fa40f4e",
+        "android_client_info": {
+          "package_name": "edu.usf.cse.labrador.save_a_bull"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717247105598-ta2f4fcpa5soomdo5q7a590vaesoi2lu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.cse.labrador.save_a_bull",
+            "certificate_hash": "3c0c98c8e0528a29db45ed830b5d04f0578e752c"
+          }
+        },
+        {
+          "client_id": "717247105598-mk9fbmq05k1iq0o182l3fl73lned6qcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.cse.labrador.save_a_bull",
+            "certificate_hash": "197792748b57c73fd5e0350682d611cb6fb6f1e8"
+          }
+        },
+        {
+          "client_id": "717247105598-lthu1gt32ul4b4pusqkit4cl2qflqfgp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzxzZy0ShZLrPwnc3p9XYC3Qu2MHLsX0k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717247105598-lthu1gt32ul4b4pusqkit4cl2qflqfgp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

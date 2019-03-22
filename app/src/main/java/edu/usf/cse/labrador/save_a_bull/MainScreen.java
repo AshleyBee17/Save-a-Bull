@@ -9,18 +9,29 @@ import android.view.MenuItem;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.gallery.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    User loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
+/*      ATTEMPT @ RETRIEVING THE USER THAT LOGGED IN
+        Intent i = getIntent();
+
+        loggedInUser = (User)i.getSerializableExtra("USER_OBJ");
+
+        assert loggedInUser != null;
+        Toast.makeText(this, "User: " + loggedInUser.getfName() + loggedInUser.getUsername(),Toast.LENGTH_SHORT).show();
+*/
         //loading the default home fragment
         loadFragment(new GalleryFragment());
 
