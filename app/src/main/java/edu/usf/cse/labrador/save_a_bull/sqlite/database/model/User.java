@@ -1,56 +1,61 @@
-package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
+package edu.usf.cse.labrador.save_a_bull;
 
-import java.util.List;
+import java.util.Properties;
 
-public class User {
+public class User
+{
+    String fname; //first name
+    String lname; //last name
+    String uname; //user name
+    String pwd; //password
+    Deals[] Faves = null; //array for favorites
+    Coupons[] Gallery = null; //array for added coupons
 
-    private long userID;
-    private String fName;
-    private String lName;
-    private String username;
-    private String password;
-    public List<Coupon> Faves;
 
-    public User(long usrID, String name, String lastName, String userName, String pass) {
-        this.userID = usrID;
-        this.fName = name;
-        this.lName = lastName;
-        this.username = userName;
-        this.password = pass;
-        Faves = null;
+
+    public User(String f, String l, String u, String p)
+    {
+        setFname(f);
+        setLname(l);
+        setUname(u);
+        setPwd(p);
+
     }
 
-    public long getUserID(){
-        return userID;
+    public void setFname(String f) {
+        this.fname = f;
     }
 
-    public String getfName(){
-        return fName;
+    public String getFname() {
+        return fname;
     }
 
-    public String getlName(){
-        return lName;
+    public void setLname(String l) {
+        this.lname = l;
     }
 
-    public List<Coupon> getFaves() {
-        return Faves;
+    public String getLname() {
+        return lname;
     }
 
-    public String getUsername(){
-        return username;
+    public void setUname(String u) {
+        this.uname = u;
     }
 
-    public String getPassword(){
-        return password;
+    public String getUname() {
+        return uname;
     }
 
-    public void setFaves(List<Coupon> faves) {
-        Faves = faves;
+    public void setPwd(String p) {
+        this.pwd = p;
     }
 
-    public String toString(){
-        return "" + fName + " " + lName + "";
+    public String getPwd() {
+        return pwd;
     }
 
+    public User()
+    {
+
+    }
 }
-
