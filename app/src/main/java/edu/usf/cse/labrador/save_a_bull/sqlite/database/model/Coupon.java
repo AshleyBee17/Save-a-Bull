@@ -1,43 +1,51 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
+import android.location.Location;
+import android.os.Parcelable;
+
+import edu.usf.cse.labrador.save_a_bull.Address;
+
 public class Coupon {
 
-    public static final String TABLE_NAME = "Coupon";
 
-    public static final String COLUMN_ID = "Id";
-    public static final String COLUMN_COMPANY_NAME = "CompanyName";
-    public static final String COLUMN_DESCRIPTION = "Description";
-    public static final String COLUMN_CATEGORY = "Category";
-    public static final String COLUMN_IMAGE = "Image";
-    public static final String COLUMN_PHONE = "Phone";
-    public static final String COLUMN_LONGITUDE = "Longitude";
-    public static final String COLUMN_LATITUDE = "Latitude";
-
-    private int Id;
+    private String Id;
     private String CompanyName;
     private String Description;
+    private String Other;
     private String Category;
     private byte[] Img;
     private String Phone;
     private Double Longitude;
     private Double Latitude;
+    private String Expire;
+    private String Addr;
+    private Address place;
 
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_COMPANY_NAME + " TEXT,"
-                    + COLUMN_DESCRIPTION + " TEXT,"
-                    + COLUMN_CATEGORY + " TEXT,"
-                    + COLUMN_IMAGE + " BLOB,"
-                    + COLUMN_PHONE + " TEXT,"
-                    + COLUMN_LONGITUDE + " TEXT,"
-                    + COLUMN_LATITUDE + " TEXT"
-                    + ")";
+    public Coupon(String addr, String cat, String name, String des, String expire, String other, String phone)
+    {
+        setAddr(addr);
+        setCategory(cat);
+        setCompanyName(name);
+        setDescription(des);
+        setPhone(phone);
+        setExpire(expire);
+        setOther(other);
+        place = new Address(addr);
+    }
 
-
-    public Coupon(String string, String cString, String category, int type){};
-
-    public Coupon(int id, String companyName, String description, String category, byte[] img, String phone, Double longitude, Double latitude) {
+    public Coupon(String id, String addr, String cat, String name, String des, String expire, String other, String phone)
+    {
+        setId(id);
+        setAddr(addr);
+        setCategory(cat);
+        setCompanyName(name);
+        setDescription(des);
+        setPhone(phone);
+        setExpire(expire);
+        setOther(other);
+        place = new Address(addr);
+    }
+    public Coupon(String id, String companyName, String description, String category, byte[] img, String phone, Double longitude, Double latitude) {
         Id = id;
         CompanyName = companyName;
         Description = description;
@@ -46,6 +54,15 @@ public class Coupon {
         Phone = phone;
         Longitude = longitude;
         Latitude = latitude;
+    }
+
+    public Coupon(String name, String des, String cat, String phone, String addr)
+    {
+        CompanyName = name;
+        Description = des;
+        Category = cat;
+        Phone = phone;
+        Addr = addr;
     }
 
     public Coupon(String companyName, String description, String category, byte[] img) {
@@ -71,10 +88,6 @@ public class Coupon {
         Phone = phone;
     }
 
-    public Coupon() {
-
-    }
-
     public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
         CompanyName = companyName;
         Description = description;
@@ -86,7 +99,7 @@ public class Coupon {
 
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
@@ -122,7 +135,13 @@ public class Coupon {
         return Longitude;
     }
 
-    public void setId(int id) {
+    public String getAddr() {return Addr;}
+
+    public String getExpire() { return Expire; }
+
+    public String getOther() { return Other; }
+
+    public void setId(String id) {
         Id = id;
     }
 
@@ -130,7 +149,31 @@ public class Coupon {
         CompanyName = companyName;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
+        boolean check = true;  //true for letters, false for num
+        char[] chars = description.toCharArray();
+
+        for(char c : chars)
+        {
+            if(Character.isLetter(c))
+                check = true;
+
+            if(Character.isDigit(c))
+                check = false;
+        }
+
+        if(check == true)
+        {
+            Description = description;
+        }
+
+        else if(check == false)
+        {
+            Description = description + "% off";
+        }
+
+
         Description = description;
     }
 
@@ -142,7 +185,8 @@ public class Coupon {
         Img = img;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone)
+    {
         Phone = phone;
     }
 
@@ -153,4 +197,16 @@ public class Coupon {
     public void setLongitude(double longitude) {
         Longitude = longitude;
     }
+
+    public void setAddr(String addr) { Addr = addr; }
+
+    public void setExpire(String expire)
+    {
+        if(expire == "NA")
+            Expire = "N/A";
+        else
+            Expire = expire;
+    }
+
+    public void setOther(String o) { Other = o; }
 }
