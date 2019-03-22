@@ -1,0 +1,46 @@
+{
+  "UserAgent": "MobileHub/1.0",
+  "Version": "1.0",
+  "CredentialsProvider": {
+    "CognitoIdentity": {
+      "Default": {
+        "PoolId": "us-east-2:4065914b-6151-48bb-b981-c283ef150f45",
+        "Region": "us-east-2"
+      }
+    }
+  },
+  "IdentityManager": {
+    "Default": {}
+  },
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "us-east-2_MB9nO2cRb",
+      "AppClientId": "shdlnn6dsdprjfkpv7esrmdph",
+      "AppClientSecret": "r29nmusd8jk4emdm0h6f8un2ujkd1a9vib2i4bk2chprhs1j2mi",
+      "Region": "us-east-2"
+    }
+  },
+  "S3TransferUtility": {
+    "Default": {
+      "Bucket": "saveabull-userfiles-mobilehub-1576374756",
+      "Region": "us-east-2"
+    }
+  },
+  "PinpointAnalytics": {
+    "Default": {
+      "AppId": "c0520d07f2f54bde8fb57a167fd5ecfb",
+      "Region": "us-east-1"
+    }
+  },
+  "PinpointTargeting": {
+    "Default": {
+      "Region": "us-east-1"
+    }
+  },
+  "UserFileManager": {
+    "Default": {
+      "Bucket": "saveabull-userfiles-mobilehub-1576374756",
+      "Region": "us-east-2"
+    }
+  }
+}
