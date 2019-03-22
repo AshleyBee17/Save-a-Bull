@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Save-a-Bull</string>
+    <string name="sign_up">sign up</string>
+    <string name="login">login</string>
+    <string name="forgetPassword">Forget Password</string>
+
+    <string name="create_account">Create Account</string>
+
+    <string name="facebook_app_id">2368651673362978</string>
+    <string name="fb_login_protocol_scheme">fb2368651673362978</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_maps">Maps</string>
+
+    <!-- Strings related to facebook login -->
+    <string name="prompt_email">Email</string>
+
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="about">About</string>
+    <string name="company_name">Company Name</string>
+    <string name="coupon_description">Coupon Description</string>
+    <string name="mobile_call">Mobile Call</string>
+    <string name="view_location">View Location</string>
+    <string name="coupon_desc">Coupon Desc</string>
+    <string name="about_saveabull">Save-a-Bull is an application that gives users that attend the University of South Florida the opportunity to access coupons and discounts from their pockets at anytime and anywhere.</string>
+    <string name="logo">logo</string>
+
+    <!--Spinner for coupon categories-->
+
+    <string-array name="category_types">
+        <item>Food</item>
+        <item>Entertainment</item>
+        <item>Clothing</item>
+        <item>Automotive</item>
+        <item>Grocery</item>
+    </string-array>
+
+    <!--Map-->
+
+    <!--Logging in / signing up-->
+
+    <!--Strings related to Users Database-->
+
+</resources>

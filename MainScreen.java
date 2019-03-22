@@ -5,25 +5,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-
-import com.amazonaws.mobile.auth.core.IdentityManager;
-import com.amazonaws.mobile.auth.core.SignInStateChangeListener;
-import com.amazonaws.mobile.auth.ui.SignInUI;
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.client.AWSStartupHandler;
-import com.amazonaws.mobile.client.AWSStartupResult;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.GalleryFragment;
-import edu.usf.cse.labrador.save_a_bull.fragment.HomeFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.Gallery.GalleryFragment;
+import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +22,12 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         setContentView(R.layout.activity_main_screen);
 
         //loading the default home fragment
-        loadFragment(new HomeFragment());
+        loadFragment(new GalleryFragment());
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
-
 
     // Switch between fragment displays depending on the nav item selected
     @Override
@@ -45,8 +35,8 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         Fragment fragment = null;
 
         switch (item.getItemId()) {
-            case R.id.nav_home:
-                fragment = new HomeFragment();
+            case R.id.nav_about:
+                fragment = new AboutFragment();
                 break;
 
             case R.id.nav_favorites:
@@ -80,6 +70,5 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
         }
         return false;
     }
-
 
 }
