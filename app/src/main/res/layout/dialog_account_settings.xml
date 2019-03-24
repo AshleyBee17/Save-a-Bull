@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:layout_marginBottom="3dp"
-            android:hint="@string/username"
+            android:hint="@string/prompt_email"
             android:textColorHint="@color/colorWhite"
             android:textColor="@color/colorGreen"
             android:scrollbarSize="24sp"

@@ -33,7 +33,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                              Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         couponList.clear();
 
@@ -103,4 +103,3 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         return true;
     }
 }
-

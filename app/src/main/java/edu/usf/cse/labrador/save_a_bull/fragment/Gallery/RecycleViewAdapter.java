@@ -42,8 +42,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-       v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
-       final myViewHolder viewHolder = new myViewHolder(v);
+        v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
+        final myViewHolder viewHolder = new myViewHolder(v);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,51 +112,51 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     }
                 });
             }
-       });
-       return viewHolder;
+        });
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder myViewHolder, int i) {
 
 
-            // Displays the text and images accordingly for each item in the coupon list
-            myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
-            myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
+        // Displays the text and images accordingly for each item in the coupon list
+        myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
+        myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
-            myViewHolder.img_coupon.setImageBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
+        myViewHolder.img_coupon.setImageBitmap(bitmap);
 
-            // Manipulating the favorites
-            final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
-            favoriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.isActivated()) {
-                        //v.setActivated(!v.isActivated());
-                        Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
-                        /*
-                         * Then remove the item from the user's favorites
-                         *
-                         */
-                    } else if (!v.isActivated()) {
-                        //v.setActivated(v.isActivated());
-                        Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
+        // Manipulating the favorites
+        final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.isActivated()) {
+                    //v.setActivated(!v.isActivated());
+                    Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
+                    /*
+                     * Then remove the item from the user's favorites
+                     *
+                     */
+                } else if (!v.isActivated()) {
+                    //v.setActivated(v.isActivated());
+                    Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
 
-                        /*
-                         * Add the item to the user's favorites*
-                         *
-                         */
-                    }
-                    v.setActivated(!v.isActivated());
+                    /*
+                     * Add the item to the user's favorites*
+                     *
+                     */
                 }
-            });
+                v.setActivated(!v.isActivated());
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-       return mData.size();
+        return mData.size();
     }
 
     static class myViewHolder extends RecyclerView.ViewHolder{
@@ -205,4 +205,3 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         notifyDataSetChanged();
     }
 }
-

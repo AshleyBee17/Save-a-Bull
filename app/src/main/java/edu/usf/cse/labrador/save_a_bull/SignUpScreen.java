@@ -1,3 +1,4 @@
+
 package edu.usf.cse.labrador.save_a_bull;
 
 import android.content.Context;
@@ -64,7 +65,7 @@ public class SignUpScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                inputEmail = (TextInputLayout) findViewById(R.id.validateEmail);
+                inputEmail = (TextInputLayout) findViewById(R.id.validateUsername);
                 inputPassword = (TextInputLayout) findViewById(R.id.validatePassword);
                 inputFirstName = (TextInputLayout) findViewById(R.id.validateFirstName);
                 inputLastName = (TextInputLayout) findViewById(R.id.validateLastName);
