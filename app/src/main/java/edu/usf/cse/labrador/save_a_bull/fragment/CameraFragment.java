@@ -75,6 +75,10 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     TextView couponExpiry;
     DatePickerDialog datePickerDialog;
 
+    public static CameraFragment newInstance() {
+        return new CameraFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,11 +105,20 @@ public class CameraFragment extends Fragment implements SensorEventListener {
         takePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,
                         CAMERA_REQUEST_CODE);
+            }
+        });
 
+        findPhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                        GALLERY_REQUEST_CODE);
             }
         });
 
@@ -116,15 +129,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             }
         });
 
-        findPhotoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
-            }
-        });
+
 
         selectExpiryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +186,8 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 if (data != null) {
                     Bitmap bmp = null;
                     try {
-                        bmp = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), data.getData());
+                        bmp = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).
+                                getContentResolver(), data.getData());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
