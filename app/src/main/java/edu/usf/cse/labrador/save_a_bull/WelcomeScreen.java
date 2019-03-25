@@ -107,9 +107,6 @@ public class WelcomeScreen extends AppCompatActivity {
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
         });
-
-
-
     }
 
     @Override

@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColorHint="@color/grayText"
-        android:hint="Company's Address ex: 123 Bull Ln, Tampa, FL"
+        android:hint="Company's Address ex: 123 Bull Ln, Tampa, FL, 12345"
+        android:textSize="15dp"
         android:inputType="textPersonName" />
 
     <EditText

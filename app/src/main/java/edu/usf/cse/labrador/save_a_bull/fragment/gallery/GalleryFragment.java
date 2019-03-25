@@ -49,14 +49,13 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
                               Bundle savedInstanceState) {
 
         int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        String expiryDate = currentDay + "/" + currentMonth + "/" + currentYear;
+        final String expiryDate = currentDay + "/" + currentMonth + "/" + currentYear;
 
         couponList.clear();
 
@@ -65,60 +64,45 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
             setHasOptionsMenu(true);
 
-
             mDatabase = FirebaseDatabase.getInstance().getReference("");
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Retrieving coupons from Firebase to display in RecycleView
                     for(DataSnapshot couponSnapshot : dataSnapshot.getChildren()){
                         Coupon coupon = couponSnapshot.getValue(Coupon.class);
-
-                        //Log.d("TEST_COUPON_LIST", "id: " + coupon.getId());
-                        //Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
-                        //Log.d("TEST_COUPON_LIST", "desc: " + coupon.getDescription());
-                        //Log.d("TEST_COUPON_LIST", "key: " + couponSnapshot.getKey());
-                        Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
                         couponList.add(coupon);
                     }
+
+                    // Checking if coupon is expired, if it is it will be removed
+                    for(Coupon c : couponList){
+                        if(c.getExpire() != null){
+                            String exp = c.getExpire();
+                            if(exp.equals(expiryDate)){
+                                String id = c.getId();
+                               // search for the id and delete from FB
+                                couponList.remove(c);
+                            }
+                        }
+                    }
+
+                    // Display nothing
                     if(couponList.size() == 0){
                         Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
                     } else getRecycleView();
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
-
-//            for(Coupon c : couponList){
-//                if(c.getExpire() != null){
-//                    String exp = c.getExpire();
-//                    if(exp.equals(expiryDate)){
-//                        // delete from database;
-//                    }
-//                }
-//            }
-
-
-//            if(couponList.size() == 0){
-//                Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
-//            }
-
-            // Creating a view of the fragment_gallery .xml layout.
-            // Generates the icons and information taken from the coupon list and displays each item
-            // in 2 columns and then returns the view
-            //getRecycleView();
-//            RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
-//            recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
-//            myRecyclerView.setAdapter(recycleViewAdapter);
-//            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-//            myRecyclerView.setLayoutManager(mLayoutManager);
         }
         return v;
     }
 
     public void getRecycleView(){
+        // Creating a view of the fragment_gallery .xml layout.
+        // Generates the icons and information taken from the coupon list and displays each item
+        // in 2 columns and then returns the view
         RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
         recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
         myRecyclerView.setAdapter(recycleViewAdapter);
@@ -127,16 +111,8 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-    // Setting up search options
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
-
+        // Setting up search options
         menuInflater.inflate(R.menu.menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search_gallery);
         SearchView searchView = (SearchView) menuItem.getActionView();
@@ -144,20 +120,15 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         searchView.setQueryHint("Try 'Food' or 'Entertainment'...");
     }
 
-    public static void addCoupon(Coupon newCoupon){
-        couponList.add(0, newCoupon);
-        recycleViewAdapter.notifyDataSetChanged();
-    }
-
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
     }
 
-    // Reads the text the user enters in the search field and updates it based on
-    // the category
     @Override
     public boolean onQueryTextChange(String s) {
+        // Reads the text the user enters in the search field and
+        // updates it based on the category
         String input = s.toLowerCase();
         List<Coupon> results = new ArrayList<>();
 

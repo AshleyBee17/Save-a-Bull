@@ -4,6 +4,7 @@ package edu.usf.cse.labrador.save_a_bull.fragment.gallery;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -26,14 +27,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.LoginScreen;
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.WelcomeScreen;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Address;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
+
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_PASSWORD;
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_ROWID;
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_USERNAME;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
@@ -44,12 +52,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     // Data
     private List<Coupon> mData;
-    private FirebaseUser loggedInUser;
+    private FirebaseUser loggedInUserFB;
 
     // Dialogs
     private Dialog couponDialog;
     private Dialog fullImageDialog;
 
+    // Accounts
+    User loggedInUser;
+    UsersDBManager myUsersData;
+    private FirebaseAuth auth;
 
     public RecycleViewAdapter() { }
 
@@ -62,10 +74,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
-
-       v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
-       final myViewHolder viewHolder = new myViewHolder(v);
+        auth = FirebaseAuth.getInstance();
+        v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
+        final myViewHolder viewHolder = new myViewHolder(v);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +132,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         } else {
                             Double latitude = mData.get(viewHolder.getAdapterPosition()).getLatitude();
                             Double longitude = mData.get(viewHolder.getAdapterPosition()).getLongitude();
+                            String address = mData.get(viewHolder.getAdapterPosition()).getAddress();;
 
                             Toast.makeText(mContext, "Open map and redirect to this location", Toast.LENGTH_SHORT).show();
-                            openMaps(longitude, latitude);
+                            openMaps(longitude, latitude, address);
                         }
                     }
                 });
@@ -143,6 +155,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 });
             }
        });
+
+       // getUserInformation();
+
        return viewHolder;
     }
 
@@ -212,9 +227,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         mContext.startActivity(intent);
     }
 
-    private  void openMaps(final Double lon, final Double lat){
+    private  void openMaps(final Double lon, final Double lat, String address){
         final double longitude = -82.426970;
         final double latitude = 28.055774;
+
+        Address a = new Address(address);
+
 
         // Should open to MapsFragment and NOT the maps app
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
@@ -237,6 +255,25 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    private void getUserInformation(){
+
+        FirebaseUser user = auth.getCurrentUser();
+        assert user != null;
+        String currUsername = user.getEmail();
+
+        Cursor cur = myUsersData.getUser(currUsername);
+
+        User idk;
+
+        List<User> usrList = (List<User>) myUsersData.getAllUsers();
+        for(User u : usrList){
+            if(u.getUsername().equals(currUsername)){
+                loggedInUser = u;
+            }
+        }
+
     }
 }
 

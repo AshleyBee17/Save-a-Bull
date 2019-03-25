@@ -248,7 +248,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
         String cCat = categoryType.getSelectedItem().toString();
         String cExp = couponExpiry.getText().toString();
 
-        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null){// || cExp.trim().length() == 0){
+        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null || cExp.trim().length() == 0){
             Log.d("CAM_FRAG", "Not all fields are filled out");
             Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
         } else {
@@ -257,7 +257,6 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             int random = rand.nextInt(100000);
             String id = Integer.toString(random);
             Address a = new Address(cAdd);
-            //Coupon c = new Coupon ( id, cAdd, cCat, cName, cDesc, cExp, imgStream, cPhone );
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
