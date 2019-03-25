@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -71,6 +72,12 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot couponSnapshot : dataSnapshot.getChildren()){
                         Coupon coupon = couponSnapshot.getValue(Coupon.class);
+
+                        //Log.d("TEST_COUPON_LIST", "id: " + coupon.getId());
+                        //Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
+                        //Log.d("TEST_COUPON_LIST", "desc: " + coupon.getDescription());
+                        //Log.d("TEST_COUPON_LIST", "key: " + couponSnapshot.getKey());
+                        Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
                         couponList.add(coupon);
                     }
                 }

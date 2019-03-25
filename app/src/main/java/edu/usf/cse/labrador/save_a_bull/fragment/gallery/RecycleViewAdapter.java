@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,10 +75,21 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
                 dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-                //dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpiry());
+                dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
 
-                //final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
+                //final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length());
                 //dialogImage.setImageBitmap(bitmap);
+
+//                if (!restaurant.getImageUrl().contains("http")) {
+//                    try {
+//                        Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
+//                        mRestaurantImageView.setImageBitmap(imageBitmap);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//
+//                }
 
                 couponDialog.show();
 
