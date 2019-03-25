@@ -68,7 +68,7 @@
     <Button
         android:id="@+id/select_expiry_btn"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
@@ -78,7 +78,7 @@
     <Button
         android:id="@+id/takePhoto_btn"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
@@ -88,7 +88,7 @@
     <Button
         android:id="@+id/findPhoto_btn"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
         android:textColor="@color/colorWhite"
@@ -98,7 +98,7 @@
     <Button
         android:id="@+id/upload_btn"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:text="Upload to the gallery"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/colorBlack"
