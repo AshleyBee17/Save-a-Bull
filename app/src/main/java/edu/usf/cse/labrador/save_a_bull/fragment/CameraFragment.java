@@ -242,17 +242,20 @@ public class CameraFragment extends Fragment implements SensorEventListener {
         couponDescription = v.findViewById(R.id.couponDesc_txt);
         couponExpiry = v.findViewById(R.id.expiry_date);
         Spinner categoryType = v.findViewById(R.id.categorySpinner);
+        String cExp;
 
         String cName = companyName.getText().toString();
         String cAdd = companyAddress.getText().toString();
         String cPhone = companyPhone.getText().toString();
         String cDesc = couponDescription.getText().toString();
         String cCat = categoryType.getSelectedItem().toString();
-        String cExp = couponExpiry.getText().toString();
+        if(selectedDate == null){
+            cExp = "";
+        } else cExp = selectedDate;//couponExpiry.getText().toString();
 
-        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null || cExp.trim().length() == 0){
+        if(cName.trim().length() == 0 || cDesc.trim().length() == 0 || cCat.trim().length() == 0 || imgStream == null){
             Log.d("CAM_FRAG", "Not all fields are filled out");
-            Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Fill out all required fields and take a photo before uploading", Toast.LENGTH_LONG).show();
         } else {
 
             Random rand = new Random();

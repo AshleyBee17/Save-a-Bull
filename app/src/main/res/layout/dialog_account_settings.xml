@@ -44,6 +44,7 @@
         <Button
             android:id="@+id/save_acct_changes_btn"
             android:drawablePadding="30dp"
+            android:padding="10dp"
             android:layout_marginTop="36dp"
             android:textAlignment="textStart"
             android:drawableLeft="@drawable/ic_action_save"
@@ -57,6 +58,7 @@
         <Button
             android:id="@+id/delete_acct_btn"
             android:drawablePadding="30dp"
+            android:padding="10dp"
             android:textAlignment="textStart"
             android:drawableLeft="@drawable/ic_action_delete"
             android:layout_gravity="start"
@@ -69,6 +71,7 @@
         <Button
             android:id="@+id/logout_btn"
             android:drawablePadding="30dp"
+            android:padding="10dp"
             android:textAlignment="textStart"
             android:drawableLeft="@drawable/ic_action_logout"
             android:layout_gravity="start"

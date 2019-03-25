@@ -90,7 +90,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
                     // Checking if coupon is expired, if it is it will be removed
                     for(Coupon c : couponList){
-                        if(c.getExpire() != null){
+                        if(c.getExpire().trim().length() == 0){
                             String exp = c.getExpire();
 
                             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf =

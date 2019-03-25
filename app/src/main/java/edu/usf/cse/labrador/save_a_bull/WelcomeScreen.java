@@ -43,7 +43,6 @@ public class WelcomeScreen extends AppCompatActivity {
     private String TAG = "WELCOME_SCREEN";
 
     // Facebook Login
-    private LoginButton loginButton;
     private CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -89,7 +88,8 @@ public class WelcomeScreen extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        // Facebook Login
+        LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
 
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
 
