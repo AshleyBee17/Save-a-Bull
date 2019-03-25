@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,23 +74,24 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
 
-                dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
-                dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-                dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
+//                dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
+//                dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
+//                dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
 
                 //final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length());
                 //dialogImage.setImageBitmap(bitmap);
 
-//                if (!restaurant.getImageUrl().contains("http")) {
-//                    try {
-//                        Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
-//                        mRestaurantImageView.setImageBitmap(imageBitmap);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//
-//                }
+                try {
+                    Bitmap imageBitmap = decodeFromFirebaseBase64(mData.get(viewHolder.getAdapterPosition()).getImg());
+                    dialogImage.setImageBitmap(imageBitmap);
+
+                    dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
+                    dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
+                    dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 couponDialog.show();
 
@@ -142,6 +144,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             }
        });
        return viewHolder;
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     @Override

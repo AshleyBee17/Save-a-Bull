@@ -80,6 +80,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                         Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
                         couponList.add(coupon);
                     }
+                    getRecycleView();
                 }
 
                 @Override
@@ -105,13 +106,29 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             // Creating a view of the fragment_gallery .xml layout.
             // Generates the icons and information taken from the coupon list and displays each item
             // in 2 columns and then returns the view
-            RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
-            recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
-            myRecyclerView.setAdapter(recycleViewAdapter);
-            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-            myRecyclerView.setLayoutManager(mLayoutManager);
+            //getRecycleView();
+//            RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
+//            recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
+//            myRecyclerView.setAdapter(recycleViewAdapter);
+//            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+//            myRecyclerView.setLayoutManager(mLayoutManager);
         }
         return v;
+    }
+
+    public void getRecycleView(){
+        RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
+        recycleViewAdapter = new RecycleViewAdapter(getContext(), couponList);
+        myRecyclerView.setAdapter(recycleViewAdapter);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        myRecyclerView.setLayoutManager(mLayoutManager);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
     }
 
     // Setting up search options
