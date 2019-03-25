@@ -73,7 +73,7 @@ public class UsersDBManager {
     }
 
     //Query Methods for Database
-    /*public List<User> getAllUsers(){
+    public List<User> getAllUsersList(){
         List<User> usersList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + USER_DB_TABLE
                 + " ORDER BY " + USER_KEY_ROWID + " DESC";
@@ -97,10 +97,9 @@ public class UsersDBManager {
             } while (cursor.moveToNext());
         }
         return usersList;
-
     }
 
-*/
+
 
     public Cursor getAllUsers() {
 

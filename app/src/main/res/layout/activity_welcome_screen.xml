@@ -42,13 +42,24 @@
         android:textColor="@android:color/black"
         />
 
-
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/com_facebook_blue"
+        android:text="@string/sign_up"
+        android:textColor="@android:color/white"
         />
+
+    <!--<com.facebook.login.widget.LoginButton-->
+        <!--android:id="@+id/facebook_login_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--/>-->
 
 </LinearLayout>

@@ -1,10 +1,10 @@
 // Displays each coupon on a card from the information found in each coupon in the list of coupons
 package edu.usf.cse.labrador.save_a_bull.fragment.gallery;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -28,21 +28,14 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
-import edu.usf.cse.labrador.save_a_bull.LoginScreen;
 import edu.usf.cse.labrador.save_a_bull.R;
-import edu.usf.cse.labrador.save_a_bull.WelcomeScreen;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Address;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
-
-import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_PASSWORD;
-import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_ROWID;
-import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_USERNAME;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
@@ -75,12 +68,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
+        // For mini dialog that is displayed when a coupon card item is clicked
         auth = FirebaseAuth.getInstance();
         v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
         final myViewHolder viewHolder = new myViewHolder(v);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 //Initialize the dialog
@@ -182,18 +176,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             @Override
             public void onClick(View v) {
                 if (v.isActivated()) {
-                    /*Then remove the item from the user's favorites*/
+                    /*Remove from favorites*/
                     List<Coupon> deleteList = loggedInUser.Faves;
                     for(Iterator<Coupon> c = deleteList.iterator(); c.hasNext();){
                         if(c.next().getId().equals(mData.get(i).getId())){
                             c.remove();
-                            Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Item removed from favorites",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
                     loggedInUser.Faves.add(mData.get(i));
-                    Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Item added to favorites",
+                            Toast.LENGTH_SHORT).show();
                 }
                 v.setActivated(!v.isActivated());
             }
@@ -236,7 +232,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         Address a = new Address(address);
 
-
         // Should open to MapsFragment and NOT the maps app
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         MapsFragment myFragment = new MapsFragment();
@@ -262,8 +257,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     private void getUserInformation(){
         loggedInUser.Faves = new ArrayList<>();
-        User u = new User();
-        userFavorites = u.getFaves();
+        auth.getCurrentUser().getUid();
+
+
+//        List<User> uList = new ArrayList<>();
+//        uList = myUsersData.getAllUsersList();
+//        for(User u : uList){
+//            String uId = Long.toString(u.getUserID());
+//            if(uId.equals(auth.getCurrentUser().getUid())){
+//                // do something
+//            }
+//        }
+
 
     }
 }
