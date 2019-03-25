@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,9 +60,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private Dialog fullImageDialog;
 
     // Accounts
-    User loggedInUser;
+    User loggedInUser = new User();
     UsersDBManager myUsersData;
     private FirebaseAuth auth;
+    List<Coupon> userFavorites;
 
     public RecycleViewAdapter() { }
 
@@ -156,13 +158,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             }
        });
 
-       // getUserInformation();
+       getUserInformation();
 
        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final myViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final myViewHolder myViewHolder, final int i) {
 
         try {
             Bitmap imageBitmap = decodeFromFirebaseBase64(mData.get(i).getImg());
@@ -180,17 +182,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             @Override
             public void onClick(View v) {
                 if (v.isActivated()) {
-                    //v.setActivated(!v.isActivated());
-                    Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
-                    /*
-                     * Then remove the item from the user's favorites
-                     *
-                     */
+                    /*Then remove the item from the user's favorites*/
+                    List<Coupon> deleteList = loggedInUser.Faves;
+                    for(Iterator<Coupon> c = deleteList.iterator(); c.hasNext();){
+                        if(c.next().getId().equals(mData.get(i).getId())){
+                            c.remove();
+                            Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } else if (!v.isActivated()) {
-                    //v.setActivated(v.isActivated());
+                    /*Add to favorites*/
+                    loggedInUser.Faves.add(mData.get(i));
                     Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
-
-
                 }
                 v.setActivated(!v.isActivated());
             }
@@ -258,21 +261,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     private void getUserInformation(){
-
-        FirebaseUser user = auth.getCurrentUser();
-        assert user != null;
-        String currUsername = user.getEmail();
-
-        Cursor cur = myUsersData.getUser(currUsername);
-
-        User idk;
-
-        List<User> usrList = (List<User>) myUsersData.getAllUsers();
-        for(User u : usrList){
-            if(u.getUsername().equals(currUsername)){
-                loggedInUser = u;
-            }
-        }
+        loggedInUser.Faves = new ArrayList<>();
+        User u = new User();
+        userFavorites = u.getFaves();
 
     }
 }

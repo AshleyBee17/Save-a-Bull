@@ -1,5 +1,6 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
