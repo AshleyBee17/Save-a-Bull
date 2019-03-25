@@ -5,9 +5,11 @@ import android.annotation.SuppressLint;
 import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +60,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     public GalleryFragment(){ }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -85,12 +93,18 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                         if(c.getExpire() != null){
                             String exp = c.getExpire();
 
-//                            if(exp.equals(expiryDate)){
-//                                String id = c.getId();
-//                                mDatabase.child(id).removeValue();
-//                               // search for the id and delete from FB
-//                                couponList.remove(c);
-//                            }
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            Date strDate = null;
+                            try {
+                                strDate = sdf.parse(exp);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            assert strDate != null;
+                            if (System.currentTimeMillis() > strDate.getTime()) {
+                                mDatabase.child(c.getId()).removeValue();
+                                couponList.remove(c);
+                            }
                         }
                     }
 
@@ -104,10 +118,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                 public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
         }
-        // **************************************
-        String date = "9/17/1995";
-        
-        // **************************************
         return v;
     }
 
