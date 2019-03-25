@@ -10,9 +10,9 @@ public class User {
     private String lName;
     private String username;
     private String password;
-    public List<Coupon> Faves;
+    public  byte[] Faves;
 
-    public User(long usrID, String name, String lastName, String userName, String pass, List<Coupon> favorites) {
+    public User(long usrID, String name, String lastName, String userName, String pass, byte[] favorites) {
         this.userID = usrID;
         this.fName = name;
         this.lName = lastName;
@@ -44,7 +44,7 @@ public class User {
         return lName;
     }
 
-    public List<Coupon> getFaves() {
+    public byte[] getFaves() {
         return Faves;
     }
 
@@ -56,7 +56,7 @@ public class User {
         return password;
     }
 
-    public void setFaves(List<Coupon> faves) {
+    public void setFaves(byte[] faves) {
         Faves = faves;
     }
 

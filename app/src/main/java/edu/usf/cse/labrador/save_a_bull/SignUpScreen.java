@@ -106,9 +106,10 @@ public class SignUpScreen extends AppCompatActivity {
                                             String password = inputPassword.getEditText().getText().toString();
                                             String firstName = inputFirstName.getEditText().getText().toString();
                                             String lastName = inputLastName.getEditText().getText().toString();
+                                            byte[] favorites = null;
 
-                                            long id = myUsersDataB.createUser(firstName, lastName, email, password);
-                                            User newUser = new User(id, firstName, lastName, email, password);
+                                            long id = myUsersDataB.createUser(firstName, lastName, email, password, favorites);
+                                            User newUser = new User(id, firstName, lastName, email, password, favorites);
                                             userList.add(newUser);
                                             Intent intent = new Intent(SignUpScreen.this, WelcomeScreen.class);
                                             startActivity(intent);
@@ -248,7 +249,4 @@ public class SignUpScreen extends AppCompatActivity {
         }
         else return false;
     }
-
-
-
 }

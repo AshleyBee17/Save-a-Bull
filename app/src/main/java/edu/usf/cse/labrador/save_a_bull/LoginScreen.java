@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_FAVORITES;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_FIRST_NAME;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_LAST_NAME;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_PASSWORD;
@@ -143,10 +144,11 @@ public class LoginScreen extends AppCompatActivity {
         String fName = cur.getString(cur.getColumnIndex(USER_KEY_FIRST_NAME));
         String lName = cur.getString(cur.getColumnIndex(USER_KEY_LAST_NAME));
         Long id = cur.getLong(cur.getColumnIndex(USER_KEY_ROWID));
+        byte[] favorites = cur.getBlob(cur.getColumnIndex(USER_KEY_FAVORITES));
 
         if(newPassword.equals(password));
         else {
-            User updatedUser = new User(id, fName, lName, usrName, password);
+            User updatedUser = new User(id, fName, lName, usrName, password, favorites);
             myUsersData.updateUser(updatedUser);
         }
 

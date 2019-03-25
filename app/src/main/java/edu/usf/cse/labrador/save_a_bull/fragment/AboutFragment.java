@@ -35,6 +35,7 @@ import edu.usf.cse.labrador.save_a_bull.WelcomeScreen;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
+import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_FAVORITES;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_FIRST_NAME;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_LAST_NAME;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_PASSWORD;
@@ -139,11 +140,10 @@ public class AboutFragment extends Fragment {
                     public void onClick(View v) {
 
                         auth.signOut();
-                        FirebaseAuth.getInstance().signOut();
-                        LoginManager.getInstance().logOut();
                         FirebaseUser user = auth.getCurrentUser();
                         if (user == null) {
-
+                            FirebaseAuth.getInstance().signOut();
+                            LoginManager.getInstance().logOut();
                             startActivity(new Intent(mContext, WelcomeScreen.class));
                             //finish();
                         }
@@ -183,11 +183,12 @@ public class AboutFragment extends Fragment {
                                     String firstname = curs.getString(curs.getColumnIndex(USER_KEY_FIRST_NAME));
                                     String lastname = curs.getString(curs.getColumnIndex(USER_KEY_LAST_NAME));
                                     Long id = curs.getLong(curs.getColumnIndex(USER_KEY_ROWID));
+                                    byte[] favorites = curs.getBlob(curs.getColumnIndex(USER_KEY_FAVORITES));
 
                                     EditText loggedInUsername = settingsDialog.findViewById(R.id.usernamename_dialog_txt);
                                     String userUsername = loggedInUsername.getText().toString();
                                     System.out.println("3");
-                                    User updatedUsername = new User(id, firstname, lastname, userUsername, password);
+                                    User updatedUsername = new User(id, firstname, lastname, userUsername, password, favorites);
                                     myUsersDataB.updateUser(updatedUsername);
                                     System.out.println("4");
                                     Toast.makeText(
@@ -235,7 +236,8 @@ public class AboutFragment extends Fragment {
                                 String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
                                 String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
                                 Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                                User updatedUser = new User(id, firstname, lastname, username, password);
+                                byte[] favorites = cur.getBlob(cur.getColumnIndex(UsersDBManager.USER_KEY_FAVORITES));
+                                User updatedUser = new User(id, firstname, lastname, username, password, favorites);
                                 myUsersDataB.updateUser(updatedUser);
                                 Toast.makeText(mContext, "Password is updated!", Toast.LENGTH_SHORT).show();
                             } else {

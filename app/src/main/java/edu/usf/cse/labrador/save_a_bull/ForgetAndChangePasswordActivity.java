@@ -132,7 +132,8 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                                     String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
                                     String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
                                     Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                                    User updatedUser = new User(id, firstname, lastname, username, password);
+                                    byte[] faves = cur.getBlob(cur.getColumnIndex(UsersDBManager.USER_KEY_FAVORITES));
+                                    User updatedUser = new User(id, firstname, lastname, username, password, faves);
                                     myUsersDataB.updateUser(updatedUser);
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Password is updated!", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -162,7 +163,8 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                                     String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
                                     String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
                                     Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                                    User updatedUser = new User(id, firstname, lastname, username, password);
+                                    byte[] faves = cur.getBlob(cur.getColumnIndex(UsersDBManager.USER_KEY_FAVORITES));
+                                    User updatedUser = new User(id, firstname, lastname, username, password, faves);
                                     myUsersDataB.updateUser(updatedUser);
                                 } else {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
