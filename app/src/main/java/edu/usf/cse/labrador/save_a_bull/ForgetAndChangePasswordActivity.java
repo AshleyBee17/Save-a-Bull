@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_DB_TABLE;
 import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.USER_KEY_ROWID;
@@ -40,7 +41,6 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressDialog PD;
     private TextInputLayout labelMode;
-
     private UsersDBManager myUsersDataB;
 
 
@@ -55,16 +55,18 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        //Creates and Open Database
+        myUsersDataB = new UsersDBManager(this);
+        myUsersDataB.open();
+
         edtMode = (EditText) findViewById(R.id.mode);
         txtMode = (TextView) findViewById(R.id.title);
         submit = (Button) findViewById(R.id.submit_button);
         labelMode = (TextInputLayout) findViewById(R.id.label);
 
-        //Creates and Open Database
-        myUsersDataB = new UsersDBManager(this);
-        myUsersDataB.open();
 
         final int mode = getIntent().getIntExtra("Mode", 0);
+
         if (mode == 0) {
             txtMode.setText("Forgot Password");
             edtMode.setHint("Enter Registered Email");
@@ -91,10 +93,9 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
     }
 
     private void callFunction(int mode) {
-
         FirebaseUser user = auth.getCurrentUser();
-        final String currUser = user.getEmail();
-        final String modeStr = edtMode.getText().toString();
+        String modeStr = edtMode.getText().toString();
+
         if (mode == 0) {
             if (TextUtils.isEmpty(modeStr)) {
                 edtMode.setError("Value Required");
@@ -108,10 +109,11 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                             Toast.makeText(ForgetAndChangePasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
                         PD.dismiss();
-
                     }
                 });
             }
+
+
         } else if (mode == 1) {
             if (TextUtils.isEmpty(modeStr) || !validatePassword(modeStr)) {
                 edtMode.setError("Invalid Password. Password must be at least 8 characters long, must contain at least one lowercase, one upper case and one digit");
@@ -121,6 +123,17 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    String currUsername = user.getEmail();
+                                    Cursor cur = myUsersDataB.getUser(currUsername);
+                                    String username = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
+                                    String password = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_PASSWORD));
+                                    String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
+                                    String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
+                                    Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
+                                    User updatedUser = new User(id, firstname, lastname, username, password);
+                                    myUsersDataB.updateUser(updatedUser);
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Password is updated!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
@@ -131,8 +144,8 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                         });
             }
         } else if (mode == 2) {
-            if (TextUtils.isEmpty(modeStr)) {
-                edtMode.setError("Value Required");
+            if (TextUtils.isEmpty(modeStr)|| !(checkUsernameDB(modeStr))) {
+                edtMode.setError("Empty Value or Account Already taken");
             } else {
                 PD.show();
                 user.updateEmail(modeStr)
@@ -140,8 +153,18 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                             @Override                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Email address is updated.", Toast.LENGTH_LONG).show();
-                                    myUsersDataB.updateUsername(currUser, modeStr);
-                                } else {
+                                    String modeStr = edtMode.getText().toString();
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    String currUsername = user.getEmail();
+                                    Cursor cur = myUsersDataB.getUser(currUsername);
+                                    String username = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_USERNAME));
+                                    String password = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_PASSWORD));
+                                    String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
+                                    String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
+                                    Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
+                                    User updatedUser = new User(id, firstname, lastname, username, password);
+                                    myUsersDataB.updateUser(updatedUser);
+                                    } else {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                 }
                                 PD.dismiss();
@@ -156,7 +179,9 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
                             @Override                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                    myUsersDataB.deleteUser(modeStr);
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    String currUsername = user.getEmail();
+                                    myUsersDataB.deleteUser(currUsername);
                                 } else {
                                     Toast.makeText(ForgetAndChangePasswordActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
                                 }
@@ -168,7 +193,21 @@ public class ForgetAndChangePasswordActivity extends AppCompatActivity {
 
     }
 
+    private boolean checkUsernameDB(String usernameDB) {
 
+        List<String> usernames = new LinkedList<String>();
+        Cursor cur = myUsersDataB.getAllUsers();
+
+        if (cur.getCount() != 0) {
+            while (cur.moveToNext()) {
+                String usrName = cur.getString(cur.getColumnIndex(USER_KEY_USERNAME));
+                usernames.add(usrName);
+            }
+            if (usernames.contains(usernameDB)) return false;
+            else return true;
+        }
+        else return true;
+    }
     private boolean validatePassword(String password) {
 
         char c;
