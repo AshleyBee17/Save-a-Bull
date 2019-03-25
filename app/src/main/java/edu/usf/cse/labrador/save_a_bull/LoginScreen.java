@@ -75,7 +75,7 @@ public class LoginScreen extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (!task.isSuccessful()) {
-                                            inputEmail.setError("Invalid Emal/Password Combination");
+                                            inputEmail.setError("Invalid Email/Password Combination");
                                             Toast.makeText(
                                                     LoginScreen.this,
                                                     "Authentication Failed",
