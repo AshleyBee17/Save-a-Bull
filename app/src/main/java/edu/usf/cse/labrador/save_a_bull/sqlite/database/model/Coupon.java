@@ -36,15 +36,6 @@ public class Coupon {
         Place = new Address(addr);
     }
 
-    public Coupon(String id, String name, String desc, String category, String phone, String expire, String addr){
-        Id = id;
-        CompanyName = name;
-        Description = desc;
-        Category = category;
-        Phone = phone;
-        Expire = expire;
-        Place = new Address(addr);
-    }
 //    public Coupon(String addr, String cat, String name, String des, String expire, String other, String phone)
 //    {
 //        setAddr(addr);

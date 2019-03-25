@@ -268,7 +268,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             String imageEncoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-            Coupon c = new Coupon (id, cName, cDesc, cCat, null, cPhone, cExp, cAdd);
+            Coupon c = new Coupon (id, cName, cDesc, cCat, imageEncoded, cPhone, cExp, cAdd);
             if(c != null) {
                 mDatabase.child(id).setValue(c);
                 Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();

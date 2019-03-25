@@ -80,7 +80,9 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                         Log.d("TEST_COUPON_LIST", "name: " + coupon.getCompanyName());
                         couponList.add(coupon);
                     }
-                    getRecycleView();
+                    if(couponList.size() == 0){
+                        Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
+                    } else getRecycleView();
                 }
 
                 @Override
@@ -99,9 +101,9 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 //            }
 
 
-            if(couponList.size() == 0){
-                Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
-            }
+//            if(couponList.size() == 0){
+//                Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
+//            }
 
             // Creating a view of the fragment_gallery .xml layout.
             // Generates the icons and information taken from the coupon list and displays each item

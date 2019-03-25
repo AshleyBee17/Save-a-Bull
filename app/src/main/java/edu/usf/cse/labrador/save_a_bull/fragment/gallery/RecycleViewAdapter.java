@@ -87,11 +87,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
                     dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                     dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-                    dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
+                    if(mData.get(viewHolder.getAdapterPosition()).getExpire().trim().equals("")){
+                        dialogCouponExp.setText("No Expiry");
+                    } else dialogCouponExp.setText("Expires: " + mData.get(viewHolder.getAdapterPosition()).getExpire());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
 
                 couponDialog.show();
 
@@ -154,13 +155,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder myViewHolder, int i) {
 
+        try {
+            Bitmap imageBitmap = decodeFromFirebaseBase64(mData.get(i).getImg());
 
-            // Displays the text and images accordingly for each item in the coupon list
+            myViewHolder.img_coupon.setImageBitmap(imageBitmap);
             myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
             myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
-            //myViewHolder.tv_couponExp.setText(mData.get(i).getExpiry());
 
-            ///Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+            // Displays the text and images accordingly for each item in the coupon list
+//            myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
+//            myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
+//
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length());
             //myViewHolder.img_coupon.setImageBitmap(bitmap);
 
             // Manipulating the favorites
