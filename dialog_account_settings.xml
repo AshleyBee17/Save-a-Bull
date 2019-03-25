@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Display that appears when a user clicks on the account settings button-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="405dp"
+    android:layout_gravity="center"
+    android:background="@color/colorBlack">
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkMode"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp">
+
+        <EditText
+            android:id="@+id/usernamename_dialog_txt"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="3dp"
+            android:hint="@string/email"
+            android:textColorHint="@color/colorWhite"
+            android:textColor="@color/colorGreen"
+            android:scrollbarSize="24sp"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/password_dialog_text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:hint="@string/password"
+            android:textSize="18sp"
+            android:textColorHint="@color/colorWhite"
+            android:textColor="@color/colorGreen"
+            android:inputType="textPassword"/>
+
+
+        <Button
+            android:id="@+id/save_acct_changes_btn"
+            android:drawablePadding="30dp"
+            android:layout_marginTop="36dp"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_action_save"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/medGray"
+            android:text="Save Changes"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/delete_acct_btn"
+            android:drawablePadding="30dp"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_action_delete"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/medGray"
+            android:text="Delete Account"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:drawablePadding="30dp"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_action_logout"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/medGray"
+            android:text="Logout"
+            android:textColor="@color/colorWhite"/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_dialog"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/usf_bulls_logo"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        />
+
+
+</RelativeLayout>
