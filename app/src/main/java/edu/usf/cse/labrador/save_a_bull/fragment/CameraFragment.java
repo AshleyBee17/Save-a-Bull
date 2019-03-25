@@ -61,6 +61,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     Sensor accelerometer;
     private static final float SHAKE_THRESHOLD = 5.25f;
     private static final int MIN_TIME_BETWEEN_SHAKES_MILLISECS = 1000;
+    SensorManager sensorManager;
 
     // Image conversion
     static byte[] imgStream;
@@ -161,7 +162,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        SensorManager sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -294,6 +295,12 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        sensorManager.unregisterListener(this);
     }
 
     @Override

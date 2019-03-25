@@ -2,6 +2,9 @@
 package edu.usf.cse.labrador.save_a_bull.fragment.gallery;
 
 import android.annotation.SuppressLint;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +44,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     private static List<Coupon> couponList = new ArrayList<>();
     private static RecycleViewAdapter recycleViewAdapter;
     View v;
+    SensorManager sensorManager;
 
     // Database retrieval
     private DatabaseReference mDatabase;
