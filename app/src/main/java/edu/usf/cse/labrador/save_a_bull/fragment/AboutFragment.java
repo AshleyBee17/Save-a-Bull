@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -24,6 +25,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +50,7 @@ import static edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager.US
 public class AboutFragment extends Fragment {
 
     private Dialog settingsDialog;
+    private Dialog instructionsDialog;
     private Context mContext;
     private FirebaseAuth auth;
     private ProgressDialog PD;
@@ -57,6 +62,16 @@ public class AboutFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         mContext = view.getContext();
+
+        final TextView instructionsText = view.findViewById(R.id.about_text_view);
+        instructionsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                instructionsDialog = new Dialog(mContext);
+                instructionsDialog.setContentView(R.layout.dialog_app_instructions);
+                instructionsDialog.show();
+            }
+        });
 
 
         Button editAccountButton = view.findViewById(R.id.home_settings_btn);

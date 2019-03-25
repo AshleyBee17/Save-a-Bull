@@ -175,22 +175,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.isActivated()) {
-                    /*Remove from favorites*/
-                    List<Coupon> deleteList = loggedInUser.Faves;
-                    for(Iterator<Coupon> c = deleteList.iterator(); c.hasNext();){
-                        if(c.next().getId().equals(mData.get(i).getId())){
-                            c.remove();
-                            Toast.makeText(mContext, "Item removed from favorites",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else if (!v.isActivated()) {
-                    /*Add to favorites*/
-                    loggedInUser.Faves.add(mData.get(i));
-                    Toast.makeText(mContext, "Item added to favorites",
-                            Toast.LENGTH_SHORT).show();
-                }
+//                if (v.isActivated()) {
+//                    /*Remove from favorites*/
+//                    List<Coupon> deleteList = loggedInUser.Faves;
+//                    for(Iterator<Coupon> c = deleteList.iterator(); c.hasNext();){
+//                        if(c.next().getId().equals(mData.get(i).getId())){
+//                            c.remove();
+//                            Toast.makeText(mContext, "Item removed from favorites",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                } else if (!v.isActivated()) {
+//                    /*Add to favorites*/
+//                    loggedInUser.Faves.add(mData.get(i));
+//                    Toast.makeText(mContext, "Item added to favorites",
+//                            Toast.LENGTH_SHORT).show();
+//                }
                 v.setActivated(!v.isActivated());
             }
         });
@@ -256,19 +256,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     private void getUserInformation(){
-        loggedInUser.Faves = new ArrayList<>();
-        auth.getCurrentUser().getUid();
-
-
-//        List<User> uList = new ArrayList<>();
-//        uList = myUsersData.getAllUsersList();
-//        for(User u : uList){
-//            String uId = Long.toString(u.getUserID());
-//            if(uId.equals(auth.getCurrentUser().getUid())){
-//                // do something
-//            }
-//        }
-
 
     }
 }

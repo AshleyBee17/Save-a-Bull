@@ -189,7 +189,6 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                         byteArray.length);
 
                 imageView.setImageBitmap(bitmap);
-                //encodeAndSaveToFirebase(bitmap);
             }
         }
         if (requestCode == GALLERY_REQUEST_CODE) {
@@ -197,8 +196,9 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 if (data != null) {
                     Bitmap bmp = null;
                     try {
-                        bmp = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).
-                                getContentResolver(), data.getData());
+                        bmp = MediaStore.Images.Media.getBitmap(Objects
+                                .requireNonNull(getActivity())
+                                .getContentResolver(), data.getData());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

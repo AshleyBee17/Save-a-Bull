@@ -93,7 +93,8 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                         if(c.getExpire() != null){
                             String exp = c.getExpire();
 
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf =
+                                    new SimpleDateFormat("dd/MM/yyyy");
                             Date strDate = null;
                             try {
                                 strDate = sdf.parse(exp);
