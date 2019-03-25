@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +40,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     // View & Context
     private View v;
     private  Context mContext;
+    private Bitmap enlargedImg;
 
     // Data
     private List<Coupon> mData;
-    private User user;
+    private FirebaseUser loggedInUser;
 
     // Dialogs
     private Dialog couponDialog;
@@ -58,6 +62,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
+        loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
+
        v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
        final myViewHolder viewHolder = new myViewHolder(v);
 
@@ -73,17 +79,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 final TextView dialogCouponExp = couponDialog.findViewById(R.id.coupon_exp_dialog);
                 final ImageView dialogImage = couponDialog.findViewById(R.id.img_dialog);
 
-
-//                dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
-//                dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
-//                dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpire());
-
-                //final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length());
-                //dialogImage.setImageBitmap(bitmap);
-
                 try {
                     Bitmap imageBitmap = decodeFromFirebaseBase64(mData.get(viewHolder.getAdapterPosition()).getImg());
                     dialogImage.setImageBitmap(imageBitmap);
+                    enlargedImg = imageBitmap;
 
                     dialogCompanyName.setText(mData.get(viewHolder.getAdapterPosition()).getCompanyName());
                     dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
@@ -137,7 +136,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         fullImageDialog.setContentView(R.layout.dialog_full_image);
 
                         ImageView large_img = fullImageDialog.findViewById(R.id.enlarged_coupon_img);
-                        //large_img.setImageBitmap(bitmap);
+                        large_img.setImageBitmap(enlargedImg);
 
                         fullImageDialog.show();
                     }
@@ -145,11 +144,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             }
        });
        return viewHolder;
-    }
-
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     @Override
@@ -161,43 +155,31 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             myViewHolder.img_coupon.setImageBitmap(imageBitmap);
             myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
             myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-            // Displays the text and images accordingly for each item in the coupon list
-//            myViewHolder.tv_companyName.setText(mData.get(i).getCompanyName());
-//            myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
-//
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length());
-            //myViewHolder.img_coupon.setImageBitmap(bitmap);
+        // Manipulating the favorites
+        final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.isActivated()) {
+                    //v.setActivated(!v.isActivated());
+                    Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
+                    /*
+                     * Then remove the item from the user's favorites
+                     *
+                     */
+                } else if (!v.isActivated()) {
+                    //v.setActivated(v.isActivated());
+                    Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
 
-            // Manipulating the favorites
-            final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
-            favoriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.isActivated()) {
-                        //v.setActivated(!v.isActivated());
-                        Toast.makeText(mContext, "Item removed from favorites", Toast.LENGTH_SHORT).show();
-                        /*
-                         * Then remove the item from the user's favorites
-                         *
-                         */
-                    } else if (!v.isActivated()) {
-                        //v.setActivated(v.isActivated());
-                        Toast.makeText(mContext, "Item added to favorites", Toast.LENGTH_SHORT).show();
 
-                        /*
-                         * Add the item to the user's favorites*
-                         *
-                         */
-                    }
-                    v.setActivated(!v.isActivated());
                 }
-            });
-
+                v.setActivated(!v.isActivated());
+            }
+        });
     }
 
     @Override
@@ -208,7 +190,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     static class myViewHolder extends RecyclerView.ViewHolder{
 
         // Gets the id names of all components to the cardView items
-
         private TextView tv_companyName;
         private TextView tv_couponDesc;
         private ImageView img_coupon;
@@ -223,7 +204,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             img_coupon =  itemView.findViewById(R.id.coupon_img);
             img_fav = itemView.findViewById(R.id.coupon_favorite);
             cardView = itemView.findViewById(R.id.cardview_item_coupon_id);
-
         }
     }
 
@@ -248,10 +228,15 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     // Updates the search when a user enters text
-    public void updateList(List<Coupon> searchList){
+    void updateList(List<Coupon> searchList){
         mData = new ArrayList<>();
         mData.addAll(searchList);
         notifyDataSetChanged();
+    }
+
+    private static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }
 

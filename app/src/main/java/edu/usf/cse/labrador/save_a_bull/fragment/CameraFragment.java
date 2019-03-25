@@ -70,7 +70,6 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     private static final int GALLERY_REQUEST_CODE = 1917;
 
     // Database
-    //DatabaseHelper db;
     private DatabaseReference mDatabase;
     private Coupon mCoupon;
 
@@ -141,8 +140,6 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             }
         });
 
-
-
         selectExpiryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,11 +161,9 @@ public class CameraFragment extends Fragment implements SensorEventListener {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
         SensorManager sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
 
         return v;
     }
@@ -273,15 +268,6 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 mDatabase.child(id).setValue(c);
                 Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
             }
-
-
-            /*long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat, cExp);
-            Coupon c = db.getCoupon(id);
-
-            if (c != null) {
-                GalleryFragment.addCoupon(c);
-                Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
-            }*/
         }
     }
 
