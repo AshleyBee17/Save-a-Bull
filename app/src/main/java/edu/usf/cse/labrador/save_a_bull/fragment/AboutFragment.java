@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -137,6 +139,8 @@ public class AboutFragment extends Fragment {
                     public void onClick(View v) {
 
                         auth.signOut();
+                        FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
                         FirebaseUser user = auth.getCurrentUser();
                         if (user == null) {
 
