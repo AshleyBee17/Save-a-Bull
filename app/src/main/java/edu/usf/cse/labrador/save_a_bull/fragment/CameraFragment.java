@@ -31,14 +31,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.Random;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.gallery.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.DatabaseHelper;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Address;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 
 public class CameraFragment extends Fragment implements SensorEventListener {
@@ -60,7 +65,8 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     private static final int GALLERY_REQUEST_CODE = 1917;
 
     // Database
-    DatabaseHelper db;
+    //DatabaseHelper db;
+    private DatabaseReference mDatabase;
 
     // UI Elements
     Button takePhotoBtn;
@@ -89,7 +95,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
 
         // Setting up dropdown to allow a user to select a category for a coupon
         Spinner spinner = v.findViewById(R.id.categorySpinner);
-        ArrayAdapter<String> categoriesArray = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> categoriesArray = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.category_types));
         categoriesArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(categoriesArray);
@@ -150,7 +156,8 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             }
         });
 
-        db = new DatabaseHelper(getContext());
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         SensorManager sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -231,15 +238,22 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             Log.d("CAM_FRAG", "Not all fields are filled out");
             Toast.makeText(getContext(), "Fill out all fields and take a photo before uploading", Toast.LENGTH_LONG).show();
         } else {
-            //long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat,exp);
-            //Coupon c = db.getCoupon(id);
-            long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat, cExp);
+
+            Random rand = new Random();
+            int random = rand.nextInt(100000);
+            String id = Integer.toString(random);
+            Address a = new Address(cAdd);
+            Coupon c = new Coupon ( id, cAdd, cCat, cName, cDesc, cExp, imgStream, cPhone );
+
+            mDatabase.child(id).setValue(c);
+
+            /*long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat, cExp);
             Coupon c = db.getCoupon(id);
 
             if (c != null) {
                 GalleryFragment.addCoupon(c);
                 Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
     }
 

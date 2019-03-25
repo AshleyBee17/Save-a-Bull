@@ -33,8 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/USF/Senior/Spring/Mobile Devices/Save a Bull/Icons/unfavorited.png" />
-                                      <entry key="outputName" value="ic_action_delete" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/ic_action_logout.png" />
+                                      <entry key="outputName" value="ic_action_logout" />
                                       <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
+
 public class UsersDBManager {
 
     //DB fields for user table
@@ -14,6 +19,7 @@ public class UsersDBManager {
     public static final String USER_KEY_FIRST_NAME = "fName";
     public static final String USER_KEY_LAST_NAME = "lName";
     public static final String USER_KEY_USERNAME = "username";
+    public static final String USER_KEY_PASSWORD = "password";
 
     private Context context;
     public SQLiteDatabase database;
@@ -32,59 +38,99 @@ public class UsersDBManager {
         userDB.close();
     }
 
-    private ContentValues createUsersValues(String fName, String lName, String username){
+    private ContentValues createUsersValues(String fName, String lName, String username, String password){
         ContentValues values = new ContentValues();
         values.put(USER_KEY_FIRST_NAME, fName);
         values.put(USER_KEY_LAST_NAME, lName);
         values.put(USER_KEY_USERNAME, username);
+        values.put(USER_KEY_PASSWORD, password);
         return values;
     }
 
-    private ContentValues createUsersValue(String username){
-        ContentValues value = new ContentValues();
-        value.put(USER_KEY_USERNAME, username);
-        return value;
-    }
 
     //Insert Method for database
-
-    public long createUser(String fName, String lName, String username){
-        ContentValues initialValues = createUsersValues(fName, lName, username);
+    public long createUser(String fName, String lName, String username, String password){
+        ContentValues initialValues = createUsersValues(fName, lName, username, password);
         return database.insert(USER_DB_TABLE, null, initialValues);
     }
 
     //Update Method for database
-
-    public boolean updateUser(long rowID, String fName, String lName, String username){
-        ContentValues updateValues = createUsersValues(fName, lName, username);
-        return database.update(USER_DB_TABLE, updateValues, USER_KEY_ROWID + "=" + rowID, null) >0;
+    public void updateUser(User userUpdated){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_KEY_ROWID, userUpdated.getUserID());
+        contentValues.put(USER_KEY_FIRST_NAME, userUpdated.getfName());
+        contentValues.put(USER_KEY_LAST_NAME, userUpdated.getlName());
+        contentValues.put(USER_KEY_USERNAME, userUpdated.getUsername());
+        contentValues.put(USER_KEY_PASSWORD, userUpdated.getPassword());
+        //String whereClause = USER_KEY_ROWID + "=" + userUpdated.getUserID();
+        //String whereArgs[] = {Long.toString(userUpdated.getUserID())};
+        database.update(USER_DB_TABLE, contentValues, USER_KEY_ROWID + "='" + userUpdated.getUserID() + "'", null);
     }
-    public boolean updateUsername(String oldUsername, String newUsername){
-        ContentValues updateValue =  createUsersValue(newUsername);
-        return database.update(USER_DB_TABLE,  updateValue,USER_KEY_USERNAME + "=" + oldUsername, null)> 0;
 
-    }
     //Delete User Method for Database
-
-    public boolean deleteUser(String username){
-        return database.delete(USER_DB_TABLE, USER_KEY_USERNAME + "=" + username, null) > 0;
+    public void deleteUser(String email){
+        database.delete(USER_DB_TABLE, USER_KEY_USERNAME + "='" + email + "'", null);
     }
 
     //Query Methods for Database
+    /*public List<User> getAllUsers(){
+        List<User> usersList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + USER_DB_TABLE
+                + " ORDER BY " + USER_KEY_ROWID + " DESC";
+           Cursor cursor = database.rawQuery(selectQuery, null);
 
-    public Cursor getAllUsers(){
-        return database.query(USER_DB_TABLE, new String [] {USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME}, null, null, null, null, null);
+        //if TABLE has rows
+        if (cursor.moveToFirst()) {
+            //Loop through the table rows
+            do {
+                User newUser = new User();
+                Integer userId = cursor.getInt(cursor.getColumnIndex(USER_KEY_ROWID));
+                Long myLong = new Long(userId);
+                newUser.setUserID(myLong);
+                newUser.setfName(cursor.getString(cursor.getColumnIndex(USER_KEY_FIRST_NAME)));
+                newUser.setlName(cursor.getString(cursor.getColumnIndex(USER_KEY_LAST_NAME)));
+                newUser.setUsername(cursor.getString(cursor.getColumnIndex(USER_KEY_USERNAME)));
+                newUser.setPassword(cursor.getString(cursor.getColumnIndex(USER_KEY_PASSWORD)));
+
+                //Add movie details to list
+                usersList.add(newUser);
+            } while (cursor.moveToNext());
+        }
+        return usersList;
 
     }
 
+*/
+
+    public Cursor getAllUsers() {
+
+        String selectQuery = "SELECT * FROM " + USER_DB_TABLE
+                + " ORDER BY " + USER_KEY_ROWID + " DESC";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        return cursor;
+    }
 
     public Cursor getUser(String username) throws SQLException{
-        Cursor mCursor = database.query(true, USER_DB_TABLE, new String []{USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME}, USER_KEY_USERNAME + "=" + username, null, null, null, null, null);
 
-        if(mCursor != null){
+        Cursor mCursor = database.query(true, USER_DB_TABLE, new String []{USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME, USER_KEY_PASSWORD}, USER_KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+        if (null != mCursor) {
             mCursor.moveToFirst();
         }
         return mCursor;
+
+        /*User user = new User();
+        Cursor mCursor = database.query(true, USER_DB_TABLE, new String []{USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME, USER_KEY_PASSWORD}, USER_KEY_USERNAME + "=" + username, null, null, null, null, null);
+
+        if (null != mCursor) {
+            mCursor.moveToFirst();
+            user.setUserID(mCursor.getLong(mCursor.getColumnIndex(USER_KEY_ROWID)));
+            user.setfName(mCursor.getString(mCursor.getColumnIndex(USER_KEY_FIRST_NAME)));
+            user.setlName(mCursor.getString(mCursor.getColumnIndex(USER_KEY_LAST_NAME)));
+            user.setUsername(username);
+            user.setPassword(mCursor.getString(mCursor.getColumnIndex(USER_KEY_PASSWORD)));
+        }
+        return user;*/
+
     }
 
 }

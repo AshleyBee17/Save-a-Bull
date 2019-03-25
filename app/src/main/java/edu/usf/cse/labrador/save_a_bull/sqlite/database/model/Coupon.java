@@ -45,6 +45,20 @@ public class Coupon {
         setOther(other);
         place = new Address(addr);
     }
+
+    public Coupon(String id, String addr, String cat, String name, String des, String expire, byte[] img, String phone)
+    {
+        setId(id);
+        setAddr(addr);
+        setCategory(cat);
+        setCompanyName(name);
+        setDescription(des);
+        setPhone(phone);
+        setExpire(expire);
+        setImg(img);
+        place = new Address(addr);
+    }
+
     public Coupon(String id, String companyName, String description, String category, byte[] img, String phone, Double longitude, Double latitude) {
         Id = id;
         CompanyName = companyName;

@@ -17,6 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,7 +35,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     @SuppressLint("StaticFieldLeak")
     private static List<Coupon> couponList = new ArrayList<>();
     private static RecycleViewAdapter recycleViewAdapter;
-    private DatabaseHelper db;
     View v;
 
     public GalleryFragment(){ }
@@ -54,19 +57,20 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
             setHasOptionsMenu(true);
 
-            db = new DatabaseHelper(getContext());
-            //db.deleteAllCoupons();
 
-            for(Coupon c : db.getAllCoupons()){
-                if(c.getExpiry() != null){
-                    String exp = c.getExpiry();
-                    if(exp.equals(expiryDate)){
-                        db.deleteExpiredCoupon(c);
-                    }
-                }
-            }
-
-            couponList.addAll(db.getAllCoupons());
+//            db = new DatabaseHelper(getContext());
+//            //db.deleteAllCoupons();
+//
+//            for(Coupon c : db.getAllCoupons()){
+//                if(c.getExpiry() != null){
+//                    String exp = c.getExpiry();
+//                    if(exp.equals(expiryDate)){
+//                        db.deleteExpiredCoupon(c);
+//                    }
+//                }
+//            }
+//
+//            couponList.addAll(db.getAllCoupons());
 
 
             if(couponList.size() == 0){
