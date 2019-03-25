@@ -183,6 +183,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             c.remove();
                             Toast.makeText(mContext, "Item removed from favorites",
                                     Toast.LENGTH_SHORT).show();
+                            updateFavorites();
                         }
                     }
                 } else if (!v.isActivated()) {
@@ -190,10 +191,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     loggedInUser.Faves.add(mData.get(i));
                     Toast.makeText(mContext, "Item added to favorites",
                             Toast.LENGTH_SHORT).show();
+                    updateFavorites();
                 }
                 v.setActivated(!v.isActivated());
+                updateFavorites();
             }
         });
+    }
+
+    public List<Coupon> updateFavorites()
+    {
+        userFavorites = loggedInUser.Faves;
+        return userFavorites;
     }
 
     @Override

@@ -25,32 +25,62 @@ public class FavoritesFragment extends Fragment {
     User user = new User();
     RecycleViewAdapter recycleViewAdapter;
     View v;
-    SharedPreferences sharedPreferences;
+    List<Coupon> Fav;
+
+    public FavoritesFragment() { }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        if (user.Faves == null) {
+        if(v == null)
+        {
+            v = inflater.inflate(R.layout.fragment_favorites, container, false);
+
+
+            if(Fav.size() == 0)
+            {
+                Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                getRecycleView();
+            }
+        }
+
+
+
+        //Fav = recycleViewAdapter.updateFavorites();
+
+        /*if (user.Faves == null) {
             Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
         } else {
-//
+            Toast.makeText(getContext(), "favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
             //user.Faves.clear();
 //
             if (v == null) {
 //
                 v = inflater.inflate(R.layout.fragment_favorites, container, false);
 //
-                RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
-                recycleViewAdapter = new RecycleViewAdapter(getContext(), user.Faves);
+                RecyclerView myRecyclerView = v.findViewById(R.id.favorites_recyclerview);
+                recycleViewAdapter = new RecycleViewAdapter(getContext(), Fav);
                 myRecyclerView.setAdapter(recycleViewAdapter);
                 GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
                 myRecyclerView.setLayoutManager(mLayoutManager);
             }
         }
-        v = inflater.inflate(R.layout.fragment_favorites, container, true);
-        return v;
+        v = inflater.inflate(R.layout.fragment_favorites, container, false);
+        */return v;
+    }
+
+    public void getRecycleView()
+    {
+        RecyclerView myRecycleView = v.findViewById(R.id.favorites_recyclerview);
+        recycleViewAdapter = new RecycleViewAdapter(getContext(), Fav);
+        myRecycleView.setAdapter(recycleViewAdapter);
+        GridLayoutManager mLayoutMan = new GridLayoutManager(getActivity(), 2);
+        myRecycleView.setLayoutManager(mLayoutMan);
     }
 }
             /*
