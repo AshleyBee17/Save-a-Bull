@@ -72,4 +72,7 @@ dependencies {
     /*annotationProcessor 'com.google.auto.value:auto-value:1.4'*/
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
 }

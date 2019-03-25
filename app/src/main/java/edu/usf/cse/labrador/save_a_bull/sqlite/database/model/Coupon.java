@@ -3,6 +3,8 @@ package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 import android.location.Location;
 import android.os.Parcelable;
 
+import com.google.firebase.database.DataSnapshot;
+
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Address;
 
 public class Coupon {
@@ -13,105 +15,116 @@ public class Coupon {
     private String Description;
     private String Other;
     private String Category;
-    private byte[] Img;
+    private String Img;
     private String Phone;
     private Double Longitude;
     private Double Latitude;
     private String Expire;
     private String Addr;
-    private Address place;
+    private Address Place;
 
-    public Coupon(String addr, String cat, String name, String des, String expire, String other, String phone)
-    {
-        setAddr(addr);
-        setCategory(cat);
-        setCompanyName(name);
-        setDescription(des);
-        setPhone(phone);
-        setExpire(expire);
-        setOther(other);
-        place = new Address(addr);
-    }
-
-    public Coupon(String id, String addr, String cat, String name, String des, String expire, String other, String phone)
-    {
-        setId(id);
-        setAddr(addr);
-        setCategory(cat);
-        setCompanyName(name);
-        setDescription(des);
-        setPhone(phone);
-        setExpire(expire);
-        setOther(other);
-        place = new Address(addr);
-    }
-
-    public Coupon(String id, String addr, String cat, String name, String des, String expire, byte[] img, String phone)
-    {
-        setId(id);
-        setAddr(addr);
-        setCategory(cat);
-        setCompanyName(name);
-        setDescription(des);
-        setPhone(phone);
-        setExpire(expire);
-        setImg(img);
-        place = new Address(addr);
-    }
-
-    public Coupon(String id, String companyName, String description, String category, byte[] img, String phone, Double longitude, Double latitude) {
+    public Coupon(String id, String name, String desc, String category, String img, String phone, String expire, String addr){
         Id = id;
-        CompanyName = companyName;
-        Description = description;
-        Category = category;
-        Img = img;
-        Phone = phone;
-        Longitude = longitude;
-        Latitude = latitude;
-    }
-
-    public Coupon(String name, String des, String cat, String phone, String addr)
-    {
         CompanyName = name;
-        Description = des;
-        Category = cat;
-        Phone = phone;
-        Addr = addr;
-    }
-
-    public Coupon(String companyName, String description, String category, byte[] img) {
-        CompanyName = companyName;
-        Description = description;
+        Description = desc;
         Category = category;
         Img = img;
-    }
-
-    public Coupon(String companyName, String description, String category) {
-        CompanyName = companyName;
-        Description = description;
-        Category = category;
-    }
-
-    public Coupon(String companyName, String description, String category, byte[] img, double lon, double lat, String phone) {
-        CompanyName = companyName;
-        Description = description;
-        Category = category;
-        Latitude = lat;
-        Longitude = lon;
-        Img = img;
         Phone = phone;
+        Expire = expire;
+        Place = new Address(addr);
     }
 
-    public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
-        CompanyName = companyName;
-        Description = description;
-        Category = category;
-        //Img = img;
-        Latitude = lat;
-        Longitude = lon;
-        Phone = phone;
-
-    }
+//    public Coupon(String addr, String cat, String name, String des, String expire, String other, String phone)
+//    {
+//        setAddr(addr);
+//        setCategory(cat);
+//        setCompanyName(name);
+//        setDescription(des);
+//        setPhone(phone);
+//        setExpire(expire);
+//        setOther(other);
+//        place = new Address(addr);
+//    }
+//
+//    public Coupon(String id, String addr, String cat, String name, String des, String expire, String other, String phone)
+//    {
+//        setId(id);
+//        setAddr(addr);
+//        setCategory(cat);
+//        setCompanyName(name);
+//        setDescription(des);
+//        setPhone(phone);
+//        setExpire(expire);
+//        setOther(other);
+//        place = new Address(addr);
+//    }
+//
+//    public Coupon(String id, String addr, String cat, String name, String des, String expire, byte[] img, String phone)
+//    {
+//        setId(id);
+//        setAddr(addr);
+//        setCategory(cat);
+//        setCompanyName(name);
+//        setDescription(des);
+//        setPhone(phone);
+//        setExpire(expire);
+//        setImg(img);
+//        place = new Address(addr);
+//    }
+//
+//    public Coupon(String id, String companyName, String description, String category, byte[] img, String phone, Double longitude, Double latitude) {
+//        Id = id;
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//        Img = img;
+//        Phone = phone;
+//        Longitude = longitude;
+//        Latitude = latitude;
+//    }
+//
+//    public Coupon(String name, String des, String cat, String phone, String addr)
+//    {
+//        CompanyName = name;
+//        Description = des;
+//        Category = cat;
+//        Phone = phone;
+//        Addr = addr;
+//    }
+//
+//    public Coupon(String companyName, String description, String category, byte[] img) {
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//        Img = img;
+//    }
+//
+//    public Coupon(String companyName, String description, String category) {
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//    }
+//
+//    public Coupon(String companyName, String description, String category, byte[] img, double lon, double lat, String phone) {
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//        Latitude = lat;
+//        Longitude = lon;
+//        Img = img;
+//        Phone = phone;
+//    }
+//
+//    public Coupon(String companyName, String description, String category, int img, double lon, double lat, String phone) {
+//        CompanyName = companyName;
+//        Description = description;
+//        Category = category;
+//        //Img = img;
+//        Latitude = lat;
+//        Longitude = lon;
+//        Phone = phone;
+//
+//    }
 
     public String getId() {
         return Id;
@@ -137,7 +150,7 @@ public class Coupon {
         return Category;
     }
 
-    public byte[] getImg() {
+    public String getImg() {
         return Img;
     }
 
@@ -195,7 +208,7 @@ public class Coupon {
         Category = category;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         Img = img;
     }
 

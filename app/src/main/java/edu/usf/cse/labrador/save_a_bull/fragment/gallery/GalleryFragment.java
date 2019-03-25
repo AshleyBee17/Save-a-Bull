@@ -18,8 +18,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +40,9 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     private static List<Coupon> couponList = new ArrayList<>();
     private static RecycleViewAdapter recycleViewAdapter;
     View v;
+
+    // Database retrieval
+    private DatabaseReference mDatabase;
 
     public GalleryFragment(){ }
 
@@ -58,19 +65,30 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
             setHasOptionsMenu(true);
 
 
-//            db = new DatabaseHelper(getContext());
-//            //db.deleteAllCoupons();
-//
-//            for(Coupon c : db.getAllCoupons()){
-//                if(c.getExpiry() != null){
-//                    String exp = c.getExpiry();
+            mDatabase = FirebaseDatabase.getInstance().getReference("");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot couponSnapshot : dataSnapshot.getChildren()){
+                        Coupon coupon = couponSnapshot.getValue(Coupon.class);
+                        couponList.add(coupon);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+//            for(Coupon c : couponList){
+//                if(c.getExpire() != null){
+//                    String exp = c.getExpire();
 //                    if(exp.equals(expiryDate)){
-//                        db.deleteExpiredCoupon(c);
+//                        // delete from database;
 //                    }
 //                }
 //            }
-//
-//            couponList.addAll(db.getAllCoupons());
 
 
             if(couponList.size() == 0){

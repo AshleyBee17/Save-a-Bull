@@ -75,8 +75,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 dialogCouponDesc.setText(mData.get(viewHolder.getAdapterPosition()).getDescription());
                 //dialogCouponExp.setText(mData.get(viewHolder.getAdapterPosition()).getExpiry());
 
-                final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
-                dialogImage.setImageBitmap(bitmap);
+                //final Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(viewHolder.getAdapterPosition()).getImg(), 0, mData.get(viewHolder.getAdapterPosition()).getImg().length);
+                //dialogImage.setImageBitmap(bitmap);
 
                 couponDialog.show();
 
@@ -121,7 +121,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         fullImageDialog.setContentView(R.layout.dialog_full_image);
 
                         ImageView large_img = fullImageDialog.findViewById(R.id.enlarged_coupon_img);
-                        large_img.setImageBitmap(bitmap);
+                        //large_img.setImageBitmap(bitmap);
 
                         fullImageDialog.show();
                     }
@@ -140,8 +140,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             myViewHolder.tv_couponDesc.setText(mData.get(i).getDescription());
             //myViewHolder.tv_couponExp.setText(mData.get(i).getExpiry());
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
-            myViewHolder.img_coupon.setImageBitmap(bitmap);
+            ///Bitmap bitmap = BitmapFactory.decodeByteArray(mData.get(i).getImg(), 0, mData.get(i).getImg().length);
+            //myViewHolder.img_coupon.setImageBitmap(bitmap);
 
             // Manipulating the favorites
             final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);

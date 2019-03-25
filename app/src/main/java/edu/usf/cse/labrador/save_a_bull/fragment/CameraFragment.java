@@ -15,10 +15,12 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +33,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -61,12 +65,14 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     // Image conversion
     static byte[] imgStream;
     ImageView imageView;
+    Bitmap bitmap;
     private static final int CAMERA_REQUEST_CODE = 2019;
     private static final int GALLERY_REQUEST_CODE = 1917;
 
     // Database
     //DatabaseHelper db;
     private DatabaseReference mDatabase;
+    private Coupon mCoupon;
 
     // UI Elements
     Button takePhotoBtn;
@@ -186,6 +192,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                         byteArray.length);
 
                 imageView.setImageBitmap(bitmap);
+                //encodeAndSaveToFirebase(bitmap);
             }
         }
         if (requestCode == GALLERY_REQUEST_CODE) {
@@ -206,7 +213,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                     imgStream = stream.toByteArray();
 
                     // convert byte array to Bitmap
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                    bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                             byteArray.length);
 
                     imageView.setImageBitmap(bitmap);
@@ -215,6 +222,18 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void encodeAndSaveToFirebase(Bitmap b){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        String imageEncoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("save-a-bull-ashley")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mCoupon.getId())
+                .child("imageUrl");
+        ref.setValue(imageEncoded);
     }
 
     private void uploadToGallery(){
@@ -243,9 +262,18 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             int random = rand.nextInt(100000);
             String id = Integer.toString(random);
             Address a = new Address(cAdd);
-            Coupon c = new Coupon ( id, cAdd, cCat, cName, cDesc, cExp, imgStream, cPhone );
+            //Coupon c = new Coupon ( id, cAdd, cCat, cName, cDesc, cExp, imgStream, cPhone );
 
-            mDatabase.child(id).setValue(c);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            String imageEncoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+
+            Coupon c = new Coupon (id, cName, cDesc, cCat, imageEncoded, cPhone, cExp, cAdd);
+            if(c != null) {
+                mDatabase.child(id).setValue(c);
+                Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
+            }
+
 
             /*long id = db.insertMinCoupon(cName, cDesc, imgStream, cCat, cExp);
             Coupon c = db.getCoupon(id);
