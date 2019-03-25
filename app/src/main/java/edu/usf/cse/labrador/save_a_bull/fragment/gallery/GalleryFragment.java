@@ -51,6 +51,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
 
     @SuppressLint("StaticFieldLeak")
     private static List<Coupon> couponList = new ArrayList<>();
+    private static List<Coupon> faveList = new ArrayList<>();
     private RecycleViewAdapter recycleViewAdapter;
     View v;
     SensorManager sensorManager;

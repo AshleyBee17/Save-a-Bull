@@ -1,5 +1,6 @@
 package edu.usf.cse.labrador.save_a_bull.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,41 +20,74 @@ import edu.usf.cse.labrador.save_a_bull.fragment.gallery.RecycleViewAdapter;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
-public class FavoritesFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class FavoritesFragment extends Fragment {
 
-    User user;
+    User user = new User();
     RecycleViewAdapter recycleViewAdapter;
     View v;
+    List<Coupon> Fav;
+
+    public FavoritesFragment() { }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-//        if(user == null){
-//            Toast.makeText(getContext(), "No account found", Toast.LENGTH_LONG).show();
-//        } else if(user.Faves.size() == 0){
-//            Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
-//        } else {
+
+        if(v == null)
+        {
+            v = inflater.inflate(R.layout.fragment_favorites, container, false);
+
+
+            if(Fav.size() == 0)
+            {
+                Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                getRecycleView();
+            }
+        }
+
+
+
+        //Fav = recycleViewAdapter.updateFavorites();
+
+        /*if (user.Faves == null) {
+            Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), "favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+            //user.Faves.clear();
 //
-//            user.Faves.clear();
+            if (v == null) {
 //
-//            if (v == null) {
+                v = inflater.inflate(R.layout.fragment_favorites, container, false);
 //
-//                v = inflater.inflate(R.layout.fragment_gallery, container, false);
-//
-//                RecyclerView myRecyclerView = v.findViewById(R.id.gallery_recyclerview);
-//                recycleViewAdapter = new RecycleViewAdapter(getContext(), user.Faves);
-//                myRecyclerView.setAdapter(recycleViewAdapter);
-//                GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-//                myRecyclerView.setLayoutManager(mLayoutManager);
-//            }
-//        }
-        v = inflater.inflate(R.layout.fragment_gallery, container, false);
-        return v;
+                RecyclerView myRecyclerView = v.findViewById(R.id.favorites_recyclerview);
+                recycleViewAdapter = new RecycleViewAdapter(getContext(), Fav);
+                myRecyclerView.setAdapter(recycleViewAdapter);
+                GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+                myRecyclerView.setLayoutManager(mLayoutManager);
+            }
+        }
+        v = inflater.inflate(R.layout.fragment_favorites, container, false);
+        */return v;
     }
 
+    public void getRecycleView()
+    {
+        RecyclerView myRecycleView = v.findViewById(R.id.favorites_recyclerview);
+        recycleViewAdapter = new RecycleViewAdapter(getContext(), Fav);
+        myRecycleView.setAdapter(recycleViewAdapter);
+        GridLayoutManager mLayoutMan = new GridLayoutManager(getActivity(), 2);
+        myRecycleView.setLayoutManager(mLayoutMan);
+    }
+}
+            /*
+
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle, savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -66,7 +100,7 @@ public class FavoritesFragment extends Fragment implements SearchView.OnQueryTex
     public boolean onQueryTextChange(String s) {
         return false;
     }
-
+*/
 //    public boolean onQueryTextSubmit(String s) {
 //        return false;
 //    }
@@ -86,4 +120,8 @@ public class FavoritesFragment extends Fragment implements SearchView.OnQueryTex
 //        recycleViewAdapter.updateList(results);
 //        return true;
 //    }
-}
+
+
+
+
+
