@@ -29,8 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import edu.usf.cse.labrador.save_a_bull.R;
@@ -59,7 +61,7 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
         int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        final String expiryDate = currentDay + "/" + currentMonth + "/" + currentYear;
+        final String expiryDate = currentMonth + "/" + currentDay + "/" + currentYear;
 
         couponList.clear();
 
@@ -82,11 +84,13 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                     for(Coupon c : couponList){
                         if(c.getExpire() != null){
                             String exp = c.getExpire();
-                            if(exp.equals(expiryDate)){
-                                String id = c.getId();
-                               // search for the id and delete from FB
-                                couponList.remove(c);
-                            }
+
+//                            if(exp.equals(expiryDate)){
+//                                String id = c.getId();
+//                                mDatabase.child(id).removeValue();
+//                               // search for the id and delete from FB
+//                                couponList.remove(c);
+//                            }
                         }
                     }
 
@@ -100,6 +104,10 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                 public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
         }
+        // **************************************
+        String date = "9/17/1995";
+        
+        // **************************************
         return v;
     }
 

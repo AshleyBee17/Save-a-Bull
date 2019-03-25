@@ -150,8 +150,9 @@ public class CameraFragment extends Fragment implements SensorEventListener {
 
                 datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int dpYear, int dpMonth, int dpDay) {
-                        selectedDate = dpDay + "/" + dpMonth + 1 + "/" + dpYear;
+                    public void onDateSet(DatePicker datePicker, int dpYear, int dpMonth , int dpDay) {
+                        dpMonth = dpMonth + 1;
+                        selectedDate = dpMonth + "/" + dpDay + "/" + dpYear;
                         couponExpiry.setText(selectedDate);
                         Log.d("CAM_FRAG", " "+ selectedDate);
                     }
@@ -184,7 +185,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                 imgStream = stream.toByteArray();
 
                 // convert byte array to Bitmap
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                         byteArray.length);
 
                 imageView.setImageBitmap(bitmap);
