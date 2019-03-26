@@ -198,7 +198,7 @@ public class AboutFragment extends Fragment {
                                     String firstname = curs.getString(curs.getColumnIndex(USER_KEY_FIRST_NAME));
                                     String lastname = curs.getString(curs.getColumnIndex(USER_KEY_LAST_NAME));
                                     Long id = curs.getLong(curs.getColumnIndex(USER_KEY_ROWID));
-                                    byte[] favorites = curs.getBlob(curs.getColumnIndex(USER_KEY_FAVORITES));
+                                    String favorites = curs.getString(curs.getColumnIndex(USER_KEY_FAVORITES));
 
                                     EditText loggedInUsername = settingsDialog.findViewById(R.id.usernamename_dialog_txt);
                                     String userUsername = loggedInUsername.getText().toString();
@@ -251,7 +251,7 @@ public class AboutFragment extends Fragment {
                                 String firstname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FIRST_NAME));
                                 String lastname = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_LAST_NAME));
                                 Long id = cur.getLong(cur.getColumnIndex(UsersDBManager.USER_KEY_ROWID));
-                                byte[] favorites = cur.getBlob(cur.getColumnIndex(UsersDBManager.USER_KEY_FAVORITES));
+                                String favorites = cur.getString(cur.getColumnIndex(UsersDBManager.USER_KEY_FAVORITES));
                                 User updatedUser = new User(id, firstname, lastname, username, password, favorites);
                                 myUsersDataB.updateUser(updatedUser);
                                 Toast.makeText(mContext, "Password is updated!", Toast.LENGTH_SHORT).show();

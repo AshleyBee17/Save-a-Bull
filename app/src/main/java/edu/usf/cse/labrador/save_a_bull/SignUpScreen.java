@@ -106,7 +106,7 @@ public class SignUpScreen extends AppCompatActivity {
                                             String password = inputPassword.getEditText().getText().toString();
                                             String firstName = inputFirstName.getEditText().getText().toString();
                                             String lastName = inputLastName.getEditText().getText().toString();
-                                            byte[] favorites = null;
+                                            String favorites = null;
 
                                             long id = myUsersDataB.createUser(firstName, lastName, email, password, favorites);
                                             User newUser = new User(id, firstName, lastName, email, password, favorites);

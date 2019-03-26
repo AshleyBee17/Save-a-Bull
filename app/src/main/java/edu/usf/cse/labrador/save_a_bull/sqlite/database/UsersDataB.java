@@ -15,7 +15,7 @@ public class UsersDataB extends SQLiteOpenHelper {
             "lName text not null, " +
             "username text not null, " +
             "password text not null, " +
-            "favorites blob )";
+            "favorites text )";
 
     public UsersDataB(Context context){
         super(context, DB_NAME, null, DB_VERSION);

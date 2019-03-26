@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,7 +26,9 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +46,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private View v;
     private  Context mContext;
     private Bitmap enlargedImg;
+    private ImageButton favoriteButton;
 
     // Data
     private List<Coupon> mData;
@@ -53,10 +57,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private Dialog fullImageDialog;
 
     // Accounts
-    User loggedInUser = new User();
+    User loggedInUser;
     UsersDBManager myUsersData;
     private FirebaseAuth auth;
-    List<Coupon> userFavorites;
+    List<String> userFavorites;
 
     public RecycleViewAdapter() { }
 
@@ -69,7 +73,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         // For mini dialog that is displayed when a coupon card item is clicked
+        myUsersData = new UsersDBManager(mContext);
+        myUsersData.open();
         auth = FirebaseAuth.getInstance();
+        loggedInUserFB = FirebaseAuth.getInstance().getCurrentUser();
+        assert loggedInUserFB != null;
+        loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
+
         v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
         final myViewHolder viewHolder = new myViewHolder(v);
 
@@ -151,9 +161,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 });
             }
        });
-
-       getUserInformation();
-
        return viewHolder;
     }
 
@@ -170,27 +177,38 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             e.printStackTrace();
         }
 
+        favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
+
+//        for(Coupon c : mData){
+//            if(loggedInUser.Faves == mData.get(i).getId()){
+//                favoriteButton.isActivated();
+//            }
+//        }
+
+        for(Coupon c: mData){
+            if(c.getId() == loggedInUser.Faves.toString()){
+                favoriteButton.isActivated();
+            }
+        }
+
         // Manipulating the favorites
-        final ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StringBuilder sb = new StringBuilder();
                 if (v.isActivated()) {
-
                     /*Remove from favorites*/
-//                   byte[] deleteList = loggedInUser.Faves;
-//                    for(Iterator<Coupon> c = deleteList.de(); c.hasNext();){
-//                        if(c.next().getId().equals(mData.get(i).getId())){
-//                            c.remove();
-//                            Toast.makeText(mContext, "Item removed from favorites",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
+
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
-                    //loggedInUser.Faves.
-                    //Toast.makeText(mContext, "Item added to favorites",
-                            //Toast.LENGTH_SHORT).show();
+
+                    loggedInUser.Line = loggedInUser.Line.concat(mData.get(i).getId() + ",");
+                    //userFavorites = User.convertStringToArray(loggedInUser.Line);
+                    loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
+                    //userFavorites.add(String.valueOf(User.convertStringToArray(loggedInUser.Line)));
+
+                    Toast.makeText(mContext, "Item added to favorites",
+                            Toast.LENGTH_SHORT).show();
                 }
                 v.setActivated(!v.isActivated());
             }
@@ -257,6 +275,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     private void getUserInformation(){
+
+        //Cursor sdlkfjn = myUsersData.getUser(loggedInUserFB.getEmail());
+        loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
 
     }
 }

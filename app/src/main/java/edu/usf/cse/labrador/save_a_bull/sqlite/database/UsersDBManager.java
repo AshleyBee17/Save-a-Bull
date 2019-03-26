@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 public class UsersDBManager {
@@ -40,19 +41,19 @@ public class UsersDBManager {
         userDB.close();
     }
 
-    private ContentValues createUsersValues(String fName, String lName, String username, String password, byte[] faves){
+    private ContentValues createUsersValues(String fName, String lName, String username, String password, String faves){
         ContentValues values = new ContentValues();
         values.put(USER_KEY_FIRST_NAME, fName);
         values.put(USER_KEY_LAST_NAME, lName);
         values.put(USER_KEY_USERNAME, username);
         values.put(USER_KEY_PASSWORD, password);
-        values.put(USER_KEY_FAVORITES, faves);
+        values.put(USER_KEY_FAVORITES, "x");
         return values;
     }
 
 
     //Insert Method for database
-    public long createUser(String fName, String lName, String username, String password, byte[] faves){
+    public long createUser(String fName, String lName, String username, String password, String faves){
         ContentValues initialValues = createUsersValues(fName, lName, username, password, faves);
         return database.insert(USER_DB_TABLE, null, initialValues);
     }
@@ -65,7 +66,7 @@ public class UsersDBManager {
         contentValues.put(USER_KEY_LAST_NAME, userUpdated.getlName());
         contentValues.put(USER_KEY_USERNAME, userUpdated.getUsername());
         contentValues.put(USER_KEY_PASSWORD, userUpdated.getPassword());
-        contentValues.put(USER_KEY_FAVORITES, userUpdated.getFaves());
+        contentValues.put(USER_KEY_FAVORITES, userUpdated.getLine());
         database.update(USER_DB_TABLE, contentValues, USER_KEY_ROWID + "='" + userUpdated.getUserID() + "'", null);
     }
 
@@ -93,4 +94,42 @@ public class UsersDBManager {
         return mCursor;
 
     }
+
+    public User getUserReturnUserType(String username) throws SQLException{
+
+        //Cursor c = database.query(true, USER_DB_TABLE, new String []{USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME, USER_KEY_PASSWORD, USER_KEY_FAVORITES}, USER_KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+
+        String selectQuery = "SELECT * FROM " + USER_DB_TABLE
+                + " WHERE " + USER_KEY_USERNAME;// + " DESC";
+        Cursor c = database.rawQuery(selectQuery, null);
+
+
+        if (c != null) c.moveToFirst();
+
+        assert c != null;
+        User user = new User();
+
+        user.setUsername(username);
+        user.setLine("00000,");
+
+        return user;
+    }
+
+
+
+//    private static String strSeparator = "__,__";
+//    public static String convertArrayToString(String[] array){
+//        StringBuilder str = new StringBuilder();
+//        for (int i = 0;i<array.length; i++) {
+//            str.append(array[i]);
+//            // Do not append comma at the end of last element
+//            if(i<array.length-1){
+//                str.append(strSeparator);
+//            }
+//        }
+//        return str.toString();
+//    }
+//    public static String[] convertStringToArray(String str){
+//        return str.split(strSeparator);
+//    }
 }

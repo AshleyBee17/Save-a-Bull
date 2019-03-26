@@ -1,6 +1,7 @@
 package edu.usf.cse.labrador.save_a_bull.sqlite.database.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class User {
@@ -10,24 +11,16 @@ public class User {
     private String lName;
     private String username;
     private String password;
-    public  byte[] Faves;
+    public  String Line;
+    public List<String> Faves;
 
-    public User(long usrID, String name, String lastName, String userName, String pass, byte[] favorites) {
+    public User(long usrID, String name, String lastName, String userName, String pass, String line) {
         this.userID = usrID;
         this.fName = name;
         this.lName = lastName;
-        this.username = userName;
+        username = userName;
         this.password = pass;
-        Faves = favorites;
-    }
-
-    public User(long usrID, String name, String lastName, String userName, String pass) {
-        this.userID = usrID;
-        this.fName = name;
-        this.lName = lastName;
-        this.username = userName;
-        this.password = pass;
-        Faves = null;
+        this.Line = " dkjfhdbkjfhsd";
     }
 
     public User(){}
@@ -44,8 +37,8 @@ public class User {
         return lName;
     }
 
-    public byte[] getFaves() {
-        return Faves;
+    public String getLine() {
+        return Line;
     }
 
     public String getUsername(){
@@ -56,8 +49,8 @@ public class User {
         return password;
     }
 
-    public void setFaves(byte[] faves) {
-        Faves = faves;
+    public void setLine(String line) {
+        Line = line;
     }
 
     public void setUserID(long id){ userID = id;}
@@ -74,6 +67,26 @@ public class User {
 
     public String toString(){
         return "" + fName + " " + lName + "";
+    }
+
+
+    public static String convertArrayToString(String[] array){
+        StringBuilder str = new StringBuilder();
+        for (int i = 0;i<array.length; i++) {
+            str.append(array[i]);
+            // Do not append comma at the end of last element
+            if(i<array.length-1){
+                String strSeparator = ",";
+                str.append(strSeparator);
+            }
+        }
+        return str.toString();
+    }
+
+    public static List<String> convertStringToArray(String str){
+        List<String> couponIdList = new ArrayList<>();
+        String strSeparator = ",";
+        return  Arrays.asList(str.split(strSeparator));
     }
 
 }

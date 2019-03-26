@@ -1,22 +1,32 @@
 package edu.usf.cse.labrador.save_a_bull;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 import edu.usf.cse.labrador.save_a_bull.fragment.CameraFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.FavoritesFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.gallery.GalleryFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.AboutFragment;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
+import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private UsersDBManager myUsersDataB;
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +34,11 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
 
         //loading the default home fragment
         loadFragment(new GalleryFragment());
+
+        myUsersDataB = new UsersDBManager(this);
+        myUsersDataB.open();
+        myUsersDataB.createUser(null, null, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), null, null);
+
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);

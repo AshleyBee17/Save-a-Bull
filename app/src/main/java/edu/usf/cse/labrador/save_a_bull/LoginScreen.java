@@ -144,7 +144,7 @@ public class LoginScreen extends AppCompatActivity {
         String fName = cur.getString(cur.getColumnIndex(USER_KEY_FIRST_NAME));
         String lName = cur.getString(cur.getColumnIndex(USER_KEY_LAST_NAME));
         Long id = cur.getLong(cur.getColumnIndex(USER_KEY_ROWID));
-        byte[] favorites = cur.getBlob(cur.getColumnIndex(USER_KEY_FAVORITES));
+        String favorites = cur.getString(cur.getColumnIndex(USER_KEY_FAVORITES));
 
         if(newPassword.equals(password));
         else {
