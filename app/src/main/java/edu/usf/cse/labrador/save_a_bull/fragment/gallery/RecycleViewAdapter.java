@@ -176,6 +176,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             @Override
             public void onClick(View v) {
                 if (v.isActivated()) {
+
                     /*Remove from favorites*/
 //                   byte[] deleteList = loggedInUser.Faves;
 //                    for(Iterator<Coupon> c = deleteList.de(); c.hasNext();){

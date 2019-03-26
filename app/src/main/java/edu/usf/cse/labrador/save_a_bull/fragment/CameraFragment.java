@@ -156,7 +156,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                         couponExpiry.setText(selectedDate);
                         Log.d("CAM_FRAG", " "+ selectedDate);
                     }
-                }, day, month, year);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
