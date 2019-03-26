@@ -175,22 +175,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (v.isActivated()) {
-//                    /*Remove from favorites*/
-//                    List<Coupon> deleteList = loggedInUser.Faves;
-//                    for(Iterator<Coupon> c = deleteList.iterator(); c.hasNext();){
+                if (v.isActivated()) {
+                    /*Remove from favorites*/
+//                   byte[] deleteList = loggedInUser.Faves;
+//                    for(Iterator<Coupon> c = deleteList.de(); c.hasNext();){
 //                        if(c.next().getId().equals(mData.get(i).getId())){
 //                            c.remove();
 //                            Toast.makeText(mContext, "Item removed from favorites",
 //                                    Toast.LENGTH_SHORT).show();
 //                        }
 //                    }
-//                } else if (!v.isActivated()) {
-//                    /*Add to favorites*/
-//                    loggedInUser.Faves.add(mData.get(i));
-//                    Toast.makeText(mContext, "Item added to favorites",
-//                            Toast.LENGTH_SHORT).show();
-//                }
+                } else if (!v.isActivated()) {
+                    /*Add to favorites*/
+                    //loggedInUser.Faves.
+                    //Toast.makeText(mContext, "Item added to favorites",
+                            //Toast.LENGTH_SHORT).show();
+                }
                 v.setActivated(!v.isActivated());
             }
         });
