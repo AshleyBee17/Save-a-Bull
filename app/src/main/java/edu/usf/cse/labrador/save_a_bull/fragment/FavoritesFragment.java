@@ -32,22 +32,22 @@ public class FavoritesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_favorites, container, false);
 
-
-        if(v == null)
-        {
-            v = inflater.inflate(R.layout.fragment_favorites, container, false);
-
-
-            if(Fav.size() == 0)
-            {
-                Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                getRecycleView();
-            }
-        }
+//        if(v == null)
+//        {
+//            v = inflater.inflate(R.layout.fragment_favorites, container, false);
+//
+//
+//            if(Fav.size() == 0)
+//            {
+//                Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+//            }
+//            else
+//            {
+//                getRecycleView();
+//            }
+//        }
 
 
 
