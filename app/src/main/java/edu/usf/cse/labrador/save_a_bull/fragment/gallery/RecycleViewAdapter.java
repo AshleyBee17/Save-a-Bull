@@ -217,12 +217,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         for(Coupon c : mData){
                             if (s.equals(c.getId())){
                                 userFavorites.remove(s);
-                                loggedInUser.Line = User.convertArrayToString(userFavorites);
+                                favoritesLine = User.convertArrayToString(userFavorites);
                                 myUsersData.updateUser(loggedInUser);
                                 try {
                                     writeFileOnInternalStorage(mContext,
                                             loggedInUserFB.getUid() +
-                                                    "_file", loggedInUser.Line);
+                                                    "_file", favoritesLine);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -233,12 +233,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     }
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
-                    loggedInUser.Line = loggedInUser.Line.concat(mData.get(i).getId() + ",");
-                    loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
+                    favoritesLine = favoritesLine.concat(mData.get(i).getId() + ",");
+                    userFavorites = User.convertStringToArray(favoritesLine);;
                     myUsersData.updateUser(loggedInUser);
                     try {
                         writeFileOnInternalStorage(mContext,loggedInUserFB.getUid() +
-                                "_file", loggedInUser.Line);
+                                "_file", favoritesLine);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
