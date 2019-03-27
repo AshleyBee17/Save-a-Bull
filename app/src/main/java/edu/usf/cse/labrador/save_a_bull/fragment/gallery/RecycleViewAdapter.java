@@ -80,7 +80,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         assert loggedInUserFB != null;
         loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
 
-        String favoritesLine = myUsersData.getFavorites(loggedInUserFB.getEmail());
+        //String favoritesLine = myUsersData.getFavorites(loggedInUserFB.getEmail());
         //loggedInUser.Faves = User.convertStringToArray(favoritesLine);
 
         v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
@@ -181,19 +181,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
-//        When the application is initialized do this
-//        for(Coupon c : mData){
-//            if(loggedInUser.Faves == mData.get(i).getId()){
-//                favoriteButton.isActivated();
-//            }
-//        }
-
-//        for(Coupon c: mData){
-//            if(c.getId().equals(loggedInUser.Faves.toString())){
-//                favoriteButton.isActivated();
-//            }
-//        }
-
 
         if(loggedInUser.Faves != null) {
             for (String s : loggedInUser.Faves) {
@@ -209,8 +196,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuilder sb = new StringBuilder();
                 if (v.isActivated()) {
+                    /*Remove from favorites*/
                     for(String s : loggedInUser.Faves){
                         for(Coupon c : mData){
                             if (s.equals(c.getId())){
@@ -218,18 +205,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                 loggedInUser.Faves.remove(position);
                                 loggedInUser.Line = User.convertArrayToString(loggedInUser.Faves);
                                 myUsersData.updateUser(loggedInUser);
+                                Toast.makeText(mContext, "Item removed from favorites",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
-                    /*Remove from favorites*/
-
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
 
                     loggedInUser.Line = loggedInUser.Line.concat(mData.get(i).getId() + ",");
-                    //userFavorites = User.convertStringToArray(loggedInUser.Line);
                     loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
-                    //userFavorites.add(String.valueOf(User.convertStringToArray(loggedInUser.Line)));
                     myUsersData.updateUser(loggedInUser);
                     Toast.makeText(mContext, "Item added to favorites",
                             Toast.LENGTH_SHORT).show();
@@ -298,11 +283,5 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
-    private void getUserInformation(){
-
-        //Cursor sdlkfjn = myUsersData.getUser(loggedInUserFB.getEmail());
-        loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
-
-    }
 }
 

@@ -34,18 +34,6 @@ public class UsersDBManager {
         this.context = context;
     }
 
-//    @Override
-//    public void onCreate(SQLiteDatabase db) {
-//        // Creating the tables
-//        db.execSQL(User.CREATE_TABLE);
-//    }
-//
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        db.execSQL("DROP TABLE IF EXISTS " + USER_DB_TABLE);
-//        onCreate(db);
-//    }
-
     public void open() throws SQLException {
         userDB = new UsersDataB(context);
         database = userDB.getWritableDatabase();
@@ -137,25 +125,16 @@ public class UsersDBManager {
                 + " WHERE " + USER_KEY_USERNAME;// + " DESC";
         Cursor c = database.rawQuery(selectQuery, null);
 
-        String x = c.getString(c.getColumnIndex(User.USER_KEY_FAVORITES));
+//        if (c != null)
+//            c.moveToFirst();
+
+        int idk = c.getColumnIndex(User.USER_KEY_FAVORITES);
+        String hgjx = c.getColumnName(0);
+        assert c != null;
+
+        String x = c.getString(0);
 
 
         return c.getString(c.getColumnIndex(User.USER_KEY_FAVORITES));
     }
-
-//    private static String strSeparator = "__,__";
-//    public static String convertArrayToString(String[] array){
-//        StringBuilder str = new StringBuilder();
-//        for (int i = 0;i<array.length; i++) {
-//            str.append(array[i]);
-//            // Do not append comma at the end of last element
-//            if(i<array.length-1){
-//                str.append(strSeparator);
-//            }
-//        }
-//        return str.toString();
-//    }
-//    public static String[] convertStringToArray(String str){
-//        return str.split(strSeparator);
-//    }
 }
