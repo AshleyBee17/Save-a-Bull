@@ -109,7 +109,6 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                             }
                         }
                     }
-
                     // Display nothing
                     if(couponList.size() == 0){
                         Toast.makeText(getContext(), "No coupons in the gallery. Go to the camera to add some coupons to share!", Toast.LENGTH_LONG).show();
@@ -122,6 +121,8 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
                 public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
         }
+
+
         return v;
     }
 

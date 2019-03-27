@@ -218,6 +218,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             if (s.equals(c.getId())){
                                 userFavorites.remove(s);
                                 favoritesLine = User.convertArrayToString(userFavorites);
+                                loggedInUser.setLine(favoritesLine);
                                 myUsersData.updateUser(loggedInUser);
                                 try {
                                     writeFileOnInternalStorage(mContext,
@@ -234,7 +235,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
                     favoritesLine = favoritesLine.concat(mData.get(i).getId() + ",");
-                    userFavorites = User.convertStringToArray(favoritesLine);;
+                    userFavorites = User.convertStringToArray(favoritesLine);
+                    loggedInUser.Faves = userFavorites;
                     myUsersData.updateUser(loggedInUser);
                     try {
                         writeFileOnInternalStorage(mContext,loggedInUserFB.getUid() +
