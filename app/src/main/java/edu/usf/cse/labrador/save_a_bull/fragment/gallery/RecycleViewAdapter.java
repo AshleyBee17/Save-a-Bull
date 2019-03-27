@@ -67,6 +67,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private Dialog couponDialog;
     private Dialog fullImageDialog;
 
+    // Accounts
     private User loggedInUser;
     private UsersDBManager myUsersData;
     private List<String> userFavorites;
@@ -83,15 +84,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         // For mini dialog that is displayed when a coupon card item is clicked
+
+        // Setting up user account
         myUsersData = new UsersDBManager(mContext);
         myUsersData.open();
-        // Accounts
         FirebaseAuth auth = FirebaseAuth.getInstance();
         loggedInUserFB = FirebaseAuth.getInstance().getCurrentUser();
         assert loggedInUserFB != null;
         loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
 
-        //String favoritesLine = null;
+        // Reading user favorites from file
         try {
             favoritesLine = readFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file" );
         } catch (IOException e) {
@@ -196,7 +198,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         ImageButton favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
-
         if(favoritesLine != null) {
             userFavorites = User.convertStringToArray(favoritesLine);
             for (String s : userFavorites) {
@@ -219,7 +220,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                 loggedInUser.Line = User.convertArrayToString(userFavorites);
                                 myUsersData.updateUser(loggedInUser);
                                 try {
-                                    writeFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file", loggedInUser.Line);
+                                    writeFileOnInternalStorage(mContext,
+                                            loggedInUserFB.getUid() +
+                                                    "_file", loggedInUser.Line);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -234,7 +237,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
                     myUsersData.updateUser(loggedInUser);
                     try {
-                        writeFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file", loggedInUser.Line);
+                        writeFileOnInternalStorage(mContext,loggedInUserFB.getUid() +
+                                "_file", loggedInUser.Line);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
