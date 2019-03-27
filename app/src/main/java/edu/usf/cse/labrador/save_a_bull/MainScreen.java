@@ -1,5 +1,6 @@
 package edu.usf.cse.labrador.save_a_bull;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +38,6 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
 
         myUsersDataB = new UsersDBManager(this);
         myUsersDataB.open();
-        myUsersDataB.createUser(null, null, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), null, null);
 
 
         //getting bottom navigation view and attaching the listener

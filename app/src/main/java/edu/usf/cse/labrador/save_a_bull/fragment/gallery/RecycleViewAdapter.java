@@ -80,6 +80,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         assert loggedInUserFB != null;
         loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
 
+        String favoritesLine = myUsersData.getFavorites(loggedInUserFB.getEmail());
+        //loggedInUser.Faves = User.convertStringToArray(favoritesLine);
+
         v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
         final myViewHolder viewHolder = new myViewHolder(v);
 
@@ -178,16 +181,27 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         favoriteButton = myViewHolder.img_fav.findViewById(R.id.coupon_favorite);
-
+//        When the application is initialized do this
 //        for(Coupon c : mData){
 //            if(loggedInUser.Faves == mData.get(i).getId()){
 //                favoriteButton.isActivated();
 //            }
 //        }
 
-        for(Coupon c: mData){
-            if(c.getId() == loggedInUser.Faves.toString()){
-                favoriteButton.isActivated();
+//        for(Coupon c: mData){
+//            if(c.getId().equals(loggedInUser.Faves.toString())){
+//                favoriteButton.isActivated();
+//            }
+//        }
+
+
+        if(loggedInUser.Faves != null) {
+            for (String s : loggedInUser.Faves) {
+                for (Coupon c : mData) {
+                    if (s.equals(c.getId())) {
+                        favoriteButton.isActivated();
+                    }
+                }
             }
         }
 
@@ -197,6 +211,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             public void onClick(View v) {
                 StringBuilder sb = new StringBuilder();
                 if (v.isActivated()) {
+                    for(String s : loggedInUser.Faves){
+                        for(Coupon c : mData){
+                            if (s.equals(c.getId())){
+                                int position = loggedInUser.Faves.indexOf(s);
+                                loggedInUser.Faves.remove(position);
+                                loggedInUser.Line = User.convertArrayToString(loggedInUser.Faves);
+                                myUsersData.updateUser(loggedInUser);
+                            }
+                        }
+                    }
                     /*Remove from favorites*/
 
                 } else if (!v.isActivated()) {
@@ -206,7 +230,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     //userFavorites = User.convertStringToArray(loggedInUser.Line);
                     loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
                     //userFavorites.add(String.valueOf(User.convertStringToArray(loggedInUser.Line)));
-
+                    myUsersData.updateUser(loggedInUser);
                     Toast.makeText(mContext, "Item added to favorites",
                             Toast.LENGTH_SHORT).show();
                 }

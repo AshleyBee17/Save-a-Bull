@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
@@ -106,11 +108,13 @@ public class SignUpScreen extends AppCompatActivity {
                                             String password = inputPassword.getEditText().getText().toString();
                                             String firstName = inputFirstName.getEditText().getText().toString();
                                             String lastName = inputLastName.getEditText().getText().toString();
-                                            String favorites = null;
+                                            String favorites = "00000";
 
                                             long id = myUsersDataB.createUser(firstName, lastName, email, password, favorites);
                                             User newUser = new User(id, firstName, lastName, email, password, favorites);
                                             userList.add(newUser);
+                                            myUsersDataB.createUser(firstName, lastName, email, password, favorites);
+
                                             Intent intent = new Intent(SignUpScreen.this, WelcomeScreen.class);
                                             startActivity(intent);
                                             finish();

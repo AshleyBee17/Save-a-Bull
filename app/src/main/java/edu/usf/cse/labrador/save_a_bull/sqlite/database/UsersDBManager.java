@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,22 @@ public class UsersDBManager {
     public SQLiteDatabase database;
     private UsersDataB userDB;
 
+
     public UsersDBManager(Context context){
         this.context = context;
     }
+
+//    @Override
+//    public void onCreate(SQLiteDatabase db) {
+//        // Creating the tables
+//        db.execSQL(User.CREATE_TABLE);
+//    }
+//
+//    @Override
+//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        db.execSQL("DROP TABLE IF EXISTS " + USER_DB_TABLE);
+//        onCreate(db);
+//    }
 
     public void open() throws SQLException {
         userDB = new UsersDataB(context);
@@ -115,7 +129,19 @@ public class UsersDBManager {
         return user;
     }
 
+    public String getFavorites(String username) throws SQLException{
 
+        //Cursor c = database.query(true, USER_DB_TABLE, new String []{USER_KEY_ROWID, USER_KEY_FIRST_NAME, USER_KEY_LAST_NAME, USER_KEY_USERNAME, USER_KEY_PASSWORD, USER_KEY_FAVORITES}, USER_KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+
+        String selectQuery = "SELECT "+ USER_KEY_FAVORITES +" FROM " + USER_DB_TABLE
+                + " WHERE " + USER_KEY_USERNAME;// + " DESC";
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        String x = c.getString(c.getColumnIndex(User.USER_KEY_FAVORITES));
+
+
+        return c.getString(c.getColumnIndex(User.USER_KEY_FAVORITES));
+    }
 
 //    private static String strSeparator = "__,__";
 //    public static String convertArrayToString(String[] array){
