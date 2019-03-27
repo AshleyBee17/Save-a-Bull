@@ -324,25 +324,24 @@ public class MapsFragment extends Fragment implements TaskLoadedCallback, Google
             LatLng laLng = new LatLng(28.058665, -82.413704);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(laLng, zoom));
             if (myCoupon.getCategory().equals("Food")) {
-                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_food);
+                //Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_food);
                 mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).flat(true));
-
             }
             if (myCoupon.getCategory().equals("Grocery")) {
                 //Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_grocery);
-                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).flat(true));
+                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).flat(true));
             }
             if (myCoupon.getCategory().equals("Clothing")) {
                 //Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_clothing);
-                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).flat(true));
+                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)).flat(true));
             }
             if (myCoupon.getCategory().equals("Automotive")) {
                 // Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_automotive);
-                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).flat(true));
+                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).flat(true));
             }
             if (myCoupon.getCategory().equals("Entertainment")) {
                 //Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_entertainment);
-                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).flat(true));
+                mMap.addMarker(new MarkerOptions().position(couponAdd).title(myCoupon.getCompanyName()).snippet(myCoupon.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)).flat(true));
             }
             return true;
         } else return false;
