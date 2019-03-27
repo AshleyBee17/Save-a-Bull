@@ -268,10 +268,8 @@ public class CameraFragment extends Fragment implements SensorEventListener {
             String imageEncoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
             Coupon c = new Coupon (id, cName, cDesc, cCat, imageEncoded, cPhone, cExp, cAdd);
-            if(c != null) {
-                mDatabase.child(id).setValue(c);
-                Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
-            }
+            mDatabase.child(id).setValue(c);
+            Toast.makeText(getContext(), "Coupon uploaded to the gallery", Toast.LENGTH_SHORT).show();
         }
     }
 

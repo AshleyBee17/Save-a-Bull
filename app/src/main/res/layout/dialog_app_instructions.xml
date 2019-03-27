@@ -73,7 +73,48 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="15dp"
-                    android:text="Maps: Description to be added soon "/>
+                    android:text="Maps: Scroll around the USF area to see all coupons available. Tap a marker to see what the coupon is."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#44b1ff"
+                    android:layout_margin="10dp"
+                    android:text="Blue: Food"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4fc64b"
+                    android:layout_margin="10dp"
+                    android:text="Green: Grocery"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#e766f1"
+                    android:layout_margin="10dp"
+                    android:text="Pink: Clothing"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffa544"
+                    android:layout_margin="10dp"
+                    android:text="Orange: Automotive"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffe644"
+                    android:layout_margin="10dp"
+                    android:text="Yellow: Entertainment"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:text="About: Edit your account information here, read how to use the application, and send us feedback." />
+
 
 
             </LinearLayout>

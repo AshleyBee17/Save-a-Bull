@@ -267,7 +267,8 @@ public class AboutFragment extends Fragment {
             PD.show();
             user.updatePassword(password)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override                            public void onComplete(@NonNull Task<Void> task) {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
 
                                 FirebaseUser user = auth.getCurrentUser();
