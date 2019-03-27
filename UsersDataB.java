@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class UsersDataB extends SQLiteOpenHelper {
-
     public static final String DB_NAME = "users_db";
     private static final int DB_VERSION = 1;
 
@@ -15,7 +14,7 @@ public class UsersDataB extends SQLiteOpenHelper {
             "lName text not null, " +
             "username text not null, " +
             "password text not null, " +
-            "favorites blob )";
+            "favorites blob not null)";
 
     public UsersDataB(Context context){
         super(context, DB_NAME, null, DB_VERSION);
