@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,12 +56,13 @@ public class AboutFragment extends Fragment {
     private FirebaseAuth auth;
     private ProgressDialog PD;
     private UsersDBManager myUsersDataB;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        view = inflater.inflate(R.layout.fragment_about, container, false);
         mContext = view.getContext();
 
         final TextView instructionsText = view.findViewById(R.id.about_text_view);
@@ -73,6 +75,14 @@ public class AboutFragment extends Fragment {
             }
         });
 
+        Button submitFeedbackBtn = view.findViewById(R.id.submit_feedback);
+        submitFeedbackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Sending Feedback", Toast.LENGTH_SHORT).show();
+                sendFeedback();
+            }
+        });
 
         Button editAccountButton = view.findViewById(R.id.home_settings_btn);
         editAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +181,23 @@ public class AboutFragment extends Fragment {
         return view;
     }
 
+    private void sendFeedback() {
+        EditText feedbackText = view.findViewById(R.id.user_feedback);
+        String message = feedbackText.getText().toString();
+
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int month = 1 + Calendar.getInstance().get(Calendar.MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        String feedbackDate = day + "/" + month + "/" + year;
+
+        Intent Email = new Intent(Intent.ACTION_SEND);
+        Email.setType("application/octet-stream");
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "saveabull.contact@gmail.com" });
+        Email.putExtra(Intent.EXTRA_SUBJECT, "User Feedback - " + feedbackDate);
+        Email.putExtra(Intent.EXTRA_TEXT, message);
+        startActivity(Intent.createChooser(Email, "Send Feedback:"));
+    }
 
     // Updates the current user's email to the email entered on internal and Firebase DBs/
     private void updateEmail(String username){
