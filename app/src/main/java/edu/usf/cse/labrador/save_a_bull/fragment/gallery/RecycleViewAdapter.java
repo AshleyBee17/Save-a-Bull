@@ -62,6 +62,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     // Data
     private List<Coupon> mData;
     private FirebaseUser loggedInUserFB;
+    private File file;
 
     // Dialogs
     private Dialog couponDialog;
@@ -71,7 +72,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private User loggedInUser;
     private UsersDBManager myUsersData;
     private List<String> userFavorites;
-    private String favoritesLine;
+    private String favoritesLine;// = "";
 
     public RecycleViewAdapter() { }
 
@@ -93,11 +94,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         assert loggedInUserFB != null;
         loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
 
+        file = new File(mContext.getFilesDir() + File.separator + loggedInUserFB.getUid()+"_file" + ".txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         // Reading user favorites from file
-        try {
-            favoritesLine = readFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file" );
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(file.length() != 0) {
+            try {
+                favoritesLine = readFileOnInternalStorage(mContext, loggedInUserFB.getUid() + "_file");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         v = LayoutInflater.from(mContext).inflate(R.layout.cardview_item_coupon,viewGroup,false);
@@ -233,7 +245,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     }
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/
-                    favoritesLine = favoritesLine.concat(mData.get(i).getId() + ",");
+                    if(favoritesLine == null){
+                        favoritesLine = mData.get(i).getId() + ",";
+                    } else  favoritesLine = favoritesLine.concat(mData.get(i).getId() + ",");
+
                     userFavorites = User.convertStringToArray(favoritesLine);;
                     myUsersData.updateUser(loggedInUser);
                     try {
@@ -311,8 +326,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     private void writeFileOnInternalStorage(Context mcoContext,String sFileName, String sBody) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new
-                File(mContext.getFilesDir() + File.separator + sFileName + ".txt")));
+
+//        File file = new File(mContext.getFilesDir() + File.separator + sFileName + ".txt");
+//
+//        if(!file.exists()){
+//            file.mkdir();
+//        }
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         bufferedWriter.write(sBody);
         bufferedWriter.close();
     }
