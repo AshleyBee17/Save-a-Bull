@@ -26,7 +26,12 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -39,6 +44,8 @@ import edu.usf.cse.labrador.save_a_bull.sqlite.database.UsersDBManager;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Address;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.Coupon;
 import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
+
+import static android.content.Context.MODE_WORLD_READABLE;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.myViewHolder> {
 
@@ -61,12 +68,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     UsersDBManager myUsersData;
     private FirebaseAuth auth;
     List<String> userFavorites;
+    public static String pathRoot;// = "/data/data/edu.usf.cse.labrador.save_a_bull/files";
 
     public RecycleViewAdapter() { }
 
     public RecycleViewAdapter(Context mContext, List<Coupon> mData) {
         this.mContext = mContext;
         this.mData = mData;
+        pathRoot = mContext.getFilesDir().getPath() + "/";
     }
 
     @NonNull
@@ -79,6 +88,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         loggedInUserFB = FirebaseAuth.getInstance().getCurrentUser();
         assert loggedInUserFB != null;
         loggedInUser = myUsersData.getUserReturnUserType(loggedInUserFB.getEmail());
+
+        String favoritesLine = readFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file" );
 
         //String favoritesLine = myUsersData.getFavorites(loggedInUserFB.getEmail());
         //loggedInUser.Faves = User.convertStringToArray(favoritesLine);
@@ -205,6 +216,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                 loggedInUser.Faves.remove(position);
                                 loggedInUser.Line = User.convertArrayToString(loggedInUser.Faves);
                                 myUsersData.updateUser(loggedInUser);
+                                writeFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file", loggedInUser.Line);
                                 Toast.makeText(mContext, "Item removed from favorites",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -216,8 +228,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     loggedInUser.Line = loggedInUser.Line.concat(mData.get(i).getId() + ",");
                     loggedInUser.Faves = User.convertStringToArray(loggedInUser.Line);;
                     myUsersData.updateUser(loggedInUser);
+                    writeFileOnInternalStorage(mContext,loggedInUserFB.getUid()+"_file", loggedInUser.Line);
                     Toast.makeText(mContext, "Item added to favorites",
                             Toast.LENGTH_SHORT).show();
+
                 }
                 v.setActivated(!v.isActivated());
             }
@@ -281,6 +295,45 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    private void writeFileOnInternalStorage(Context mcoContext,String sFileName, String sBody){
+        File file = new File(pathRoot + sFileName);
+        if(!file.exists()){
+            file.mkdir();
+        }
+
+        try{
+            File file1 = new File(file, sFileName);
+            FileWriter writer = new FileWriter(file1);
+            writer.write(sBody);
+            writer.flush();
+            writer.close();
+
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    private String readFileOnInternalStorage(Context mcoContext,String sFileName){
+        String favoritesLine;
+        StringBuilder text = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(sFileName));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+        }
+        catch (IOException e) { e.printStackTrace();}
+
+
+        favoritesLine = text.toString();
+
+
+        return favoritesLine;
     }
 
 }
