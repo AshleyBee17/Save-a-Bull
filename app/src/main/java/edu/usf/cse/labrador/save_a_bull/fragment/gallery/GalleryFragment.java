@@ -177,8 +177,5 @@ public class GalleryFragment extends Fragment implements SearchView.OnQueryTextL
     public void onDestroyView() {
         super.onDestroyView();
     }
-
-
-
 }
 

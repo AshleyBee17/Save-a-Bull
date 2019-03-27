@@ -103,7 +103,6 @@ public class User {
     public static List<String> convertStringToArray(String str){
         List<String> couponIdList = new ArrayList<>();
         String strSeparator = ",";
-        //return  Arrays.asList(str.split(strSeparator));
         return new LinkedList<>(Arrays.asList(str.split(strSeparator)));
     }
 

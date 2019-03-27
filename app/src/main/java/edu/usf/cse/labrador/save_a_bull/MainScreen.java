@@ -25,7 +25,6 @@ import edu.usf.cse.labrador.save_a_bull.sqlite.database.model.User;
 
 public class MainScreen extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private UsersDBManager myUsersDataB;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -35,10 +34,6 @@ public class MainScreen extends AppCompatActivity implements BottomNavigationVie
 
         //loading the default home fragment
         loadFragment(new GalleryFragment());
-
-        myUsersDataB = new UsersDBManager(this);
-        myUsersDataB.open();
-
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
