@@ -129,7 +129,8 @@ public class FavoritesFragment extends Fragment {
 
 
                     if (Fav.size() == 0) {
-                        Toast.makeText(getContext(), "No favorites yet! Head on to the gallery to add some favorites", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "No favorites yet! Head on to the " +
+                                "gallery to add some favorites", Toast.LENGTH_LONG).show();
                     } else {
                         getRecycleView();
                     }

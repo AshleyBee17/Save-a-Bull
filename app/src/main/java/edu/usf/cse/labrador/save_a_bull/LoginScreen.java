@@ -1,3 +1,5 @@
+//
+
 package edu.usf.cse.labrador.save_a_bull;
 
 import android.app.ProgressDialog;
@@ -138,18 +140,22 @@ public class LoginScreen extends AppCompatActivity {
     // Checks if password entered matches password stored for current user. Returns true if it matches and false otherwise.
     private void validatePassword(String password, String email) {
 
-        Cursor cur = myUsersData.getUser(email);
-        String newPassword = cur.getString(cur.getColumnIndex(USER_KEY_PASSWORD));
-        String usrName = cur.getString(cur.getColumnIndex(USER_KEY_USERNAME));
-        String fName = cur.getString(cur.getColumnIndex(USER_KEY_FIRST_NAME));
-        String lName = cur.getString(cur.getColumnIndex(USER_KEY_LAST_NAME));
-        Long id = cur.getLong(cur.getColumnIndex(USER_KEY_ROWID));
-        String favorites = cur.getString(cur.getColumnIndex(USER_KEY_FAVORITES));
+        Cursor all = myUsersData.getAllUsers();
 
-        if(newPassword.equals(password));
-        else {
-            User updatedUser = new User(id, fName, lName, usrName, password, favorites);
-            myUsersData.updateUser(updatedUser);
+        while(all.moveToNext()) {
+            Cursor cur = myUsersData.getUser(email);
+            String newPassword = cur.getString(cur.getColumnIndex(USER_KEY_PASSWORD));
+            String usrName = cur.getString(cur.getColumnIndex(USER_KEY_USERNAME));
+            String fName = cur.getString(cur.getColumnIndex(USER_KEY_FIRST_NAME));
+            String lName = cur.getString(cur.getColumnIndex(USER_KEY_LAST_NAME));
+            Long id = cur.getLong(cur.getColumnIndex(USER_KEY_ROWID));
+            String favorites = cur.getString(cur.getColumnIndex(USER_KEY_FAVORITES));
+
+            if (newPassword.equals(password)) ;
+            else {
+                User updatedUser = new User(id, fName, lName, usrName, password, favorites);
+                myUsersData.updateUser(updatedUser);
+            }
         }
 
     }
