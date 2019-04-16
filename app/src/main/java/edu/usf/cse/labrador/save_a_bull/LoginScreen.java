@@ -90,7 +90,7 @@ public class LoginScreen extends AppCompatActivity {
                                             String currUsername = user.getEmail();
                                             inputPassword = (TextInputLayout) findViewById(R.id.validPassword);
                                             String password = inputPassword.getEditText().getText().toString();
-                                            validatePassword(password, currUsername);
+                                            //validatePassword(password, currUsername);
 
                                             Intent intent = new Intent(LoginScreen.this, MainScreen.class);
                                             startActivity(intent);

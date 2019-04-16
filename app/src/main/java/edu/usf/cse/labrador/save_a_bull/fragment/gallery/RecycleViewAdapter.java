@@ -42,6 +42,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Handler;
 
 import edu.usf.cse.labrador.save_a_bull.R;
 import edu.usf.cse.labrador.save_a_bull.fragment.MapsFragment;
@@ -226,22 +227,23 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 if (v.isActivated()) {
                     /*Remove from favorites*/
                     for(String s : userFavorites){
-                        for(Coupon c : mData){
-                            if (s.equals(c.getId())){
-                                userFavorites.remove(s);
-                                favoritesLine = User.convertArrayToString(userFavorites);
-                                myUsersData.updateUser(loggedInUser);
-                                try {
-                                    writeFileOnInternalStorage(mContext,
-                                            loggedInUserFB.getUid() +
-                                                    "_file", favoritesLine);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(mContext, "Item removed from favorites",
-                                        Toast.LENGTH_SHORT).show();
+                        //for(Coupon c : mData){
+                        //if (s.equals(c.getId())){
+                        if(s.equals(mData.get(i).getId())){
+                            userFavorites.remove(s);
+                            favoritesLine = User.convertArrayToString(userFavorites);
+                            myUsersData.updateUser(loggedInUser);
+                            try {
+                                writeFileOnInternalStorage(mContext,
+                                        loggedInUserFB.getUid() +
+                                                "_file", favoritesLine);
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+                            Toast.makeText(mContext, "Item removed from favorites",
+                                    Toast.LENGTH_SHORT).show();
                         }
+                       // }
                     }
                 } else if (!v.isActivated()) {
                     /*Add to favorites*/

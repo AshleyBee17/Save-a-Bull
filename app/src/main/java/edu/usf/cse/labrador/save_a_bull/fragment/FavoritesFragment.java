@@ -127,7 +127,6 @@ public class FavoritesFragment extends Fragment {
                         }
                     }
 
-
                     if (Fav.size() == 0) {
                         Toast.makeText(getContext(), "No favorites yet! Head on to the " +
                                 "gallery to add some favorites", Toast.LENGTH_LONG).show();
@@ -144,8 +143,7 @@ public class FavoritesFragment extends Fragment {
         return v;
     }
 
-    public void getRecycleView()
-    {
+    public void getRecycleView() {
         RecyclerView myRecycleView = v.findViewById(R.id.favorites_recyclerview);
         recycleViewAdapter = new RecycleViewAdapter(getContext(), Fav);
         myRecycleView.setAdapter(recycleViewAdapter);

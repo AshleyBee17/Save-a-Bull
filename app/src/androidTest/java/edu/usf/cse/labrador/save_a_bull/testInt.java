@@ -44,7 +44,7 @@ public class testInt {
         onView(withId(R.id.passwordEntry)).perform(typeText("testPassword1")).
                 check(matches(withText("testPassword1")));
 
-        // To allow Espresso to view the "CREATE ACCOUNT" button
+        // To allow Espresso to view the "CREATE ACCOUNT " button
         Espresso.closeSoftKeyboard();
 
         // Creating the account with click function
